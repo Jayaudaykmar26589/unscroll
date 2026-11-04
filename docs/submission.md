@@ -11,6 +11,8 @@ Portal: https://cerebralvalley.ai/e/meta-ai-developer-hackathon/hackathon/submit
 - Demo video: https://youtu.be/ydY7hmCKrHg
 - Interactive Story (no install): https://jayaudaykmar26589.github.io/unscroll/viewer/story.html
 - App pages: https://jayaudaykmar26589.github.io/unscroll/viewer/home.html
+- Click explorer (try the result on any of 89 clicks): https://jayaudaykmar26589.github.io/unscroll/viewer/explore.html
+- Agent replay (Muse Wonder, call by call): https://jayaudaykmar26589.github.io/unscroll/viewer/agent.html
 - Animated walkthrough (2 min, no install): https://jayaudaykmar26589.github.io/unscroll/viewer/how.html
 
 ## Name
@@ -161,6 +163,8 @@ Kaggle via `scripts/kaggle_run.py` (see README "Compute").
 | 2.4 µm probe: 32/32 runs, fixed tracer median 27 µm from the 2026 layer | `reports/probe24/summary.json`, `scripts/probe24_kaggle.py` |
 | tifxyz export for VC3D | `scripts/export_tifxyz.py`, `exports/tifxyz/` |
 | Every page click-tested headless (local files, local server, hosted); Predict lookup ported to the browser and checked against the Python one | `scripts/integration_check.py`, `scripts/check_lookup_port.py`, `viewer/predict-lookup.js` |
+| Click explorer: all 89 clicks on real CT, three tracers, per-slice distance, review planner (9 of 15 wrong-sheet traces caught at a 50% budget, as in triage.json), tifxyz download per click | `viewer/explore.html`, `scripts/build_explorer.py`, `viewer/explore/` |
+| Agent replay: the three logged Muse Wonder sessions, unedited, with seam images and exclusions | `viewer/agent.html`, `viewer/agent-data.js`, `reports/agent/` |
 | Tests | `pytest tests`: 149 passed, 1 skipped (Node not installed) |
 
 ## Data, licences, permissions

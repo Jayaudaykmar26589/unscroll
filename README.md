@@ -37,6 +37,11 @@ towards that, and where they still fall short.
 
 **Demo video (3 min):** https://youtu.be/ydY7hmCKrHg
 
+**Try the result yourself:** the [click explorer](https://jayaudaykmar26589.github.io/unscroll/viewer/explore.html) opens any of the 89 measured
+clicks on real CT, with all three tracers, the distance to the hand-traced sheet on every
+slice, a review planner using the risk ranking, and a tifxyz download for VC3D. The
+[agent replay](https://jayaudaykmar26589.github.io/unscroll/viewer/agent.html) steps through Muse Wonder's three logged sessions call by call.
+
 **Watch it in two minutes:** [How it works](https://jayaudaykmar26589.github.io/unscroll/viewer/how.html) is an animated walkthrough of what
 Unscroll is, how a run happens and how each step works, drawn live from the project's
 own data (also as a video: `demo/video/unscroll-how-it-works.mp4`).
@@ -71,8 +76,9 @@ All Unscroll code in this repository was written during the hackathon, starting
   the Muse Spark reviewer, number-checked QA notes and review triage.
 - Unrolling of traced sheets (`scripts/flatten_trace.py`, `scripts/unroll3d.py`),
   the ink drift experiment and every Kaggle runner (`scripts/*kaggle*.py`).
-- The web app: the Story, the animated How-it-works, Evaluation and surface workbench
-  (with voice review) pages, the local server, and the side pages Read & Translate and Predict
+- The web app: the Story, the animated How-it-works, the click explorer with review
+  planner and tifxyz downloads, the agent replay, Evaluation and surface workbench (with
+  voice review) pages (`scripts/build_explorer.py` builds the explorer and replay data), the local server, and the side pages Read & Translate and Predict
   (`viewer/`, `scripts/workbench.py`).
 
 **Used, not built here (credited)**
@@ -309,7 +315,9 @@ Double-click `Launch Unscroll.cmd`, or run:
 It opens `http://127.0.0.1:8765/home.html` and works offline. Pages: **Home**,
 **Story** (an interactive explainer: crush a scroll, follow one sheet through 50 real
 slices, push a trace off the ink, run the 74-click test), **How it works** (a two-minute
-animated walkthrough of the pipeline, with play, scrub and per-scene detail), **Evaluation** (results,
+animated walkthrough of the pipeline, with play, scrub and per-scene detail), **Explore** (any
+of the 89 clicks on real CT, per-slice distances, a review planner and tifxyz downloads),
+**Agent replay** (Muse Wonder's three sessions, call by call), **Evaluation** (results,
 held-out check, before/after animations, every seed, Spark QA notes, reading
 letters, unrolled surface, Spark reviewer), **Surface workbench** (slice-by-slice
 review of a trace, with voice commands). Side pages: **Read & Translate** and

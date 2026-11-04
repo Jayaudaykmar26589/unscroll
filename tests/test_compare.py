@@ -166,6 +166,55 @@ def test_pages_work_as_static_files_without_the_server():
     assert (ROOT / "scripts/integration_check.py").exists() and (ROOT / "scripts/check_lookup_port.py").exists()
 
 
+def _bundle(name, var):
+    s = (ROOT / "viewer" / name).read_text(encoding="utf-8")
+    return json.loads(s.split(var + "=", 1)[1].rsplit(";", 1)[0])
+
+
+def test_click_explorer_shows_the_reported_scores_and_the_triage_ranking():
+    X = _bundle("explore-data.js", "window.UNSCROLL_EXPLORE")
+    sets = [c["set"] for c in X["clicks"]]
+    assert len(sets) == 89 and sets.count("development") == 15 and sets.count("held-out") == 15 and sets.count("test") == 59
+    walk = {r["id"]: r for r in json.loads((EVAL / "score_walk.json").read_text())["seeds"]}
+    for c in X["clicks"]:
+        if c["set"] == "development":
+            assert c["score"]["after"]["within5"] == walk[c["id"]]["within5"]      # same numbers as the reports
+        assert (ROOT / "viewer" / "explore" / f"{c['key']}.js").exists()
+        assert len(list((ROOT / "viewer" / "explore" / c["key"]).glob("*.webp"))) == 20
+    t = json.loads((ROOT / "reports/triage/triage.json").read_text())["heldout"]
+    rows = X["triage"]["heldout"]["rows"]
+    caught = sum(not r["on_layer"] for r in rows[:15]) / X["triage"]["heldout"]["wrong"]
+    assert abs(caught - t["caught_at_50"]) < 1e-6
+
+
+def test_tifxyz_downloads_are_valid_surfaces(tmp_path):
+    import io
+    import zipfile
+    import tifffile
+    X = _bundle("explore-data.js", "window.UNSCROLL_EXPLORE")
+    have = [c for c in X["clicks"] if c["tifxyz"]]
+    assert len(have) >= 80
+    z = zipfile.ZipFile(ROOT / "viewer" / have[0]["tifxyz"])
+    a = {n.rsplit("/", 1)[-1]: n for n in z.namelist()}
+    x, y, zz = (tifffile.imread(io.BytesIO(z.read(a[f"{k}.tif"]))) for k in "xyz")
+    meta = json.loads(z.read(a["meta.json"]))
+    assert meta["format"] == "tifxyz" and x.dtype == np.float32 and x.shape == y.shape == zz.shape
+    assert np.allclose(zz[zz > 0], np.round(zz[zz > 0])) and 6100 <= zz[zz > 0].min() and zz.max() <= 6119
+
+
+def test_agent_replay_is_the_logged_sessions_unedited():
+    A = _bundle("agent-data.js", "window.UNSCROLL_AGENT")
+    assert len(A["sessions"]) == 3 and len(A["tools"]) == 8
+    for s in A["sessions"]:
+        raw = [json.loads(l) for l in (ROOT / s["file"]).read_text(encoding="utf-8").splitlines() if l.strip()]
+        assert len(raw) == len(s["events"]) and [e["kind"] for e in raw] == [e["kind"] for e in s["events"]]
+    ex = json.loads((ROOT / "reports/flatten/excluded_20231210121321.json").read_text())
+    assert A["excluded"] == ex and len(ex) == 3
+    for page in ("home.html", "story.html", "how.html", "evaluate.html", "index.html", "read.html", "predict.html"):
+        t = (ROOT / "viewer" / page).read_text(encoding="utf-8")
+        assert 'href="explore.html"' in t and 'href="agent.html"' in t, page
+
+
 def test_story_page_uses_real_data_and_is_linked():
     story = (ROOT / "viewer/story.html").read_text(encoding="utf-8")
     for needle in ("data.js", "eval-data.js", "UNSCROLL_DATA", "UNSCROLL_EVAL", "per_slice", "E.shift", "new_clicks",

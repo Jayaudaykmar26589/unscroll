@@ -1,0 +1,108 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unscroll · Agent replay</title><link rel="stylesheet" href="style.css">
+<style>
+.hm-nav{display:flex;gap:22px;font-size:13px;flex-wrap:wrap}.hm-nav a{text-decoration:none;color:var(--muted)}.hm-nav a.active{color:var(--teal)}
+.ag-hero{padding:30px 0 14px;max-width:960px}.ag-hero h1{font-size:clamp(26px,3vw,40px);margin:0 0 8px}.ag-hero p{color:var(--muted);font-size:14px;max-width:840px;margin:0}
+.tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:16px 0 22px}
+.tool{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:9px 11px;font-size:12px;color:var(--muted);transition:border-color .25s,background .25s}
+.tool b{display:block;font:600 12px Consolas,monospace;color:var(--text);margin-bottom:3px}.tool.hot{border-color:var(--teal);background:#15282a}.tool.hot.warn{border-color:var(--orange);background:#2a2117}
+.sess{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.sess button{font:12px 'Segoe UI',sans-serif;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.sess button[aria-pressed=true]{color:var(--teal);border-color:var(--teal);background:#15282a}
+.ctl{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:14px}
+.ctl button{font:inherit;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer}
+.ctl input[type=range]{flex:1;min-width:160px;accent-color:var(--teal)}
+.grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:22px;align-items:start}
+.feed{display:flex;flex-direction:column;gap:10px;max-height:760px;overflow:auto;padding-right:4px}
+.ev{border:1px solid var(--line);border-radius:8px;padding:11px 14px;background:#101919;font-size:13px;line-height:1.55;opacity:.42;cursor:pointer;transition:opacity .2s,border-color .2s}
+.ev.seen{opacity:.78}.ev.now{opacity:1;border-color:var(--teal);box-shadow:0 0 0 1px var(--teal)}
+.ev .who{font-size:11px;letter-spacing:1.5px;margin-bottom:4px}.ev.model .who{color:var(--teal)}.ev.call .who{color:#9cc7ff}.ev.decide .who{color:#ff8f8f}
+.ev code{font:12.5px Consolas,monospace;background:#1b2a3a;color:#9cc7ff;border-radius:4px;padding:1px 6px;margin-right:4px}
+.ev .kv{color:var(--muted);font-size:12.5px}.ev .kv b{color:var(--text);font-weight:500}.no{color:#ff8f8f}.yes{color:var(--teal)}
+.side{position:sticky;top:16px;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;font-size:13px;color:var(--muted);line-height:1.6}
+.card .h{font-size:11px;letter-spacing:1.8px;color:var(--teal);margin-bottom:6px}.card b{color:var(--text);font-weight:500}
+.card img{width:100%;border-radius:6px;border:1px solid var(--line);display:block;margin:6px 0}
+.state{display:grid;grid-template-columns:repeat(100,1fr);gap:1px;height:26px;margin:8px 0 4px}
+.state i{display:block;background:#1f2b2b;border-radius:1px}.state i.t{background:var(--teal)}.state i.r{background:var(--orange)}.state i.x{background:#6b3434}
+@media (max-width:980px){.grid{grid-template-columns:minmax(0,1fr)}.tools{grid-template-columns:repeat(2,minmax(0,1fr))}.side{position:static}}
+</style></head><body>
+<header><a class="brand" href="home.html">◉ <strong>unscroll</strong><span>AGENT REPLAY</span></a><nav class="hm-nav"><a href="home.html">Home</a><a href="story.html">Story</a><a href="how.html">How it works</a><a href="explore.html">Explore</a><a class="active" href="agent.html" aria-current="page">Agent replay</a><a href="evaluate.html">Evaluation</a><a href="index.html">Surface workbench</a><a href="read.html">Read &amp; Translate</a><a href="predict.html">Predict</a></nav><div class="local">● MUSE WONDER <span>three logged sessions, replayed</span></div></header>
+<main>
+<section class="ag-hero"><p class="eyebrow">THE AGENT, STEP BY STEP</p>
+<h1>Watch Muse Wonder extend a trace, then catch its own mistake.</h1>
+<p>SAM 3.1 stops when it loses the sheet, so long traces need re-seeding. A Muse Wonder agent does that by tool calling: it decides where to re-seed, spends a fixed budget of GPU runs on Kaggle, scores the result, and checks every seam with numbers plus Muse Spark looking at the two slices. This page replays its three real sessions on one 100-slice patch, call by call, exactly as logged. Nothing was edited: every message, argument and result below is from <code>reports/agent/</code>.</p></section>
+<div class="tools" id="tools"></div>
+<div class="sess" id="sess" role="group" aria-label="Session"></div>
+<div class="ctl"><button id="prev">◀ Step</button><button id="play">▶ Play</button><button id="next">Step ▶</button><input id="scrub" type="range" min="0" max="1" value="0" aria-label="Step"><output id="pos"></output></div>
+<div class="grid"><div class="feed" id="feed" aria-live="polite"></div>
+<aside class="side"><div class="card"><div class="h">THE PATCH, 100 SLICES (6100–6199)</div><div class="state" id="state"></div><div id="statenote"></div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;font-size:11px;margin-top:6px"><span><span style="display:inline-block;width:10px;height:10px;background:var(--teal);border-radius:2px"></span> first run</span><span><span style="display:inline-block;width:10px;height:10px;background:var(--orange);border-radius:2px"></span> re-seeded runs</span><span><span style="display:inline-block;width:10px;height:10px;background:#6b3434;border-radius:2px"></span> excluded</span></div></div>
+<div class="card" id="focus"></div></aside></div>
+<section class="card" style="margin:40px 0 60px;max-width:960px"><div class="h">WHAT TO TAKE FROM IT</div>
+<p>Autonomy: the agent chose every re-seed point, decided when to spend its limited GPU runs, and decided to exclude runs; no person intervened in these sessions. Effectiveness: with only extension tools (sessions 1 and 2) it grew the patch from 58 to 97 slices, but it could not tell that the growth was on the wrong sheet. Given a seam check (session 3), it found the first re-seed had jumped sheets, traced the two later runs back to it, excluded all three with written reasons, and kept the 58 slices that score 87.3% within 40 µm of the hand-traced layer. The lesson the project draws is that an agent needs a check it can run on its own output before its extra work can be trusted.</p></section>
+</main>
+<script src="agent-data.js"></script>
+<script>
+(function(){
+  var A = window.UNSCROLL_AGENT, $ = function(id){ return document.getElementById(id); };
+  if (!A) { $('feed').textContent = 'Run scripts/build_explorer.py to build the data.'; return; }
+  var esc = function(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]; }); };
+  $('tools').innerHTML = A.tools.map(function(t){ return '<div class="tool" data-t="' + t.name + '"><b>' + t.name + '()</b>' + esc(t.description) + '</div>'; }).join('');
+  var si = 0, step = 0, timer = null;
+  $('sess').innerHTML = A.sessions.map(function(s, i){ return '<button data-i="' + i + '" aria-pressed="' + (i === 0) + '">' + esc(s.title) + '</button>'; }).join('');
+  $('sess').onclick = function(e){ var b = e.target.closest('button'); if (b) pick(+b.dataset.i, 0); };
+
+  // slices each re-seeded run added, as logged in sessions 1 and 2 (6161–6162, then up to 6181, then to 6199)
+  var RUN = {reseed_6159: [6161, 6162], reseed_6162: [6163, 6181], reseed_6181: [6182, 6199]};
+  function ranges(tr){ var on = {}; (tr || []).forEach(function(r){ for (var z = r[0]; z <= r[1]; z++) on[z] = 1; }); return on; }
+  function args(a){ if (typeof a === 'string') { try { a = JSON.parse(a); } catch (e) { return esc(a); } } return Object.keys(a || {}).map(function(k){ return '<b>' + esc(k) + '</b> ' + esc(typeof a[k] === 'object' ? JSON.stringify(a[k]) : a[k]); }).join(' · '); }
+  function render(e){
+    if (e.kind === 'model') {
+      var calls = (e.tool_calls || []).map(function(c){ return '<code>' + esc(c.name) + '(' + ')</code>'; }).join('');
+      return '<div class="ev model"><div class="who">MUSE WONDER · ' + esc(e.t.slice(11, 19)) + '</div>' + (e.content ? esc(e.content) + (calls ? '<br>' : '') : '') + (calls ? '<span class="kv">calls </span>' + calls : '') + '</div>';
+    }
+    var r = e.result, n = e.name, body = '';
+    if (n === 'get_patch_status' && r) body = '<b>' + r.traced_slices + '</b> of ' + r.total_slices + ' slices traced · last good slice <b>' + r.last_good_slice + '</b> · GPU runs left <b>' + r.kaggle_runs_left + '</b>';
+    else if (n === 'propose_reseed' && r) body = 'click <b>' + esc(JSON.stringify(r.click)) + '</b> · ' + esc(r.note);
+    else if (n === 'run_trace' && r) body = 'run <b>' + esc(r.tag) + '</b> · ' + esc((r.kaggle_status || '').replace(/^.*has status "KernelWorkerStatus\./, 'Kaggle: ').replace(/".*$/, '')) + (r.slices_traced != null ? ' · slices ' + esc(JSON.stringify(r.slices_traced)) : '');
+    else if (n === 'score_patch' && r) body = '<b>' + Math.round(r.within5 * 1000) / 10 + '%</b> within 40 µm · median <b>' + r.median_vx + '</b> voxels · on slices ' + esc(r.scored_slices) + ' (where the reference exists)';
+    else if (n === 'flatten_patch' && r) body = 'unrolled image <b>' + r.image_rows + ' × ' + r.columns + '</b> · slices ' + esc(JSON.stringify(r.z_range_traced));
+    else if (n === 'review_seam' && r) { var m = r.numbers, s = r.spark; body = 'seam ' + m.slice_before + ' → ' + m.slice_after + ' · median distance <b>' + m.median_distance_vx + ' vx</b> · length ' + m.length_before_vx + ' → ' + m.length_after_vx + ' (×' + m.length_ratio + ')<br>Muse Spark: same sheet = <b class="' + (s.same_sheet ? 'yes' : 'no') + '">' + s.same_sheet + '</b> (confidence ' + s.confidence + ') · <i>' + esc(s.reason) + '</i>'; }
+    else if (n === 'exclude_run' && r) { var keys = Object.keys(r.excluded || {}); body = 'excluded so far: ' + keys.map(function(k){ return '<b class="no">' + esc(k) + '</b>'; }).join(', '); }
+    else if (n === 'finish' || !n) body = 'session finished';
+    else body = esc(JSON.stringify(r)).slice(0, 300);
+    var cls = n === 'exclude_run' ? 'decide' : 'call';
+    return '<div class="ev ' + cls + '"><div class="who">TOOL · ' + esc(n || 'finish') + '</div><div class="kv">' + (e.arguments ? args(e.arguments) + '<br>' : '') + body + '</div></div>';
+  }
+  function pick(i, s){ si = i; [].forEach.call($('sess').children, function(b, j){ b.setAttribute('aria-pressed', j === i ? 'true' : 'false'); });
+    var ev = A.sessions[i].events; $('feed').innerHTML = ev.map(render).join(''); [].forEach.call($('feed').children, function(el, j){ el.onclick = function(){ go(j); }; });
+    $('scrub').max = ev.length - 1; go(s || 0); }
+  function go(s){
+    var ev = A.sessions[si].events; step = Math.max(0, Math.min(ev.length - 1, s)); $('scrub').value = step; $('pos').textContent = 'step ' + (step + 1) + ' of ' + ev.length + ' · ' + A.sessions[si].file;
+    [].forEach.call($('feed').children, function(el, j){ el.className = el.className.replace(/ (seen|now)/g, '') + (j < step ? ' seen' : j === step ? ' now' : ''); if (j === step) el.scrollIntoView({block: 'nearest', behavior: 'smooth'}); });
+    var e = ev[step], names = e.kind === 'model' ? (e.tool_calls || []).map(function(c){ return c.name; }) : [e.name];
+    [].forEach.call($('tools').children, function(t){ var hot = names.indexOf(t.dataset.t) >= 0; t.className = 'tool' + (hot ? ' hot' + (t.dataset.t === 'review_seam' || t.dataset.t === 'exclude_run' ? ' warn' : '') : ''); });
+    // patch state: latest status at or before this step
+    var st = null, excl = {}; for (var j = 0; j <= step; j++) { var r = ev[j].result; if (ev[j].name === 'get_patch_status' && r) st = r; if (ev[j].name === 'exclude_run' && r) { excl = r.excluded || excl; if (r.status_after) st = st || r.status_after; } }
+    if (!st) for (var k = 0; k < ev.length; k++) if (ev[k].name === 'get_patch_status') { st = ev[k].result; break; }
+    var on = ranges(st && st.traced_ranges), cells = '', out = {}, nex = Object.keys(excl).length;
+    Object.keys(excl).forEach(function(k){ var r = RUN[k]; if (r) for (var z = r[0]; z <= r[1]; z++) out[z] = 1; });
+    var kept = 0; for (var z = 6100; z < 6200; z++) { var cl = on[z] ? (out[z] ? 'x' : z <= 6159 ? 't' : 'r') : ''; if (on[z] && !out[z]) kept++; cells += '<i class="' + cl + '" title="slice ' + z + (out[z] ? ' · excluded' : '') + '"></i>'; }
+    $('state').innerHTML = cells;
+    $('statenote').innerHTML = st ? '<b>' + st.traced_slices + '</b> of 100 slices traced' + (nex ? ' · <b class="no">' + nex + ' re-seeded run' + (nex > 1 ? 's' : '') + ' excluded</b> · kept <b>' + kept + '</b> slices' : '') + ' · GPU runs left <b>' + st.kaggle_runs_left + '</b>' : '';
+    var f = '';
+    if (e.name === 'review_seam' && e.result) { var m = e.result.numbers, s = e.result.spark; f = '<div class="h">WHAT MUSE SPARK WAS SHOWN</div><img src="' + esc(e.result.image) + '" alt="Seam between slice ' + m.slice_before + ' and ' + m.slice_after + '"><b>Left:</b> slice ' + m.slice_before + ', the sheet before the seam (green). <b>Right:</b> slice ' + m.slice_after + ', the re-seeded run (red). Verdict: same sheet = <b class="' + (s.same_sheet ? 'yes' : 'no') + '">' + s.same_sheet + '</b>, confidence ' + s.confidence + '.'; }
+    else if (e.name === 'exclude_run' && e.result) { f = '<div class="h" style="color:#ff8f8f">THE DECISION, WITH ITS REASON</div>' + Object.keys(e.result.excluded).map(function(k){ return '<p><b class="no">' + esc(k) + '</b>: ' + esc(e.result.excluded[k]) + '</p>'; }).join(''); }
+    else if (e.kind === 'model' && e.content) f = '<div class="h">THE AGENT’S REASONING</div>' + esc(e.content);
+    else if (e.name === 'score_patch' && e.result) f = '<div class="h">THE MEASUREMENT</div>Scored against the hand-traced layer on slices ' + esc(e.result.scored_slices) + ': <b>' + Math.round(e.result.within5 * 1000) / 10 + '%</b> within 40 µm, median <b>' + e.result.median_vx + '</b> voxels. Note the reference ends at 6149, so the score cannot see where the re-seeds went wrong; that is what the seam check in session 3 is for.';
+    else f = '<div class="h">THIS STEP</div>' + (e.kind === 'model' ? 'The agent decides which tool to call next.' : 'Tool result, as returned to the agent.');
+    $('focus').innerHTML = f;
+  }
+  $('prev').onclick = function(){ go(step - 1); }; $('next').onclick = function(){ var n = A.sessions[si].events.length; if (step < n - 1) go(step + 1); else if (si < A.sessions.length - 1) pick(si + 1, 0); };
+  $('scrub').oninput = function(){ go(+this.value); };
+  $('play').onclick = function(){ if (timer) { clearInterval(timer); timer = null; this.textContent = '▶ Play'; return; } var b = this; b.textContent = '❚❚ Pause'; timer = setInterval(function(){ var n = A.sessions[si].events.length; if (step < n - 1) go(step + 1); else if (si < A.sessions.length - 1) pick(si + 1, 0); else { clearInterval(timer); timer = null; b.textContent = '▶ Play'; } }, 2200); };
+  document.addEventListener('keydown', function(e){ if (e.target.tagName === 'INPUT') return; if (e.key === 'ArrowRight') $('next').click(); if (e.key === 'ArrowLeft') $('prev').click(); });
+  var q = new URLSearchParams(location.search); pick(+(q.get('s') || 0), +(q.get('step') || 0));
+})();
+</script>
+</body></html>

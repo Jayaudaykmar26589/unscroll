@@ -29,6 +29,9 @@ Current self-rating: ~7.3/10 now, ~7.8 with a strong video. Biggest gap: "Unscro
   Python). Server-only buttons (live recognition/translation, voice) are disabled with a note on
   static hosting. 7/7 pages clean in all three modes. 152 tests.
 - Demo video uploaded: https://youtu.be/ydY7hmCKrHg (in README, submission.md, submission-form.md field 8).
+- Features added (no GPU): viewer/explore.html (89 clicks on real CT crops, 3 tracers, per-slice
+  distance, review planner from triage.json, tifxyz zip per click) and viewer/agent.html (3 agent
+  sessions replayed). Data: scripts/build_explorer.py. Checker covers 9 pages. 155 tests.
 - LEFT (user): watch video with sound / optionally re-record voice-over; upload video; Vesuvius
   permission screenshot into docs/; make Kaggle notebooks public; submit form: field-by-field
   answers in docs/submission-form.md (agent may fill, never submits unless told);

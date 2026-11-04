@@ -1,0 +1,175 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unscroll · Explore every click</title><link rel="stylesheet" href="style.css">
+<style>
+.hm-nav{display:flex;gap:22px;font-size:13px;flex-wrap:wrap}.hm-nav a{text-decoration:none;color:var(--muted)}.hm-nav a.active{color:var(--teal)}
+.ex-hero{padding:30px 0 14px;max-width:960px}.ex-hero h1{font-size:clamp(26px,3vw,40px);margin:0 0 8px}.ex-hero p{color:var(--muted);font-size:14px;max-width:820px;margin:0}
+.ex{display:grid;grid-template-columns:300px minmax(0,1fr);gap:22px;align-items:start}
+.list{background:var(--panel);border:1px solid var(--line);border-radius:8px;max-height:760px;display:flex;flex-direction:column}
+.list .filters{display:flex;gap:6px;flex-wrap:wrap;padding:12px;border-bottom:1px solid var(--line)}
+.list .filters button,.seg button{font:12px 'Segoe UI',sans-serif;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 10px;cursor:pointer}
+.list .filters button[aria-pressed=true],.seg button[aria-pressed=true]{color:var(--teal);border-color:var(--teal);background:#15282a}
+.list select{margin:0 12px 10px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:5px;padding:6px;font:12px 'Segoe UI',sans-serif}
+.rows{overflow:auto;flex:1}
+.rows button{display:grid;grid-template-columns:1fr auto;gap:2px 8px;width:100%;text-align:left;background:transparent;border:0;border-top:1px solid #22302f;padding:9px 12px;cursor:pointer;color:var(--text);font:12px 'Segoe UI',sans-serif}
+.rows button:hover{background:#1b2a2b}.rows button[aria-current=true]{background:#15282a;box-shadow:inset 3px 0 0 var(--teal)}
+.rows .k{font-weight:500}.rows .g{font-variant-numeric:tabular-nums}.rows .s{grid-column:1/3;color:var(--muted);font-size:11px}
+.up{color:var(--teal)}.down{color:var(--orange)}.same{color:var(--muted)}
+.view{min-width:0}
+.ct{position:relative;background:#080e0e;border:1px solid var(--line);border-radius:8px;overflow:hidden;aspect-ratio:2/1}
+.ct canvas{width:100%;height:100%;display:block}
+.ctl{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted)}
+.ctl button{font:inherit;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer}
+.ctl input[type=range]{flex:1;min-width:160px;accent-color:var(--teal)}
+.key{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}.key label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.sw{width:18px;height:3px;display:inline-block;border-radius:2px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.stat .h{font-size:11px;letter-spacing:1.5px;margin-bottom:6px}.stat .n{font-size:26px}.stat .n small{font-size:13px;color:var(--muted)}.stat p{margin:4px 0 0;font-size:12px;color:var(--muted)}
+.chart{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-top:12px}
+.chart svg{width:100%;height:auto;display:block}
+.dl{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--muted)}
+.dl a{color:#0b1213;background:var(--teal);border-radius:6px;padding:8px 14px;text-decoration:none;font-weight:500}
+.dl a[aria-disabled=true]{background:var(--line);color:var(--muted);pointer-events:none}
+section.plan{margin:46px 0 60px;border-top:1px solid var(--line);padding-top:30px}
+.plan h2{font-size:24px;font-weight:400;margin:0 0 8px}.plan>p{color:var(--muted);font-size:14px;max-width:820px}
+.pgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px;margin-top:16px}
+.cells{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}
+.cells button{aspect-ratio:1;border-radius:6px;border:1px solid var(--line);background:#1b2525;cursor:pointer;position:relative;font:10px 'Segoe UI',sans-serif;color:var(--muted)}
+.cells button.wrong{background:#3a2020;border-color:#6b3434}.cells button.ok{background:#173029;border-color:#2c5a4c}
+.cells button.on.wrong{background:var(--red,#e06c6c);color:#1a0d0d}.cells button.on.ok{background:var(--teal);color:#0b1213}
+.big2{font-size:40px}.big2 small{font-size:15px;color:var(--muted)}
+.note{font-size:12px;color:var(--muted);line-height:1.6}
+@media (max-width:980px){.ex,.pgrid{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:minmax(0,1fr)}.list{max-height:360px}}
+</style></head><body>
+<header><a class="brand" href="home.html">◉ <strong>unscroll</strong><span>EXPLORE EVERY CLICK</span></a><nav class="hm-nav"><a href="home.html">Home</a><a href="story.html">Story</a><a href="how.html">How it works</a><a class="active" href="explore.html" aria-current="page">Explore</a><a href="agent.html">Agent replay</a><a href="evaluate.html">Evaluation</a><a href="index.html">Surface workbench</a><a href="read.html">Read &amp; Translate</a><a href="predict.html">Predict</a></nav><div class="local">● 89 CLICKS <span>real Scroll 1 CT · every trace scored</span></div></header>
+<main>
+<section class="ex-hero"><p class="eyebrow">THE RESULT, CLICK BY CLICK</p>
+<h1>Pick any of the 89 measured clicks and see what each tracer did.</h1>
+<p>Every click was placed on a sheet people traced by hand. Each was traced through 20 CT slices three ways: SAM 3.1 before the first-slice fix, after it, and a classic optical-flow tracer from the same start. Scrub the slices to watch them, read the exact distance to the hand-traced sheet on every slice, and download Unscroll's trace in the format the Vesuvius Challenge tools open. Nothing here is a demo image: the crops are the real CT and the numbers are the ones in the reports.</p></section>
+
+<div class="ex">
+<aside class="list" aria-label="Clicks"><div class="filters" id="filters" role="group" aria-label="Which clicks">
+<button data-f="all" aria-pressed="true">All 89</button><button data-f="new" aria-pressed="false">74 new</button><button data-f="development" aria-pressed="false">15 development</button></div>
+<select id="sort" aria-label="Sort"><option value="gain">Biggest gain from the fix first</option><option value="loss">Fix made it worse first</option><option value="after">Best Unscroll trace first</option><option value="key">By sheet</option></select>
+<div class="rows" id="rows"></div></aside>
+
+<div class="view">
+<div class="ct"><canvas id="cv" width="1536" height="768" aria-label="CT window around the click with the traces drawn"></canvas></div>
+<div class="ctl"><button id="play">▶ Play</button><input id="z" type="range" min="0" max="19" value="0" aria-label="Slice"><output id="zout">slice 6100 · 1 / 20</output></div>
+<div class="key"><label><input type="checkbox" id="k_ref" checked><span class="sw" style="background:var(--pink)"></span>hand-traced sheet</label>
+<label><input type="checkbox" id="k_after" checked><span class="sw" style="background:var(--teal)"></span>Unscroll (after the fix)</label>
+<label><input type="checkbox" id="k_before" checked><span class="sw" style="background:var(--orange)"></span>before the fix</label>
+<label><input type="checkbox" id="k_flow"><span class="sw" style="background:#8fb3ff"></span>classic optical flow</label>
+<span>yellow ring: the click · window 512 × 256 voxels (4 × 2 mm)</span></div>
+<div class="stats" id="stats"></div>
+<div class="chart"><div class="note" style="margin-bottom:6px">Median distance to the hand-traced sheet on each slice, over the whole trace (not only the window). The dashed line is 40 µm (5 voxels). Click the chart to jump to a slice.</div><svg id="chart" viewBox="0 0 760 190" role="img" aria-label="Distance per slice"></svg></div>
+<div class="dl"><a id="dl" href="#" download>Download Unscroll's trace (tifxyz)</a><span id="dlnote">x.tif, y.tif, z.tif and meta.json, the surface format VC3D and the Vesuvius tools read; one row per slice, one column per voxel of arc.</span></div>
+</div></div>
+
+<section class="plan" id="plan"><p class="eyebrow">PLAN A REVIEW</p><h2>You can check some of the traces. Which ones first?</h2>
+<p>A person still has to look at traces to be sure. Unscroll ranks them riskiest-first without using the hand-traced answer: does the trace pass through the click, does it sit on a bright sheet core, and do the two first-slice methods agree. Choose how many you have time to check; the cells fill in ranked order, and the count says how many wrong-sheet traces that review would catch. Click a cell to open that trace above.</p>
+<div class="seg" id="pset" role="group" aria-label="Which set" style="margin:12px 0"><button data-s="heldout" aria-pressed="true">Held-out clicks (30 traces)</button> <button data-s="dev" aria-pressed="false">Development clicks (30 traces)</button></div>
+<div class="pgrid"><div><div class="ctl" style="margin:0 0 12px"><label for="budget">Traces I can check</label><input id="budget" type="range" min="0" max="30" value="15"><output id="bout"></output></div>
+<div class="cells" id="cells"></div>
+<div class="key" style="margin-top:12px"><span><span class="sw" style="background:#e06c6c;height:10px;width:10px;border-radius:3px"></span> wrong sheet (median more than <span id="olvx">6</span> voxels off)</span><span><span class="sw" style="background:var(--teal);height:10px;width:10px;border-radius:3px"></span> on the sheet</span><span>faded: not reviewed</span></div></div>
+<div class="stat"><div class="h" style="color:var(--teal)">THIS REVIEW CATCHES</div><div class="big2" id="caught"></div><p id="caughtnote"></p>
+<div class="h" style="color:var(--muted);margin-top:16px">CHECKING IN RANDOM ORDER WOULD CATCH, ON AVERAGE</div><div class="big2" id="random" style="font-size:28px"></div>
+<p class="note" id="rulenote" style="margin-top:14px"></p></div></div></section>
+</main>
+<script src="explore-data.js"></script>
+<script>
+(function(){
+  var X = window.UNSCROLL_EXPLORE, $ = function(id){ return document.getElementById(id); };
+  if (!X) { $('rows').textContent = 'Run scripts/build_explorer.py to build the data.'; return; }
+  var C = {teal: '#7de0c2', orange: '#efad69', pink: '#f697c6', flow: '#8fb3ff', red: '#e06c6c', text: '#ecede7', muted: '#a9b8b8', line: '#304043'};
+  var UM = 7.91, Z0 = X.z0, W = X.win[0], H = X.win[1];
+  var pct = function(v){ return v == null ? '–' : Math.round(v * 100) + '%'; };
+  var cv = $('cv'), ctx = cv.getContext('2d'), sx = cv.width / W, sy = cv.height / H;
+  var clicks = X.clicks.map(function(c){ var b = c.score.before, a = c.score.after; c.gain = (a && a.within5 != null ? a.within5 : 0) - (b && b.within5 != null ? b.within5 : 0); return c; });
+  var cur = null, z = 0, timer = null, imgs = [], data = null, filter = 'all';
+
+  // ---------- list ----------
+  function listed(){
+    var l = clicks.filter(function(c){ return filter === 'all' || (filter === 'new' ? c.set !== 'development' : c.set === filter); }), s = $('sort').value;
+    l.sort(function(a, b){ return s === 'gain' ? b.gain - a.gain : s === 'loss' ? a.gain - b.gain : s === 'after' ? ((b.score.after || {}).within5 || 0) - ((a.score.after || {}).within5 || 0) : a.key < b.key ? -1 : 1; });
+    return l;
+  }
+  function drawList(){
+    $('rows').innerHTML = listed().map(function(c){ var b = c.score.before || {}, a = c.score.after || {}, cl = c.gain > 0.005 ? 'up' : c.gain < -0.005 ? 'down' : 'same';
+      return '<button data-k="' + c.key + '"' + (cur && cur.key === c.key ? ' aria-current="true"' : '') + '><span class="k">' + c.key.replace(/_h$/, ' (2nd click)') + '</span><span class="g ' + cl + '">' + pct(b.within5) + ' → ' + pct(a.within5) + '</span><span class="s">' + c.set + ' · on the sheet before → after the fix</span></button>'; }).join('');
+  }
+  $('rows').onclick = function(e){ var b = e.target.closest('button'); if (b) open(b.dataset.k); };
+  $('filters').onclick = function(e){ var b = e.target.closest('button'); if (!b) return; filter = b.dataset.f; [].forEach.call($('filters').children, function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); drawList(); };
+  $('sort').onchange = drawList;
+
+  // ---------- one click ----------
+  function open(key){
+    var c = clicks.filter(function(x){ return x.key === key; })[0]; if (!c) return;
+    cur = c; data = null; z = 0; $('z').value = 0; imgs = [];
+    for (var i = 0; i < 20; i++) { var im = new Image(); im.onload = function(){ draw(); }; im.src = 'explore/' + key + '/' + ('0' + i).slice(-2) + '.webp'; imgs.push(im); }
+    var have = window.UNSCROLL_CLICK && window.UNSCROLL_CLICK[key];
+    if (have) { data = have; after(); } else { var s = document.createElement('script'); s.src = 'explore/' + key + '.js'; s.onload = function(){ data = window.UNSCROLL_CLICK[key]; after(); }; s.onerror = function(){ $('stats').innerHTML = '<p class="note">Could not load this click.</p>'; }; document.head.appendChild(s); }
+    stats(); drawList(); draw();
+    var dl = $('dl'); if (c.tifxyz) { dl.href = c.tifxyz; dl.setAttribute('download', 'unscroll_' + key + '.tifxyz.zip'); dl.removeAttribute('aria-disabled'); } else { dl.href = '#'; dl.setAttribute('aria-disabled', 'true'); }
+    try { history.replaceState(null, '', '#' + key); } catch (e) {}
+  }
+  function after(){ chart(); draw(); }
+  function stats(){
+    var c = cur, row = function(m, color, label, note){ var s = c.score[m]; return '<div class="stat"><div class="h" style="color:' + color + '">' + label + '</div><div class="n">' + pct(s && s.within5) + ' <small>on the sheet</small></div><p>' + (s && s.median_dist != null ? 'median ' + Math.round(s.median_dist * UM) + ' µm off · ' + s.slices_with_trace + ' of 20 slices traced' : 'no trace') + (note ? ' · ' + note : '') + '</p></div>'; };
+    $('stats').innerHTML = row('after', C.teal, 'UNSCROLL, AFTER THE FIX') + row('before', C.orange, 'BEFORE THE FIX') + row('flow', C.flow, 'CLASSIC OPTICAL FLOW');
+  }
+  function line(pts, color, w){ if (!pts || pts.length < 2) return; ctx.strokeStyle = color; ctx.lineWidth = w; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.beginPath(); pts.forEach(function(p, i){ i ? ctx.lineTo(p[0] * sx, p[1] * sy) : ctx.moveTo(p[0] * sx, p[1] * sy); }); ctx.stroke(); }
+  function draw(){
+    ctx.fillStyle = '#080e0e'; ctx.fillRect(0, 0, cv.width, cv.height);
+    var im = imgs[z]; if (im && im.complete && im.naturalWidth) ctx.drawImage(im, 0, 0, cv.width, cv.height);
+    if (cur && data) {
+      if ($('k_ref').checked) { ctx.strokeStyle = C.pink; ctx.lineWidth = 5; ctx.lineCap = 'round'; ctx.beginPath(); data.lines.ref[z].forEach(function(s){ ctx.moveTo(s[0] * sx, s[1] * sy); ctx.lineTo(s[2] * sx, s[3] * sy); }); ctx.stroke(); }
+      [['flow', C.flow, 3], ['before', C.orange, 3.5], ['after', C.teal, 3.5]].forEach(function(m){ if ($('k_' + m[0]).checked) (data.lines[m[0]][z] || []).forEach(function(seg){ line(seg, m[1], m[2]); }); });
+      if (z === 0) { var cx = (cur.seed[0] - cur.win[0]) * sx, cy = (cur.seed[1] - cur.win[1]) * sy; ctx.strokeStyle = '#ffd84a'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(cx, cy, 14, 0, 7); ctx.stroke(); }
+      var d = function(m){ var v = data.dist[m][z]; return v ? Math.round(v[0] * UM) + ' µm' : 'no trace'; };
+      ctx.fillStyle = 'rgba(8,14,14,.82)'; ctx.fillRect(12, 12, 640, 82); ctx.font = "500 24px 'Segoe UI',sans-serif";
+      ctx.fillStyle = C.teal; ctx.fillText('Unscroll ' + d('after'), 28, 46); ctx.fillStyle = C.orange; ctx.fillText('before ' + d('before'), 28, 80); ctx.fillStyle = C.flow; ctx.fillText('flow ' + d('flow'), 290, 80);
+      ctx.fillStyle = C.muted; ctx.font = "400 16px 'Segoe UI',sans-serif"; ctx.fillText('median distance to the hand-traced sheet, this slice', 290, 42);
+    }
+    $('zout').textContent = 'slice ' + (Z0 + z) + ' · ' + (z + 1) + ' / 20';
+    var dots = $('chart').querySelector('#cursor'); if (dots) dots.setAttribute('x1', xOf(z)), dots.setAttribute('x2', xOf(z));
+  }
+  function xOf(i){ return 50 + i * (690 / 19); }
+  function chart(){
+    var svg = $('chart'), max = 0; ['before', 'after', 'flow'].forEach(function(m){ data.dist[m].forEach(function(v){ if (v) max = Math.max(max, v[0] * UM); }); });
+    max = Math.max(60, Math.ceil(max / 40) * 40); var y = function(um){ return 160 - um / max * 140; };
+    var h = '<line x1="50" x2="740" y1="160" y2="160" stroke="' + C.line + '"/>' + '<line x1="50" x2="740" y1="' + y(40) + '" y2="' + y(40) + '" stroke="' + C.text + '" stroke-dasharray="3 4" opacity=".6"/><text x="44" y="' + (y(40) + 4) + '" fill="' + C.muted + '" font-size="11" text-anchor="end">40 µm</text>';
+    for (var t = 0; t <= max; t += max / 4) if (Math.abs(t - 40) > max / 10) h += '<text x="44" y="' + (y(t) + 4) + '" fill="' + C.muted + '" font-size="10" text-anchor="end" opacity=".7">' + (t === 0 ? '0' : Math.round(t)) + '</text>';
+    [['before', C.orange], ['flow', C.flow], ['after', C.teal]].forEach(function(m){ var p = ''; data.dist[m[0]].forEach(function(v, i){ if (v) p += (p ? ' L' : 'M') + xOf(i).toFixed(1) + ' ' + y(v[0] * UM).toFixed(1); else if (p) p += ' M'; });
+      p = p.replace(/ M( M)*$/, '').replace(/ M M/g, ' M'); h += '<path d="' + p + '" fill="none" stroke="' + m[1] + '" stroke-width="2.4"/>'; data.dist[m[0]].forEach(function(v, i){ if (v) h += '<circle cx="' + xOf(i) + '" cy="' + y(v[0] * UM) + '" r="2.6" fill="' + m[1] + '"/>'; }); });
+    h += '<text x="50" y="184" fill="' + C.muted + '" font-size="11">slice 6100</text><text x="740" y="184" fill="' + C.muted + '" font-size="11" text-anchor="end">slice 6119</text>';
+    h += '<line id="cursor" x1="' + xOf(z) + '" x2="' + xOf(z) + '" y1="16" y2="160" stroke="' + C.text + '" opacity=".35"/>';
+    svg.innerHTML = h;
+  }
+  $('chart').addEventListener('click', function(e){ var r = this.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * 760; z = Math.max(0, Math.min(19, Math.round((x - 50) / (690 / 19)))); $('z').value = z; draw(); });
+  $('z').addEventListener('input', function(){ z = +this.value; draw(); });
+  $('play').onclick = function(){ if (timer) { clearInterval(timer); timer = null; this.textContent = '▶ Play'; return; } this.textContent = '❚❚ Pause'; timer = setInterval(function(){ z = (z + 1) % 20; $('z').value = z; draw(); }, 420); };
+  ['k_ref', 'k_after', 'k_before', 'k_flow'].forEach(function(id){ $(id).addEventListener('change', draw); });
+
+  // ---------- review planner ----------
+  var T = X.triage, pset = 'heldout';
+  function plan(){
+    $('olvx').textContent = T.on_layer_vx;
+    var t = T[pset], k = +$('budget').value, n = t.rows.length; $('budget').max = n;
+    var caught = t.rows.slice(0, k).filter(function(r){ return !r.on_layer; }).length;
+    $('bout').textContent = k + ' of ' + n + ' (' + Math.round(100 * k / n) + '%)';
+    $('cells').innerHTML = t.rows.map(function(r, i){ return '<button class="' + (r.on_layer ? 'ok' : 'wrong') + (i < k ? ' on' : '') + '" data-k="' + r.key + '" title="' + r.id + ' · ' + (r.mode === 'walk' ? 'after the fix' : 'before the fix') + ' · ' + (r.median_dist * UM).toFixed(0) + ' µm median · risk rank ' + (i + 1) + '" style="' + (i < k ? '' : 'opacity:.38') + '">' + (i + 1) + '</button>'; }).join('');
+    $('caught').innerHTML = caught + ' <small>of ' + t.wrong + ' wrong-sheet traces (' + Math.round(100 * caught / t.wrong) + '%)</small>';
+    $('caughtnote').textContent = 'by checking the ' + k + ' riskiest traces in this ' + (pset === 'heldout' ? 'held-out' : 'development') + ' set (ranking AUC ' + t.auc.toFixed(2) + ').';
+    $('random').innerHTML = (t.wrong * k / n).toFixed(1) + ' <small>of ' + t.wrong + '</small>';
+    $('rulenote').textContent = 'Rule: ' + T.rule + '. ' + T.note + ' A wrong-sheet trace here is one whose median distance is over ' + T.on_layer_vx + ' voxels. The held-out set is small (' + n + ' traces), so treat the counts as indicative.';
+  }
+  $('budget').addEventListener('input', plan);
+  $('pset').onclick = function(e){ var b = e.target.closest('button'); if (!b) return; pset = b.dataset.s; [].forEach.call($('pset').children, function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); plan(); };
+  $('cells').onclick = function(e){ var b = e.target.closest('button'); if (!b) return; open(b.dataset.k); var m = (T[pset].rows.filter(function(r){ return r.key === b.dataset.k; })[0] || {}).mode;
+    ['after', 'before'].forEach(function(x){ $('k_' + x).checked = m ? (m === 'walk' ? x === 'after' : x === 'before') : true; }); draw(); window.scrollTo({top: $('cv').getBoundingClientRect().top + scrollY - 80, behavior: 'smooth'}); };
+
+  drawList(); plan();
+  var start = (location.hash || '').slice(1); open(clicks.some(function(c){ return c.key === start; }) ? start : listed()[0].key);
+})();
+</script>
+</body></html>

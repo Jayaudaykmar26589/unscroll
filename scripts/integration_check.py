@@ -24,7 +24,7 @@ import websocket
 
 ROOT = Path(__file__).resolve().parents[1]
 CHROME = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-PAGES = ["home.html", "story.html", "how.html", "evaluate.html", "index.html", "read.html", "predict.html"]
+PAGES = ["home.html", "story.html", "how.html", "explore.html", "agent.html", "evaluate.html", "index.html", "read.html", "predict.html"]
 # buttons that call a model service or the microphone: not clicked (they are disabled on static hosting anyway)
 SKIP = {"recognizeLive", "recognizeLocal", "translateLive", "voiceBtn"}
 IGNORE_FAIL = ("favicon.ico",)
@@ -137,6 +137,33 @@ def check_page(tab, base, page):
         d = tab.js("document.getElementById('dist').textContent+' | '+document.getElementById('corr').textContent")
         if "µm" not in d:
             report["problems"].append("story slice meter empty: " + d)
+    if page == "explore.html":
+        time.sleep(1.5)
+        r = tab.js("(()=>{const rows=document.querySelectorAll('#rows button');const k=rows[5]&&rows[5].dataset.k;rows[5].click();return k})()")
+        time.sleep(2.5)
+        st = tab.js("({stats:document.getElementById('stats').textContent,z:document.getElementById('zout').textContent,dl:document.getElementById('dl').getAttribute('href'),"
+                    "path:document.querySelectorAll('#chart path').length,cells:document.querySelectorAll('#cells button').length,caught:document.getElementById('caught').textContent})")
+        report["notes"].append(f"explore {r}: dl={st['dl']} chart paths={st['path']} cells={st['cells']} caught={st['caught']!r}")
+        if "on the sheet" not in st["stats"] or st["path"] < 2 or st["cells"] != 30 or not str(st["dl"]).endswith(".tifxyz.zip"):
+            report["problems"].append(f"explore did not load a click: {st}")
+        tab.js("document.querySelector('#pset button[data-s=heldout]').click()")
+        tab.js("document.getElementById('budget').value=15;document.getElementById('budget').dispatchEvent(new Event('input'))")
+        if "9 of 15" not in tab.js("document.getElementById('caught').textContent"):
+            report["problems"].append("review planner: 15 of 30 held-out should catch 9 of 15 (reports/triage/triage.json)")
+        ok = tab.js(f"fetch({json.dumps(st['dl'])}).then(r=>r.ok?r.arrayBuffer().then(b=>b.byteLength):-r.status).catch(e=>'fetch blocked: '+e)")
+        if isinstance(ok, (int, float)) and ok < 1000:
+            report["problems"].append(f"tifxyz download {st['dl']}: {ok}")
+        report["notes"].append(f"tifxyz bytes: {ok}")
+    if page == "agent.html":
+        tab.js("document.querySelectorAll('#sess button')[2].click()")
+        time.sleep(0.5)
+        for _ in range(9):
+            tab.js("document.getElementById('next').click()")
+        time.sleep(0.6)
+        st = tab.js("({note:document.getElementById('statenote').textContent,focus:document.getElementById('focus').textContent,events:document.querySelectorAll('#feed .ev').length})")
+        report["notes"].append(f"agent step 10: {st['note'][:80]!r}")
+        if "kept 58" not in st["note"] or st["events"] < 10:
+            report["problems"].append(f"agent replay state wrong at step 10: {st}")
     if page == "how.html":
         tab.js("window.UNSCROLL_HOW.seek(70)")
         time.sleep(0.5)
@@ -147,7 +174,7 @@ def check_page(tab, base, page):
     for h in sorted(set(links)):
         target, _, frag = h.partition("#")
         target = target.split("?")[0]
-        if target and target not in PAGES and not target.startswith(("eval/", "assets/")):
+        if target and target not in PAGES and not target.startswith(("eval/", "assets/", "explore/")):
             report["notes"].append("link to non-page " + h)
         if frag:
             if target in ("", page):
