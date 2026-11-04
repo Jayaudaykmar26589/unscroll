@@ -5,11 +5,23 @@ Judging rubric (participant guide): Impact 30%, Use of Meta AI tooling 25%, Tech
 Demo 25%. Required: PUBLIC repo + 3-minute video showing only what was built here.
 Current self-rating: ~7.3/10 now, ~7.8 with a strong video. Biggest gap: "Unscroll doesn't read new text".
 
+## UPDATE 2026-11-04 (latest): steps 2 and most of 4 DONE
+- Public repo: https://github.com/Jayaudaykmar26589/unscroll (branch main). Commits carry NO
+  Claude Co-Authored-By line (user asked to remove Claude as contributor; history rewritten once).
+- GitHub Pages on (main, root, .nojekyll): https://jayaudaykmar26589.github.io/unscroll/viewer/story.html
+  and .../viewer/home.html. Linked at the top of README and docs/submission.md "Links".
+- Step 2 messaging done: README + submission open with "has not read new text"; dev-set tie with
+  optical flow stated; triage claim gives set size (30 traces, 15 wrong); 4.8 GB labelled an
+  estimate; tests/test_attention_patch.py proves chunked attention bit-identical on CPU fp32.
+  .gitignore no longer drops reports/*.json. Suite: 149 passed, 1 skipped.
+- LEFT: video (step 3, script rewrite), Vesuvius permission screenshot into docs/ (user has it),
+  submission form, then rotate tokens; ask about _archive/.
+
 ## Standing rules (from the user; keep)
 - Heavy compute on Kaggle GPU ("Work on the Kaggle. Avoid downloading"); token in ~/.kaggle/access_token.
 - Never use -contributor Meta model variants. No Meta logos/branding. No credentials via browser.
 - Only copy content whose licence allows it (Scroll 1 data CC BY-NC with credit; others link only).
-- Commit/push only when the user asks; the public GitHub repo URL must come from the user.
+- Commit/push only when the user asks. Never add a Claude Co-Authored-By line.
 - Moving scratch files into _archive/ still needs the user's approval.
 - Be honest: no claim of new text; report negative results.
 
@@ -103,7 +115,7 @@ smoothing (0.21 -> 0.63, plus cost-of-reading if done) -> close. Keep the "Hacka
 
 ### 4. Ship
 - Ask the user for an empty PUBLIC GitHub repo URL; then `git add -A` (dry run first with
-  `git add -n .`), commit (end message with the Co-Authored-By line), push. external/sam3 stays out.
+  `git add -n .`), commit (no Claude Co-Authored-By line), push. external/sam3 stays out.
 - Submission form (docs/submission.md has paste-ready text): "Built during the hackathon" paragraph,
   Best Agentic Use-Case, Vesuvius permission screenshot, video link; check links signed out.
 - After submitting: user rotates Kaggle token + API key; ask about _archive/; optional X post.
