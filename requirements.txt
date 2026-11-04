@@ -1,0 +1,27 @@
+# Unscroll pinned environment (venv, python 3.12, Windows, CUDA 12.1).
+# torch/torchvision from: --index-url https://download.pytorch.org/whl/cu121
+numpy==1.26.4
+pyyaml==6.0.3
+pytest==9.1.1
+requests==2.34.2
+zarr==3.1.5
+tifffile==2026.3.3
+torch==2.5.1
+torchvision==0.20.1
+huggingface_hub==2.3.0
+openai==3.39.0
+meta-sam-parser==0.1.0
+imageio==2.38.1
+imageio-ffmpeg==0.6.0
+timm==1.0.30
+ftfy==6.1.1
+regex==2026.9.29
+iopath==0.1.10
+pillow==12.3.0
+einops==0.8.2
+opencv-python==5.0.0.93  # EDT fallback (vendored sam3 patch); numpy>=2 warning ignored
+pycocotools==2.0.11
+psutil==7.2.2
+scipy==1.18.1  # imports with numpy-version warning; unused unless sam3 needs it
+# Vendored (not pip): external/sam3 @ main (triton->cv2 EDT patch, see scripts/patch_sam3_edt.py)
+# Weights (manual, gated): facebook/sam3.1 sam3.1_multiplex.pt -> checkpoints/

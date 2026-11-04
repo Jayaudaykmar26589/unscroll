@@ -1,0 +1,16 @@
+﻿VERDICT: Lines 1â€“262 of [unscroll.md](/D:/Meta/unscroll/docs/designs/unscroll.md) contain almost no claims about the existing workspace, and the checkable ones are accurate â€” but the surrounding workspace metadata is inconsistent about which file is the source of truth and what its status is.
+
+Blocker
+
+- None in scope (lines 1â€“262 reference no reviews/, SITEMAP, or EGM paths, so there is no wrong-path or invented-artifact claim to block on).
+
+Major
+
+- Status contradiction: [unscroll.md](/D:/Meta/unscroll/docs/designs/unscroll.md:4) self-reports `Status: Draft`, but [SITEMAP.md](/D:/Meta/unscroll/docs/designs/SITEMAP.md:6) lists the same file as `Approved (draft gates)` with the same date. One of the two is wrong.
+- Duplicated source of truth: `design_draft.md` (repo root) and [unscroll.md](/D:/Meta/unscroll/docs/designs/unscroll.md) are byte-identical (`fc.exe`: no differences, both 18068 bytes), yet [concepts_brief.md](/D:/Meta/unscroll/concepts_brief.md:3) names `design_draft.md` as "source of truth" while [SITEMAP.md](/D:/Meta/unscroll/docs/designs/SITEMAP.md:6) names `unscroll.md` as the design. Two canonical copies will diverge on the next edit.
+
+Nit
+
+- No EGM folder exists anywhere under `D:\Meta\unscroll` (only `docs/` and `reviews/` plus two root `.md` files). Nothing in lines 1â€“262 claims one exists, so this is not a design error â€” recorded only because the EGM folder was in the audit target list.
+- `data/recipe.lock` ([unscroll.md](/D:/Meta/unscroll/docs/designs/unscroll.md:135)) and `.gitignore` ([unscroll.md](/D:/Meta/unscroll/docs/designs/unscroll.md:251)) do not exist, and there is no git repo at `D:\Meta\unscroll` â€” correctly framed as future/planned in these lines, so no finding; noting the check was done.
+- Verified consistent (no action): Alternative A characterization ([unscroll.md](/D:/Meta/unscroll/docs/designs/unscroll.md:211)) matches the brief's Part 1 synthetic generator + ground truth ([concepts_brief.md](/D:/Meta/unscroll/concepts_brief.md:32-44)); the "author's pivot to public-data training" ([unscroll.md](/D:/Meta/unscroll/docs/designs/unscroll.md:217)) matches the brief's pivot banner ([concepts_brief.md](/D:/Meta/unscroll/concepts_brief.md:3)); all header dates (2026-10-27) match filesystem mtimes; the review report's target `../concepts_brief.md` ([goldfish_brainstorm_report.md](/D:/Meta/unscroll/reviews/goldfish_brainstorm_report.md:4)) and `raw/lens-*.txt` glob resolve (6 lens files present, matching the 6 listed lenses). Hackathon cutoff / $150-credit claims ([unscroll.md](/D:/Meta/unscroll/docs/designs/unscroll.md:16-18)) are explicitly marked verify-in-portal and are not workspace-checkable.

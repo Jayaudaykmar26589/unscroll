@@ -1,0 +1,10 @@
+# Jump-guard thresholds (design C2). Tier C: advisory-only.
+# Layer identity requires a reference curve. Angles of local tangents are not
+# winding around the scroll center and cannot identify a layer jump.
+# 2 voxels = existing G1 spatial tolerance; runs use physical arc length.
+layer_distance_voxels: 2.0
+layer_min_run_voxels: 3.0
+layer_min_overlap: 0.5
+spacing_frac: 0.30
+spacing_window: 10
+kink_deg: 60.0

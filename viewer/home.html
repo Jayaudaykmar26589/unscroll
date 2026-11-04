@@ -1,0 +1,92 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unscroll</title><link rel="stylesheet" href="style.css">
+<style>
+.hm-nav{display:flex;gap:22px;font-size:13px}.hm-nav a{text-decoration:none;color:var(--muted)}.hm-nav a.active{color:var(--teal)}
+.hero{padding:56px 0 30px;max-width:1000px}
+.hero h1{font-size:clamp(36px,4.6vw,66px)}
+.hero .lede{font-size:16px;max-width:720px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:10px 0 34px}
+a.stat{display:block;color:inherit;text-decoration:none}a.stat:hover .n{color:var(--teal)}
+@media (max-width:1200px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{border-top:2px solid var(--teal);padding-top:14px}
+.stat .n{font-size:40px;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+.stat .n small{font-size:16px;color:var(--muted)}
+.stat p{color:var(--muted);font-size:13px;line-height:1.6;margin:6px 0 0;max-width:340px}
+.flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:6px 0 36px}
+.flow div{padding:14px 14px 16px;border-right:1px solid var(--line);background:var(--panel)}
+.flow div:last-child{border-right:0}
+.flow .s{font-size:10px;letter-spacing:1.5px;color:var(--muted)}
+.flow .t{font-size:14px;margin-top:6px}
+.flow .m{font-size:11px;color:var(--teal);margin-top:6px}
+.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;padding-bottom:40px}
+@media (max-width:1200px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{display:block;text-decoration:none;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px}
+.card:hover,.card:focus-visible{border-color:var(--teal)}
+.card h3{font-size:18px;font-weight:400;margin:0 0 8px}.card p{color:var(--muted);font-size:13px;line-height:1.6;margin:0}
+.cards.three{padding-bottom:12px}@media (min-width:1201px){.cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.card .go{color:var(--teal);font-size:12px;margin-top:12px;display:inline-block}
+.limits{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--muted);font-size:12px;line-height:1.7;max-width:900px}
+@media (max-width:900px){.stats,.cards{grid-template-columns:minmax(0,1fr)}.flow{grid-template-columns:repeat(2,minmax(0,1fr))}.flow div{border-bottom:1px solid var(--line)}}
+</style></head><body>
+<header><a class="brand" href="home.html">◉ <strong>unscroll</strong><span>HERCULANEUM SCROLL TRACING</span></a><nav class="hm-nav"><a class="active" href="home.html" aria-current="page">Home</a><a href="story.html">Story</a><a href="evaluate.html">Evaluation</a><a href="index.html">Surface workbench</a><a href="read.html">Read &amp; Translate</a><a href="predict.html">Predict</a></nav><div class="local">● RUNS OFFLINE <span>8 GB laptop · Kaggle T4 for batches</span></div></header>
+<main>
+<section class="hero"><p class="eyebrow">META GLOBAL AI DEVELOPER HACKATHON · PUSH THE FRONTIER</p>
+<h1>Click one layer of a 2,000-year-old scroll. <em>Know whether the AI stayed on it.</em></h1>
+<p class="lede">The Herculaneum scrolls were carbonized by Vesuvius in 79 AD and cannot be opened. They are read from CT scans by tracing each papyrus sheet through thousands of slices, where neighbouring sheets are crushed together. Unscroll turns one click into a SAM 3.1 trace and then measures, against sheets people traced by hand, whether the trace stayed on the right sheet. If a trace slips onto the neighbouring sheet, everything after it reads the wrong papyrus, and nothing warns you.</p></section>
+<section class="stats" id="stats"></section>
+<section><p class="eyebrow">HOW IT WORKS</p>
+<div class="flow">
+<div><div class="s">1 · CLICK</div><div class="t">Pick a sheet on one CT slice</div><div class="m">real Scroll 1 CT</div></div>
+<div><div class="s">2 · TRACK</div><div class="t">Follow it slice by slice</div><div class="m">SAM 3.1 video tracking</div></div>
+<div><div class="s">3 · REFINE</div><div class="t">Walk the bright ridge, never jump a gap</div><div class="m">CT ridge walk</div></div>
+<div><div class="s">4 · MEASURE</div><div class="t">Distance to human-traced layers</div><div class="m">exact triangle distance</div></div>
+<div><div class="s">5 · REVIEW &amp; GROW</div><div class="t">Second opinion; an agent re-seeds where tracking stops</div><div class="m">Muse Spark 1.3 · Muse Wonder</div></div>
+<div><div class="s">6 · UNROLL &amp; READ</div><div class="t">Flatten the sheet; detect ink; read and translate</div><div class="m">Grand Prize ink model · Muse Spark 1.3</div></div>
+</div><p class="limits" style="border:0;padding:0 0 30px;margin-top:-18px"><strong>Words used here.</strong> <em>Sheet</em>: one layer of rolled papyrus. <em>Slice</em>: one CT image across the scroll. <em>Trace</em>: the line the AI draws along one sheet, slice after slice. <em>Click</em>: where a person points at a sheet to start a trace. 40 µm is 5 voxels (image pixels) of this scan, which has 7.91 µm voxels.</p></section>
+<section><p class="eyebrow">VESUVIUS CHALLENGE OPEN PROBLEMS THIS ADDRESSES</p>
+<div class="cards three">
+<a class="card" href="https://scrollprize.org/2026_open_problems" target="_blank" rel="noreferrer"><h3>#2 · Meshing and tracing</h3><p><strong>The Challenge says:</strong> traces switching onto a neighbouring sheet are a main failure; one small error sends a trace onto the wrong sheet.</p><p style="margin-top:8px"><strong>Unscroll:</strong> measures those switches against sheets people traced, on 89 clicks with classic baselines; the first-slice fix reduces them.</p><span class="go">Vesuvius Challenge open problems ↗</span></a>
+<a class="card" href="https://scrollprize.org/2026_open_problems" target="_blank" rel="noreferrer"><h3>#5 · Label quality</h3><p><strong>The Challenge says:</strong> hand-made traces drift and jump sheets; ask people to fix only the uncertain parts.</p><p style="margin-top:8px"><strong>Unscroll:</strong> ranks traces riskiest-first without a reference; on held-out clicks, checking 73% of traces catches every wrong-sheet one.</p><span class="go">Vesuvius Challenge open problems ↗</span></a>
+<a class="card" href="https://scrollprize.org/2026_open_problems" target="_blank" rel="noreferrer"><h3>#6 · Ink diagnostics</h3><p><strong>The Challenge says:</strong> better diagnostics are needed to tell “no ink” from “ink not yet recovered”.</p><p style="margin-top:8px"><strong>Unscroll:</strong> a steady error under 40 µm keeps the letters; wobble from slice to slice of 16–40 µm destroys them.</p><span class="go">Vesuvius Challenge open problems ↗</span></a>
+</div><p class="limits" style="border:0;padding:0 0 36px">A measuring tool for tracers on the 7.91 µm Scroll 1 volume, not a replacement for the community’s tracing tools on newer 2.4 µm scans.</p></section>
+<section class="cards">
+<a class="card" href="story.html"><h3>Start here: the story</h3><p>Five things you can touch: crush a scroll, follow one sheet through 50 real CT slices, push a trace off the ink, run the 74-click test and flip the true-or-false cards. Written for someone who has never seen a CT scan.</p><span class="go">Open the story →</span></a>
+<a class="card" href="evaluate.html"><h3>Does it stay on the sheet?</h3><p>89 clicks on sheets people traced by hand, each traced through 20 CT slices before and after the first-slice fix, compared with classic tracers. Animations, the ink tests and the Muse Spark reviewer.</p><span class="go">Open evaluation →</span></a>
+<a class="card" href="evaluate.html#lettersection"><h3>Reading letters</h3><p>On a sheet with known Greek text, the 2023 Grand Prize ink model (not ours) reads the letters through Unscroll's pipeline. Unscroll measures how close its own traces must be, and how smoothing them brings ink back.</p><span class="go">Open reading results →</span></a>
+<a class="card" href="index.html"><h3>Inspect a trace</h3><p>Scrub slice by slice through a traced patch, compare against a released surface, jump to the largest error, mark review points and export evidence.</p><span class="go">Open surface workbench →</span></a>
+<a class="card" href="read.html"><h3>Read &amp; translate</h3><p>A published Greek passage from the same scroll: Muse Spark suggests readings and English and Tamil translations; a person accepts or corrects each line, with an audit trail.</p><span class="go">Open reading →</span></a>
+</section>
+<p class="limits">What this is not: Unscroll has not read new text, and its traces are not perfect: half of each trace is still more than 40 µm off. Results come from 89 clicks on one 20-slice block of Scroll 1 (15 used while building the fix, 74 never used), measured against sheets traced by the Vesuvius Challenge community, plus a small probe on the newer 2.4 µm scan. The Greek reading uses a published transcription, not text recovered by these traces. Data: EduceLab-Scrolls (Parsons et al., 2023), used with the Vesuvius Challenge team's permission. SAM 3.1 under the SAM License.</p>
+<p class="limits"><strong>Built during the hackathon:</strong> the click-to-trace pipeline and its first-slice fix, four fixes to SAM 3.1's code, the evaluation and baselines, the Muse Wonder agent, the Muse Spark reviewer, QA notes and triage, unrolling, the ink drift test and this web app. <strong>Used, not built:</strong> SAM 3.1 and the Muse models (Meta), the 2023 Grand Prize ink model and every ink map it produces, the CT, the human-traced layers and the published transcriptions (Vesuvius Challenge).</p>
+<p class="bgcredit">Background: Scroll 1 (PHerc. Paris. 4), CT slice 6100, EduceLab-Scrolls / Vesuvius Challenge, <a href="https://scrollprize.org/data" target="_blank" rel="noreferrer">CC BY-NC 4.0</a>. Teal: ten Unscroll SAM 3.1 traces from development clicks that stayed on the clicked layer.</p></main>
+<script src="eval-data.js"></script>
+<script>
+(function(){
+  var E = window.UNSCROLL_EVAL, el = document.getElementById('stats');
+  if (!E) { el.innerHTML = '<p class="note">Run scripts/build_evaluation.py to load results.</p>'; return; }
+  var pc = function(x){ return Math.round(100*x) + '%'; }, f2 = function(x){ return x.toFixed(2); };
+  var stat = function(n, p, href){ return '<a class="stat" href="evaluate.html#' + href + '"><div class="n">'+n+'</div><p>'+p+'</p></a>'; };
+  var out = '';
+  var N = E.compare && E.compare.groups.new_clicks;
+  if (N) {
+    var b = N.methods.before, a = N.methods.after, vb = N.vs_after.before, vf = N.vs_after.flow;
+    out += stat(pc(a.median) + ' <small>was ' + pc(b.median) + '</small>',
+      'of each trace stays within 40 µm of the sheet people traced by hand, after the first-slice fix. Median of ' + N.clicks + ' clicks never used while building it; better on ' + vb.after_better + ', worse on ' + vb.after_worse + '.', 'comparesection');
+    out += stat('+' + Math.round(100*vf.mean_gain*10)/10 + ' <small>points</small>',
+      'over a classic optical-flow tracer started from the same first slice (95% interval ' + pc(vf.mean_gain_ci95[0]) + ' to ' + pc(vf.mean_gain_ci95[1]) + '). SAM 3.1 follows the sheet better and stops when it loses it.', 'comparesection');
+  }
+  var S = E.shift;
+  if (S) {
+    var c5 = S.constant.filter(function(c){ return Math.abs(c.offset_vx) === 5; }).reduce(function(s, c, i, arr){ return s + c.corr_with_official_ink / arr.length; }, 0);
+    var w5 = S.wobble.filter(function(w){ return w.median_offset_vx === 5; })[0].corr_with_official_ink;
+    out += stat(f2(c5) + ' <small>vs ' + f2(Math.max(w5, 0)) + '</small>',
+      'ink agreement when a perfect surface is moved 40 µm off the sheet: steadily, or wobbling from slice to slice. Wobble, not distance, destroys the letters.', 'shiftsection');
+  }
+  var M = E.smooth;
+  if (M && M.rows.length > 1) {
+    out += stat(f2(M.rows[0].ink_corr_with_official_all_matched) + ' <small>→ ' + f2(M.rows[M.rows.length - 1].ink_corr_with_official_all_matched) + '</small>',
+      'ink agreement on Unscroll\'s own trace after smoothing out the wobble (perfect surface: ' + f2(M.control) + '). Broad strokes so far, not readable letters.', 'smoothsection');
+  }
+  el.innerHTML = out;
+})();
+</script>
+</body></html>

@@ -1,0 +1,177 @@
+{
+  "segment": "20230827161847",
+  "volume": "20230205180739",
+  "zarr": "54keV_7.91um_Scroll1A.zarr level 0 (uint8)",
+  "window": {
+    "image_rows": [
+      3650,
+      4650
+    ],
+    "image_cols": [
+      3000,
+      3400
+    ],
+    "official_mean_ink": 0.4916456639766693,
+    "official_ink_std": 0.3317282497882843,
+    "z_range": [
+      10655.965116995674,
+      11068.310391249006
+    ]
+  },
+  "crop": {
+    "z": [
+      10653,
+      11072
+    ],
+    "y": [
+      2250,
+      3189
+    ],
+    "x": [
+      2271,
+      3822
+    ],
+    "shape": [
+      419,
+      939,
+      1551
+    ]
+  },
+  "calibration": {
+    "gain": 0.6293211310370458,
+    "offset": 84.22925517485598,
+    "corr_zarr_vs_official": 0.977156063860234
+  },
+  "control": {
+    "mean_ink": 0.6305627822875977,
+    "corr_with_official_ink": 0.831314922994842
+  },
+  "shift_curve": {
+    "constant": [
+      {
+        "offset_vx": 0,
+        "corr_with_official_ink": 0.831314922994842,
+        "mean_ink": 0.6305627822875977
+      },
+      {
+        "offset_vx": 1,
+        "corr_with_official_ink": 0.8313055414680549,
+        "mean_ink": 0.6294561624526978
+      },
+      {
+        "offset_vx": -1,
+        "corr_with_official_ink": 0.828734578599025,
+        "mean_ink": 0.6319117546081543
+      },
+      {
+        "offset_vx": 2,
+        "corr_with_official_ink": 0.8268375146448735,
+        "mean_ink": 0.6303519606590271
+      },
+      {
+        "offset_vx": -2,
+        "corr_with_official_ink": 0.8237779028271683,
+        "mean_ink": 0.6340758800506592
+      },
+      {
+        "offset_vx": 3,
+        "corr_with_official_ink": 0.8184318601855983,
+        "mean_ink": 0.6334880590438843
+      },
+      {
+        "offset_vx": -3,
+        "corr_with_official_ink": 0.8188977403014763,
+        "mean_ink": 0.6358675360679626
+      },
+      {
+        "offset_vx": 4,
+        "corr_with_official_ink": 0.8055609871123718,
+        "mean_ink": 0.6368592977523804
+      },
+      {
+        "offset_vx": -4,
+        "corr_with_official_ink": 0.8066134898526343,
+        "mean_ink": 0.6341668963432312
+      },
+      {
+        "offset_vx": 5,
+        "corr_with_official_ink": 0.79416201863505,
+        "mean_ink": 0.6392509341239929
+      },
+      {
+        "offset_vx": -5,
+        "corr_with_official_ink": 0.7965695430231183,
+        "mean_ink": 0.6309666633605957
+      },
+      {
+        "offset_vx": 7,
+        "corr_with_official_ink": 0.7383457138083028,
+        "mean_ink": 0.6533448696136475
+      },
+      {
+        "offset_vx": -7,
+        "corr_with_official_ink": 0.7787188891626394,
+        "mean_ink": 0.6017125844955444
+      },
+      {
+        "offset_vx": 10,
+        "corr_with_official_ink": 0.6268752288098953,
+        "mean_ink": 0.6821712255477905
+      },
+      {
+        "offset_vx": -10,
+        "corr_with_official_ink": 0.6619335214879174,
+        "mean_ink": 0.5797272324562073
+      }
+    ],
+    "wobble": [
+      {
+        "median_offset_vx": 1,
+        "corr_with_official_ink": 0.6333254799918344,
+        "runs": [
+          0.6257935532382294,
+          0.6516073168821579,
+          0.622575569855116
+        ]
+      },
+      {
+        "median_offset_vx": 2,
+        "corr_with_official_ink": 0.4994513280426169,
+        "runs": [
+          0.4885248814755278,
+          0.5364548550021511,
+          0.4733742476501716
+        ]
+      },
+      {
+        "median_offset_vx": 3,
+        "corr_with_official_ink": 0.31377270729116047,
+        "runs": [
+          0.2719533437593656,
+          0.19695054312677476,
+          0.472414234987341
+        ]
+      },
+      {
+        "median_offset_vx": 5,
+        "corr_with_official_ink": 0.011033317950704469,
+        "runs": [
+          0.029837755062080133,
+          -0.008738858345273926,
+          0.012001057135307198
+        ]
+      },
+      {
+        "median_offset_vx": 7,
+        "corr_with_official_ink": -0.10319187668135911,
+        "runs": [
+          -0.10545246354032559,
+          -0.11273898997448187,
+          -0.09138417652926989
+        ]
+      }
+    ],
+    "method": "official surface of segment 20230827161847 moved along its ppm normals; GP ink model; correlation with GP on the official layers"
+  },
+  "minutes": 8.4
+}

@@ -1,0 +1,43 @@
+{
+  "curves": "D:\\Meta\\unscroll\\reports\\flatten\\curves_20231210121321_merged",
+  "click": [
+    3493.0,
+    2426.0
+  ],
+  "rows": 58,
+  "rows_traced": 58,
+  "columns": 312,
+  "anchor_column": 212,
+  "normal_offsets_vx": [
+    -6,
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "layers_in_flat_layers_png": [
+    -6,
+    -3,
+    0,
+    3,
+    6
+  ],
+  "z_range": [
+    6101,
+    6159
+  ],
+  "z_range_traced": [
+    6101,
+    6159
+  ],
+  "image_rows": 58,
+  "voxel_um": 7.91
+}

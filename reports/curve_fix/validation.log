@@ -1,0 +1,129 @@
+validated 06100.tif
+validated 06101.tif
+validated 06102.tif
+validated 06103.tif
+validated 06104.tif
+validated 06105.tif
+validated 06106.tif
+validated 06107.tif
+validated 06108.tif
+validated 06109.tif
+validated 06110.tif
+validated 06111.tif
+validated 06112.tif
+validated 06113.tif
+validated 06114.tif
+validated 06115.tif
+validated 06116.tif
+validated 06117.tif
+validated 06118.tif
+validated 06119.tif
+validated 06120.tif
+validated 06121.tif
+validated 06122.tif
+validated 06123.tif
+validated 06124.tif
+validated 06125.tif
+validated 06126.tif
+validated 06127.tif
+validated 06128.tif
+validated 06129.tif
+validated 06130.tif
+validated 06131.tif
+validated 06132.tif
+validated 06133.tif
+validated 06134.tif
+validated 06135.tif
+validated 06136.tif
+validated 06137.tif
+validated 06138.tif
+validated 06139.tif
+validated 06140.tif
+validated 06141.tif
+validated 06142.tif
+validated 06143.tif
+validated 06144.tif
+validated 06145.tif
+validated 06146.tif
+validated 06147.tif
+validated 06148.tif
+validated 06149.tif
+sheet: (50, 512, 2) reports\curve_fix\sheet_corrected\sheet.json
+surface: (50, 512, 9) float32
+{
+  "limitations": "No aligned ground truth: geometry and ridge proxies only. Raw ordering compares identical masks without ridge snapping or seeds; final curves compare the saved historical run and a fresh GPU run. Shorter paths can lower distortion by discarding branches; inspect coverage.",
+  "same_mask_raw_ordering": {
+    "baseline": {
+      "slices": 50,
+      "points": 8774,
+      "edges": 8724,
+      "steps_gt20": 1263,
+      "steps_gt_sqrt2": 4198,
+      "turns_gt60": 3723,
+      "max_step": 123.01625908797584,
+      "mean_arc_length": 1762.285854309533
+    },
+    "corrected": {
+      "slices": 50,
+      "points": 8782,
+      "edges": 8732,
+      "steps_gt20": 0,
+      "steps_gt_sqrt2": 0,
+      "turns_gt60": 607,
+      "max_step": 1.4142135623730951,
+      "mean_arc_length": 185.2604357392462
+    }
+  },
+  "final_curves": {
+    "baseline": {
+      "slices": 50,
+      "points": 8774,
+      "edges": 8724,
+      "steps_gt20": 3215,
+      "steps_gt_sqrt2": 8286,
+      "turns_gt60": 5988,
+      "max_step": 246.41998701404037,
+      "mean_arc_length": 4396.055127565499,
+      "mean_ridge_frac2": 0.7846821172218096,
+      "ridge_slices_ge_0_5": 50
+    },
+    "corrected": {
+      "slices": 50,
+      "points": 8782,
+      "edges": 8732,
+      "steps_gt20": 1062,
+      "steps_gt_sqrt2": 8158,
+      "turns_gt60": 5052,
+      "max_step": 43.92095172010717,
+      "mean_arc_length": 1439.373291250173,
+      "mean_ridge_frac2": 0.7815058122049066,
+      "ridge_slices_ge_0_5": 50
+    }
+  },
+  "flattening": {
+    "baseline": {
+      "shape": [
+        50,
+        512,
+        2
+      ],
+      "along_step_p95": 11.231522341719948,
+      "along_step_max": 12.87922785575333,
+      "cross_slice_distance_median": 27.893210386001517,
+      "cross_slice_distance_p95": 93.37643958635262,
+      "duplicate_edge_fraction": 0.06567514677103718
+    },
+    "corrected": {
+      "shape": [
+        50,
+        512,
+        2
+      ],
+      "along_step_p95": 3.5603346255654937,
+      "along_step_max": 3.8176755990934805,
+      "cross_slice_distance_median": 15.985631738638329,
+      "cross_slice_distance_p95": 41.375874265778,
+      "duplicate_edge_fraction": 0.06313111545988258
+    }
+  }
+}

@@ -1,0 +1,348 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unscroll · Evaluation</title><link rel="stylesheet" href="style.css">
+<style>
+.ev-nav{display:flex;gap:22px;font-size:13px}.ev-nav a{text-decoration:none;color:var(--muted)}.ev-nav a.active{color:var(--teal)}
+.ev-section{padding:34px 0;border-bottom:1px solid var(--line)}
+.ev-section h2{font-size:24px;font-weight:400;letter-spacing:-.5px;margin:0 0 6px}
+.ev-section p.note{color:var(--muted);font-size:13px;line-height:1.7;max-width:820px;margin:0 0 18px}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px}
+.tile .k{font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase}
+.tile .v{font-size:30px;margin-top:6px;font-variant-numeric:tabular-nums}.tile .v small{font-size:14px;color:var(--muted)}
+details.more{border-bottom:1px solid var(--line)}details.more>summary{cursor:pointer;padding:26px 0;color:var(--teal);font-size:15px}
+a.tile{display:block;color:inherit;text-decoration:none}a.tile:hover{border-color:var(--teal)}
+.tile .d{font-size:12px;color:var(--muted);margin-top:4px}
+.up{color:var(--teal)}.down{color:var(--pink)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{font-size:10px;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase;font-weight:600}
+td:first-child,th:first-child{text-align:left}tr:last-child td{border-bottom:0}
+.pill{display:inline-block;font-size:10px;letter-spacing:1px;padding:2px 8px;border-radius:99px;border:1px solid}
+.pill.on{color:var(--teal);border-color:var(--teal)}.pill.off{color:var(--pink);border-color:var(--pink)}
+.bar{display:inline-block;height:6px;border-radius:3px;background:var(--teal);vertical-align:middle;margin-left:8px}
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.gallery figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.gallery img{width:100%;display:block}.gallery figcaption{padding:10px 14px;font-size:12px;color:var(--muted)}
+.gallery figcaption strong{color:var(--text);font-weight:600}
+.shiftimgs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}.shiftimgs figure{margin:0}.shiftimgs img{width:100%;display:block;border-radius:4px;filter:invert(1)}.shiftimgs figcaption{font-size:11px;color:var(--muted);margin-top:4px}
+@media (max-width:900px){.shiftimgs{grid-template-columns:repeat(2,minmax(0,1fr))}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery{grid-template-columns:minmax(0,1fr)}}
+</style></head><body>
+<header><a class="brand" href="index.html">◉ <strong>unscroll</strong><span>EVALUATION</span></a><nav class="ev-nav"><a href="home.html">Home</a><a href="story.html">Story</a><a href="index.html">Surface workbench</a><a href="read.html">Read &amp; Translate</a><a href="predict.html">Predict</a><a class="active" href="evaluate.html" aria-current="page">Evaluation</a></nav><div class="local">● REAL SCROLL 1 CT <span>89 clicks · 20 slices · hand-traced reference</span></div></header>
+<main>
+<section class="intro"><div><p class="eyebrow">EVALUATION ON REAL SCROLL 1 CT</p><h1>Does the trace stay on the <em>clicked sheet?</em></h1><p class="lede">Each click sits exactly on a papyrus sheet that people traced by hand and released for Scroll 1 (PHerc. Paris. 4). SAM 3.1 follows it through 20 CT slices, and every trace is then measured against that hand-made trace, which the tracer never sees. 89 clicks: 15 used while building the fix, 74 never used.</p></div><aside id="aside"></aside></section>
+<section class="ev-section" id="summarysection"><h2>What we found</h2><p class="note">Four results, each explained below. 40 µm is 5 voxels of this scan; a voxel is one 7.91 µm image pixel.</p><div class="tiles" id="summarytiles"></div></section>
+<section class="ev-section" id="watchsection"><h2>Watch a trace slip, and the fix</h2><p class="note">Green: the sheet people traced. Red: Unscroll's trace. Yellow: the click. Before the fix the red line jumps to a brighter neighbouring sheet; after it, it stays. The last example is the one development click that got worse, shown deliberately.</p><div class="gallery" id="gallery"></div></section>
+<section class="ev-section"><h2>Development clicks: before and after the fix</h2><p class="note">The first slice used to pick the brightest path through SAM's broad mask, which could cross a dark gap to a neighbouring sheet. The fix walks outward from the click, one voxel sideways at most per step. Same 15 clicks, same slices, same GPU setup. These clicks were used to build the fix; the sections below test it on new ones.</p><div class="tiles" id="tiles"></div></section>
+<section class="ev-section" id="heldsection" hidden><h2>Held-out check</h2><p class="note">Fifteen new clicks on the same human-traced layers, about 700 voxels from the originals, never used while developing the fix. The fix was not changed after the development run.</p><div class="tiles" id="heldtiles"></div></section>
+<section class="ev-section" id="comparesection" hidden><h2>Compared with classic tracers</h2><p class="note" id="comparenote"></p><div class="tablewrap"><table id="comparetable"></table></div><p class="note" id="comparetake" style="margin-top:14px"></p></section>
+<section class="ev-section" id="shiftsection" hidden><h2>How far can a trace drift before the letters go?</h2><p class="note" id="shiftnote"></p>
+<div style="position:relative;max-width:760px"><svg id="shiftchart" viewBox="0 0 760 340" role="img" aria-labelledby="shifttitle" style="width:100%;display:block"><title id="shifttitle">Ink agreement with the official reading against trace error in voxels, for a steady offset and for slice-to-slice wobble</title></svg><div id="shifttip" style="position:absolute;display:none;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:12px"></div></div>
+<div class="shiftimgs" id="shiftimgs"></div>
+<details style="margin-top:10px;font-size:12px;color:var(--muted)"><summary>Table view</summary><div class="tablewrap" style="margin-top:8px"><table id="shifttable"></table></div></details></section>
+<section class="ev-section" id="smoothsection" hidden><h2>Removing the wobble brings ink back on our own trace</h2><p class="note" id="smoothnote"></p><div class="tiles" id="smoothtiles"></div><div class="shiftimgs" id="smoothimgs"></div><p class="note" id="smoothcaveat" style="margin-top:14px"></p></section>
+<section class="ev-section" id="costsection" hidden><h2>The cost of reading: human clicks vs ink recovered</h2><p class="note" id="costnote"></p>
+<div style="position:relative;max-width:760px"><svg id="costchart" viewBox="0 0 760 340" role="img" aria-labelledby="costtitle" style="width:100%;display:block"><title id="costtitle">Ink agreement of Unscroll's own trace with the official ink map against smoothing strength, one line per number of human clicks</title></svg><div id="costtip" style="position:absolute;display:none;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:12px"></div></div>
+<p class="note" id="costtake" style="margin-top:12px"></p>
+<details style="margin-top:10px;font-size:12px;color:var(--muted)"><summary>Table view</summary><div class="tablewrap" style="margin-top:8px"><table id="costtable"></table></div></details></section>
+<section class="ev-section" id="probesection" hidden><h2>On the Challenge's current scan: 2.4 µm probe</h2><p class="note" id="probenote"></p><div class="tablewrap"><table id="probetable"></table></div><div class="shiftimgs" id="probeimgs" style="grid-template-columns:repeat(2,minmax(0,1fr))"></div><p class="note" id="probecaveat" style="margin-top:14px"></p></section>
+<section class="ev-section" id="triagesection" hidden><h2>Which traces to check first</h2><p class="note" id="triagenote"></p><div class="tiles" id="triagetiles"></div>
+<div style="position:relative;max-width:760px;margin-top:18px"><svg id="triagechart" viewBox="0 0 760 360" role="img" aria-labelledby="triagetitle" style="width:100%;display:block"><title id="triagetitle">Share of wrong-layer traces caught against share of traces reviewed, riskiest first</title></svg><div id="triagetip" role="status" style="position:absolute;pointer-events:none;display:none;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px 10px;font-size:12px;white-space:nowrap"></div></div>
+<details style="margin-top:10px;font-size:12px;color:var(--muted)"><summary>Table view</summary><div class="tablewrap" style="margin-top:8px"><table id="triagetable"></table></div></details></section>
+<details class="more"><summary>More detail: every click, Muse Spark QA notes, reading letters, the unrolled surface and the Muse Spark reviewer</summary><div>
+<section class="ev-section"><h2>Every development click</h2><p class="note" id="seednote"></p><div class="tablewrap"><table id="seedtable"></table></div></section>
+<section class="ev-section" id="qasection" hidden><h2>Spark QA notes</h2><p class="note">Muse Spark writes a short note per seed for a scholar deciding whether to trust the trace. Every number in a note is checked automatically against the measured facts it was given; notes that fail are not shown.</p>
+<label for="qaseed" style="font-size:12px;color:var(--muted)">Seed</label> <select id="qaseed" style="background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:4px;padding:6px 8px;font:inherit;font-size:13px;margin-left:6px"></select>
+<blockquote id="qatext" style="margin:14px 0 0;padding:14px 18px;border-left:2px solid var(--teal);background:var(--panel);font-size:14px;line-height:1.7;max-width:820px"></blockquote></section>
+<section class="ev-section" id="lettersection" hidden><h2>Reading letters: where it works and where it doesn't yet</h2><p class="note" id="letternote"></p><div id="letters"></div></section>
+<section class="ev-section" id="sheetsection" hidden><h2>Unrolled papyrus surface</h2><p class="note" id="sheetnote"></p><div id="sheets"></div></section>
+<section class="ev-section"><h2>Muse Spark as a trace reviewer</h2><p class="note" id="sparknote"></p><div class="tiles" id="sparktiles"></div></section>
+</div></details>
+<section class="ev-section"><p class="note">Limits: one 20-slice block of Scroll 1 (slices 6100–6119) at 7.91 µm, 89 clicks on 15 hand-traced sheets, plus an 8-click probe at 2.4 µm. Hand-made traces may mark a sheet's face rather than its bright centre (about 3 voxels). No new text has been read. Data: EduceLab-Scrolls, Parsons et al. (2023), used with the Vesuvius Challenge team's permission.</p></section>
+<p class="bgcredit">Background: Scroll 1 (PHerc. Paris. 4), CT slice 6100, EduceLab-Scrolls / Vesuvius Challenge, <a href="https://scrollprize.org/data" target="_blank" rel="noreferrer">CC BY-NC 4.0</a>. Teal: ten Unscroll SAM 3.1 traces from development clicks that stayed on the clicked layer.</p></main>
+<script src="eval-data.js"></script>
+<script>
+(function(){
+  var E = window.UNSCROLL_EVAL;
+  if (!E) { document.querySelector('main').insertAdjacentHTML('afterbegin','<p class="note">eval-data.js is missing: run scripts/build_evaluation.py.</p>'); return; }
+  var pct = function(x){ return x == null ? '—' : (100*x).toFixed(1) + '%'; };
+  var vx = function(x){ return x == null ? '—' : x.toFixed(1); };
+  var dp = E.summary.dp, wk = E.summary.walk;
+  var on = function(m){ return E.seeds.filter(function(s){ return s[m].median_dist != null && s[m].median_dist <= E.on_layer_vx; }).length; };
+  var improved = E.seeds.filter(function(s){ return (s.walk.within5||0) > (s.dp.within5||0); }).length;
+  var NC = E.compare && E.compare.groups.new_clicks;
+  var pc0 = function(x){ return Math.round(100*x) + '%'; }, f2s = function(x){ return x.toFixed(2); };
+  document.getElementById('aside').innerHTML = NC
+    ? '<p class="eyebrow">HEADLINE</p><p style="font-size:15px;line-height:1.7">On ' + NC.clicks + ' clicks never used while building the fix, the share of each trace within 40 µm of the hand-traced sheet rose from <strong>' +
+      pc0(NC.methods.before.median) + '</strong> to <strong class="up">' + pc0(NC.methods.after.median) + '</strong> (median). Better on ' + NC.vs_after.before.after_better + ' clicks, worse on ' + NC.vs_after.before.after_worse + '.</p>'
+    : '<p class="eyebrow">HEADLINE</p><p style="font-size:15px;line-height:1.7">Share of trace within 40 µm: <strong>' + pct(dp.within5_median) + '</strong> → <strong class="up">' + pct(wk.within5_median) + '</strong> (15 development clicks).</p>';
+  var sumt = function(k, v, d, href){ return '<a class="tile" href="#' + href + '"><div class="k">' + k + '</div><div class="v">' + v + '</div><div class="d">' + d + '</div></a>'; };
+  var st = '';
+  if (NC) {
+    st += sumt('1 · The fix keeps traces on the sheet', pc0(NC.methods.after.median) + ' <small>was ' + pc0(NC.methods.before.median) + '</small>', 'of each trace within 40 µm, ' + NC.clicks + ' new clicks', 'comparesection');
+    var vf0 = NC.vs_after.flow;
+    st += sumt('2 · SAM 3.1 beats a classic tracer', '+' + Math.round(1000*vf0.mean_gain)/10 + ' <small>points</small>', 'over optical flow from the same start (95%: ' + pc0(vf0.mean_gain_ci95[0]) + '–' + pc0(vf0.mean_gain_ci95[1]) + ')', 'comparesection');
+  }
+  if (E.shift) {
+    var c5s = E.shift.constant.filter(function(c){ return Math.abs(c.offset_vx) === 5; }), c5 = c5s.reduce(function(s, c){ return s + c.corr_with_official_ink; }, 0) / c5s.length;
+    var w5 = E.shift.wobble.filter(function(w){ return w.median_offset_vx === 5; })[0].corr_with_official_ink;
+    st += sumt('3 · Wobble, not distance, kills ink', f2s(c5) + ' <small>vs ' + f2s(Math.max(w5, 0)) + '</small>', 'ink agreement: 40 µm steady offset vs 40 µm wobble', 'shiftsection');
+  }
+  if (E.smooth && E.smooth.rows.length > 1) {
+    var R = E.smooth.rows;
+    st += sumt('4 · Smoothing brings ink back', f2s(R[0].ink_corr_with_official_all_matched) + ' <small>→ ' + f2s(R[R.length - 1].ink_corr_with_official_all_matched) + '</small>', 'on Unscroll\'s own trace (perfect surface ' + f2s(E.smooth.control) + '); broad strokes, not letters yet', 'smoothsection');
+  }
+  document.getElementById('summarytiles').innerHTML = st;
+  var tile = function(k, a, b, fmt, better){ var d = better(a,b); return '<div class="tile"><div class="k">'+k+'</div><div class="v">'+fmt(b)+' <small>was '+fmt(a)+'</small></div><div class="d '+(d?'up':'down')+'">'+(d?'better':'worse')+'</div></div>'; };
+  document.getElementById('tiles').innerHTML =
+    tile('Within 40 µm (5 voxels) · median', dp.within5_median, wk.within5_median, pct, function(a,b){return b>a;}) +
+    tile('Within 16 µm (2 voxels) · median', dp.within2_median, wk.within2_median, pct, function(a,b){return b>a;}) +
+    tile('Typical distance (voxels)', dp.mean_dist_median, wk.mean_dist_median, vx, function(a,b){return b<a;}) +
+    tile('Clicks staying on the sheet', on('dp'), on('walk'), function(x){return String(x)+'/15';}, function(a,b){return b>a;});
+  var H = E.heldout || {};
+  if (H.dp && H.walk) {
+    document.getElementById('heldsection').hidden = false;
+    document.getElementById('heldtiles').innerHTML =
+      tile('Held-out · within 40 µm · median', H.dp.within5_median, H.walk.within5_median, pct, function(a,b){return b>a;}) +
+      tile('Held-out · within 16 µm · median', H.dp.within2_median, H.walk.within2_median, pct, function(a,b){return b>a;}) +
+      tile('Held-out · typical distance (voxels)', H.dp.mean_dist_median, H.walk.mean_dist_median, vx, function(a,b){return b<a;}) +
+      tile('Held-out · slices traced', H.dp.slices_traced, H.walk.slices_traced, function(x){return x+'/300';}, function(a,b){return b>a;});
+  }
+  document.getElementById('gallery').innerHTML = E.animations.map(function(a){
+    var s = E.seeds.filter(function(x){return x.id===a.id;})[0];
+    return '<figure><img src="'+a.gif+'" alt="Before and after traces for seed '+a.id+' over 20 slices"><figcaption><strong>'+a.id+
+      '</strong> · within 5 vx '+pct(s.dp.within5)+' → '+pct(s.walk.within5)+' · median '+vx(s.dp.median_dist)+' → '+vx(s.walk.median_dist)+' vx</figcaption></figure>';
+  }).join('');
+  document.getElementById('seednote').textContent = 'On layer = median distance ≤ ' + E.on_layer_vx + ' voxels. Bars show the share within 5 voxels after the fix. Check order ranks the corrected traces by reference-free risk (1 = review first); the triage rule was chosen on these seeds, so this table is in-sample.';
+  var pill = function(d){ return d==null ? '—' : '<span class="pill '+(d<=E.on_layer_vx?'on':'off')+'">'+(d<=E.on_layer_vx?'ON LAYER':'OTHER LAYER')+'</span>'; };
+  var rows = E.seeds.slice().sort(function(a,b){ return (b.walk.within5||0)-(a.walk.within5||0); });
+  document.getElementById('seedtable').innerHTML = '<thead><tr><th>Seed mesh</th><th>Before · within 5 vx</th><th>After · within 5 vx</th><th>Before · median vx</th><th>After · median vx</th><th>After</th><th>Check order</th></tr></thead><tbody>' +
+    rows.map(function(s){ return '<tr><td>'+s.id+'</td><td>'+pct(s.dp.within5)+'</td><td>'+pct(s.walk.within5)+'<span class="bar" style="width:'+Math.round(80*(s.walk.within5||0))+'px"></span></td><td>'+vx(s.dp.median_dist)+'</td><td>'+vx(s.walk.median_dist)+'</td><td>'+pill(s.walk.median_dist)+'</td><td>'+(s.check_order ? (s.check_order <= 5 ? '<strong>'+s.check_order+'</strong> · check first' : s.check_order) : '—')+'</td></tr>'; }).join('') + '</tbody>';
+  var qa = E.qa || {}, qids = Object.keys(qa);
+  if (qids.length) {
+    document.getElementById('qasection').hidden = false;
+    var sel = document.getElementById('qaseed');
+    sel.innerHTML = qids.map(function(id){ return '<option value="'+id+'">'+id+'</option>'; }).join('');
+    var show = function(){ document.getElementById('qatext').textContent = qa[sel.value].text; };
+    sel.addEventListener('change', show);
+    sel.value = qids.indexOf('20231210121321') >= 0 ? '20231210121321' : qids[0];
+    show();
+  }
+  var C = E.compare;
+  if (C && C.groups.new_clicks) {
+    document.getElementById('comparesection').hidden = false;
+    var pc = function(x){ return Math.round(100*x) + '%'; }, G = C.groups, order = ['before', 'after', 'flow', 'flowridge'];
+    document.getElementById('comparenote').textContent = 'Same clicks, same 20 slices, same scoring. The two classic tracers start from the same first-slice curve as the fixed tracer, then follow the sheet by optical flow between slices (one also snaps to the brightest point along the normal). They are generic baselines written for this test, not any community tool. Per click: share of the trace within 5 voxels of the clicked human-traced layer; a click with no trace counts as 0. Brackets: 95% bootstrap intervals.';
+    var groups = ['development', 'new_clicks'].filter(function(g){ return G[g]; });
+    var gname = {development: 'Development clicks', new_clicks: 'New clicks'};
+    document.getElementById('comparetable').innerHTML = '<tr><th rowspan="2">Tracer</th>' + groups.map(function(g){ return '<th colspan="3">' + gname[g] + ' (' + G[g].clicks + ')</th>'; }).join('') + '</tr><tr>' +
+      groups.map(function(){ return '<th>Median [95%]</th><th>Mean</th><th>Slices traced</th>'; }).join('') + '</tr>' +
+      order.map(function(m){ return '<tr><td>' + C.labels[m] + '</td>' + groups.map(function(g){ var x = G[g].methods[m]; return x ? '<td>' + pc(x.median) + ' <small>[' + pc(x.median_ci95[0]) + '–' + pc(x.median_ci95[1]) + ']</small></td><td>' + pc(x.mean) + '</td><td>' + x.slices_traced + '/' + x.slices_total + '</td>' : '<td>–</td><td>–</td><td>–</td>'; }).join('') + '</tr>'; }).join('');
+    var N = G.new_clicks, vb = N.vs_after.before, vf = N.vs_after.flow;
+    document.getElementById('comparetake').innerHTML = 'On ' + N.clicks + ' new clicks the fix beats the original SAM 3.1 tracer on ' + vb.after_better + ' clicks and loses on ' + vb.after_worse +
+      ' (mean gain ' + pc(vb.mean_gain) + ', 95% interval ' + pc(vb.mean_gain_ci95[0]) + ' to ' + pc(vb.mean_gain_ci95[1]) + '). Against plain optical flow from the same start it wins ' + vf.after_better + ' and loses ' + vf.after_worse +
+      ' (mean ' + pc(vf.mean_gain) + ', ' + pc(vf.mean_gain_ci95[0]) + ' to ' + pc(vf.mean_gain_ci95[1]) + '). ' +
+      (vf.mean_gain_ci95[0] > 0
+        ? '<strong>Most of the gain comes from where the first slice starts, and SAM 3.1 then follows the sheet measurably better than optical flow from the same start.</strong> It also stops when it loses the sheet (' + N.methods.after.slices_traced + ' of ' + N.methods.after.slices_total + ' slices traced), while optical flow never stops.'
+        : '<strong>Most of the gain comes from where the first slice starts; SAM 3.1\'s slice-to-slice tracking is not clearly better than optical flow.</strong> Its advantage is that it stops when it loses the sheet, while optical flow never stops.');
+  }
+  var S = E.shift;
+  if (S) {
+    document.getElementById('shiftsection').hidden = false;
+    var c0 = S.constant.filter(function(c){ return c.offset_vx === 0; })[0].corr_with_official_ink;
+    var wob = function(m){ return m === 0 ? c0 : S.wobble.filter(function(w){ return w.median_offset_vx === m; })[0].corr_with_official_ink; };
+    var cst = function(d){ if (d === 0) return c0; var a = S.constant.filter(function(c){ return Math.abs(c.offset_vx) === d; }); return a.reduce(function(s, c){ return s + c.corr_with_official_ink; }, 0) / a.length; };
+    document.getElementById('shiftnote').textContent = 'On the released sheet with known Greek text, the official surface was moved off the papyrus on purpose and the Grand Prize ink model run again. Score: agreement (correlation) of the ink map with the one read from the official surface (' + c0.toFixed(2) + ' with no error). A steady offset, where the whole surface moves the same distance, costs little up to about 5 voxels. Wobble, where each CT slice is off by a different amount as in a real trace, destroys the letters: at a median of 2 voxels agreement falls to ' + wob(2).toFixed(2) + ', at 5 voxels to ' + wob(5).toFixed(2) + '. Whether a trace can be read depends more on staying steady from slice to slice than on its distance from the sheet. Unscroll\'s traces are about 7 voxels off and not yet steady.';
+    var svg2 = document.getElementById('shiftchart'), NS2 = 'http://www.w3.org/2000/svg';
+    var L2 = 64, R2 = 580, T2 = 20, B2 = 290, XM = 10, X2 = function(v){ return L2 + v / XM * (R2 - L2); }, Y2 = function(v){ return B2 - Math.max(v, 0) / 0.9 * (B2 - T2); };
+    var el2 = function(tag, at, txt){ var e = document.createElementNS(NS2, tag); for (var k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; svg2.appendChild(e); return e; };
+    [0, .2, .4, .6, .8].forEach(function(v){ el2('line', {x1: L2, x2: R2, y1: Y2(v), y2: Y2(v), stroke: 'var(--line)', 'stroke-width': 1}); el2('text', {x: L2 - 10, y: Y2(v) + 4, 'text-anchor': 'end', fill: 'var(--muted)', 'font-size': 11}, v.toFixed(1)); });
+    [0, 1, 2, 3, 4, 5, 7, 10].forEach(function(v){ el2('text', {x: X2(v), y: B2 + 20, 'text-anchor': 'middle', fill: 'var(--muted)', 'font-size': 11}, v); });
+    el2('text', {x: (L2 + R2) / 2, y: B2 + 42, 'text-anchor': 'middle', fill: 'var(--muted)', 'font-size': 12}, 'Trace error in voxels (1 voxel = 7.9 µm)');
+    el2('text', {x: 16, y: (T2 + B2) / 2, 'text-anchor': 'middle', fill: 'var(--muted)', 'font-size': 12, transform: 'rotate(-90 16 ' + (T2 + B2) / 2 + ')'}, 'Agreement with official ink');
+    var ds = [0, 1, 2, 3, 4, 5, 7, 10], ws = [0, 1, 2, 3, 5, 7];
+    el2('rect', {x: X2(6.6), y: T2, width: X2(7.4) - X2(6.6), height: B2 - T2, fill: 'var(--pink)', opacity: .14});
+    el2('text', {x: X2(7), y: T2 + 14, 'text-anchor': 'middle', fill: 'var(--text)', 'font-size': 11}, 'Unscroll today ≈ 7');
+    var series = [{name: 'Steady offset', color: 'var(--teal)', pts: ds.map(function(d){ return [d, cst(d)]; })},
+                  {name: 'Slice-to-slice wobble', color: 'var(--orange)', pts: ws.map(function(m){ return [m, wob(m)]; })}];
+    series.forEach(function(s){
+      el2('path', {d: s.pts.map(function(p, i){ return (i ? 'L' : 'M') + X2(p[0]) + ' ' + Y2(p[1]); }).join(' '), fill: 'none', stroke: s.color, 'stroke-width': 2, 'stroke-linejoin': 'round'});
+      s.pts.forEach(function(p){ el2('circle', {cx: X2(p[0]), cy: Y2(p[1]), r: 4, fill: s.color, stroke: 'var(--bg)', 'stroke-width': 2}); });
+      var last = s.pts[s.pts.length - 1]; el2('text', {x: X2(last[0]) + 10, y: Y2(last[1]) + 4, fill: 'var(--text)', 'font-size': 12}, s.name);
+    });
+    var tip2 = document.getElementById('shifttip'), hit2 = el2('rect', {x: L2, y: T2, width: R2 - L2, height: B2 - T2, fill: 'transparent'});
+    var near = function(pts, v){ return pts.reduce(function(b, p){ return Math.abs(p[0] - v) < Math.abs(b[0] - v) ? p : b; }); };
+    hit2.addEventListener('mousemove', function(ev){
+      var r = svg2.getBoundingClientRect(), sx = (ev.clientX - r.left) * 760 / r.width, v = (sx - L2) / (R2 - L2) * XM;
+      var a = near(series[0].pts, v), b = near(series[1].pts, v);
+      tip2.style.display = 'block'; tip2.style.left = Math.max(0, Math.min(r.width - 220, ev.clientX - r.left + 12)) + 'px'; tip2.style.top = '6px';
+      tip2.innerHTML = 'Steady ' + a[0] + ' vx: <b>' + a[1].toFixed(2) + '</b><br>Wobble ' + b[0] + ' vx: <b>' + b[1].toFixed(2) + '</b>';
+    });
+    hit2.addEventListener('mouseleave', function(){ tip2.style.display = 'none'; });
+    var cap = {official_ink: 'Official surface (reference)', shift_0vx_ink: 'Same surface through Unscroll\'s data path', shift_4vx_ink: 'Moved 4 voxels', shift_7vx_ink: 'Moved 7 voxels'};
+    document.getElementById('shiftimgs').innerHTML = Object.keys(cap).filter(function(k){ return S.images[k]; }).map(function(k){ return '<figure><img src="' + S.images[k] + '" alt="Ink map: ' + cap[k] + '"><figcaption>' + cap[k] + '</figcaption></figure>'; }).join('');
+    document.getElementById('shifttable').innerHTML = '<tr><th>Error (voxels)</th><th>Steady offset (mean of ±)</th><th>Wobble (median error)</th></tr>' +
+      ds.map(function(d){ return '<tr><td>' + d + '</td><td>' + cst(d).toFixed(2) + '</td><td>' + (ws.indexOf(d) >= 0 ? wob(d).toFixed(2) : '–') + '</td></tr>'; }).join('');
+  }
+
+  var SM = E.smooth;
+  if (SM && SM.rows.length) {
+    document.getElementById('smoothsection').hidden = false;
+    var f2 = function(x){ return x == null ? '–' : x.toFixed(2); };
+    document.getElementById('smoothnote').textContent = 'The drift test says slice-to-slice wobble is what destroys the letters. So the same Unscroll trace of the known-text sheet (a scholar click every 40 slices) was smoothed across slices before unrolling, and the Grand Prize ink model run on it. Score: agreement with the ink map read from the official surface (' + f2(SM.control) + ' when the official surface itself is used).';
+    document.getElementById('smoothtiles').innerHTML = SM.rows.map(function(r){
+      return '<div class="tile"><div class="k">Smoothing σ = ' + r.sigma_rows + ' slices</div><div class="v">' + f2(r.ink_corr_with_official_all_matched) + '</div><div class="d">agreement · ' + f2(r.ink_corr_with_official_where_within_5vx) + ' where within 5 voxels</div></div>';
+    }).join('') + '<div class="tile"><div class="k">Official surface (upper limit)</div><div class="v">' + f2(SM.control) + '</div><div class="d">same data path, no trace error</div></div>';
+    var capS = [['official', 'Official surface (reference)']].concat(SM.rows.map(function(r){ return [String(r.sigma_rows), 'Unscroll trace, σ = ' + r.sigma_rows]; }));
+    document.getElementById('smoothimgs').innerHTML = capS.map(function(c){ var src = c[0] === 'official' ? SM.official : SM.images[c[0]]; return src ? '<figure><img src="' + src + '" alt="Ink map: ' + c[1] + '"><figcaption>' + c[1] + '</figcaption></figure>' : ''; }).join('');
+    document.getElementById('smoothcaveat').textContent = 'Caveats: the maps show broad stroke shapes, not crisp letters, so part of the gain may be smoother maps matching large strokes; the reference-free depth snap also picked a different offset at each strength (' + SM.rows.map(function(r){ return r.snap_shift_vx; }).join(', ') + ' voxels). Plain white areas are outside the traced surface. No new text is claimed.';
+  }
+  var RC = E.reading_cost, CEIL = E.smooth ? E.smooth.control : null;
+  if (RC && RC.length) {
+    document.getElementById('costsection').hidden = false;
+    var sig = [], f2c = function(x){ return x == null ? '–' : x.toFixed(2); };
+    RC.forEach(function(r){ Object.keys(r.by_sigma).forEach(function(k){ if (sig.indexOf(+k) < 0) sig.push(+k); }); });
+    sig.sort(function(a, b){ return a - b; });
+    RC.sort(function(a, b){ return a.clicks - b.clicks; });
+    document.getElementById('costnote').textContent = 'Reading needs a trace that stays steadily on the right sheet for 300+ slices. On the 400-slice window of the sheet with known Greek text, Unscroll traced the sheet with different amounts of human help (simulated scholar clicks placed on the official surface), smoothed the trace across slices at several strengths, unrolled it and ran the Grand Prize ink model. Score: agreement with the ink read from the official surface' + (CEIL ? ' (' + f2c(CEIL) + ' when the official surface itself is used)' : '') + '. This measures progress towards reading; it is not new text.';
+    var svg3 = document.getElementById('costchart'), NS3 = 'http://www.w3.org/2000/svg';
+    var L3 = 64, R3 = 560, T3 = 20, B3 = 290, XS = function(i){ return L3 + (sig.length > 1 ? i / (sig.length - 1) : 0.5) * (R3 - L3); }, YS = function(v){ return B3 - Math.max(v, 0) / 0.9 * (B3 - T3); };
+    var el3 = function(tag, at, txt){ var e = document.createElementNS(NS3, tag); for (var k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; svg3.appendChild(e); return e; };
+    [0, .2, .4, .6, .8].forEach(function(v){ el3('line', {x1: L3, x2: R3, y1: YS(v), y2: YS(v), stroke: 'var(--line)', 'stroke-width': 1}); el3('text', {x: L3 - 10, y: YS(v) + 4, 'text-anchor': 'end', fill: 'var(--muted)', 'font-size': 11}, v.toFixed(1)); });
+    sig.forEach(function(s, i){ el3('text', {x: XS(i), y: B3 + 20, 'text-anchor': 'middle', fill: 'var(--muted)', 'font-size': 11}, 'σ ' + s); });
+    el3('text', {x: (L3 + R3) / 2, y: B3 + 42, 'text-anchor': 'middle', fill: 'var(--muted)', 'font-size': 12}, 'Smoothing across slices (σ, in slices)');
+    el3('text', {x: 16, y: (T3 + B3) / 2, 'text-anchor': 'middle', fill: 'var(--muted)', 'font-size': 12, transform: 'rotate(-90 16 ' + (T3 + B3) / 2 + ')'}, 'Agreement with official ink');
+    if (CEIL) { el3('line', {x1: L3, x2: R3, y1: YS(CEIL), y2: YS(CEIL), stroke: 'var(--muted)', 'stroke-width': 1.5, 'stroke-dasharray': '2 5'}); el3('text', {x: R3 + 8, y: YS(CEIL) + 4, fill: 'var(--muted)', 'font-size': 11}, 'official surface ' + f2c(CEIL)); }
+    var colors = ['var(--pink)', 'var(--orange)', 'var(--teal)'];
+    RC.forEach(function(r, n){
+      var c = colors[(colors.length - RC.length + n) % colors.length];
+      var pts = sig.map(function(s, i){ var v = r.by_sigma[String(s)]; return v == null ? null : [XS(i), YS(v), v, s]; }).filter(Boolean);
+      el3('path', {d: pts.map(function(p, i){ return (i ? 'L' : 'M') + p[0] + ' ' + p[1]; }).join(' '), fill: 'none', stroke: c, 'stroke-width': 2, 'stroke-linejoin': 'round'});
+      pts.forEach(function(p){ el3('circle', {cx: p[0], cy: p[1], r: 4, fill: c, stroke: 'var(--bg)', 'stroke-width': 2}); });
+      var last = pts[pts.length - 1]; if (last) el3('text', {x: last[0] + 8, y: last[1] + (n - 1) * 12 + 4, fill: 'var(--text)', 'font-size': 12}, r.run + ' (' + r.clicks + ')');
+    });
+    var tip3 = document.getElementById('costtip'), hit3 = el3('rect', {x: L3, y: T3, width: R3 - L3, height: B3 - T3, fill: 'transparent'});
+    hit3.addEventListener('mousemove', function(ev){
+      var r = svg3.getBoundingClientRect(), sx = (ev.clientX - r.left) * 760 / r.width, i = Math.max(0, Math.min(sig.length - 1, Math.round((sx - L3) / (R3 - L3) * (sig.length - 1)))), s = sig[i];
+      tip3.style.display = 'block'; tip3.style.left = Math.max(0, Math.min(r.width - 250, ev.clientX - r.left + 12)) + 'px'; tip3.style.top = '6px';
+      tip3.innerHTML = '<b>σ ' + s + '</b><br>' + RC.map(function(x){ return x.run + ': <b>' + f2c(x.by_sigma[String(s)]) + '</b>'; }).join('<br>');
+    });
+    hit3.addEventListener('mouseleave', function(){ tip3.style.display = 'none'; });
+    document.getElementById('costtable').innerHTML = '<tr><th>Human help</th><th>Clicks</th><th>Trace median distance</th><th>Trace on the sheet (within 40 µm)</th><th>Slices covered (of 400)</th>' + sig.map(function(s){ return '<th>σ ' + s + '</th>'; }).join('') + '</tr>' +
+      RC.map(function(r){ return '<tr><td>' + r.run + '</td><td>' + r.clicks + '</td><td>' + (r.median_um == null ? '–' : r.median_um + ' µm') + '</td><td>' + (r.within40um == null ? '–' : Math.round(r.within40um * 100) + '%') + '</td><td>' + (r.slices == null ? '–' : r.slices) + '</td>' + sig.map(function(s){ return '<td>' + f2c(r.by_sigma[String(s)]) + '</td>'; }).join('') + '</tr>'; }).join('');
+    var best = RC.map(function(r){ var v = Object.keys(r.by_sigma).map(function(k){ return [r.by_sigma[k], k]; }).sort(function(a, b){ return b[0] - a[0]; })[0]; return r.run + ' (' + r.clicks + ' click' + (r.clicks > 1 ? 's' : '') + '): best ' + f2c(v[0]) + ' at σ ' + v[1]; });
+    document.getElementById('costtake').textContent = best.join(' · ') + '. These scores are not a ranking: each is averaged over whatever that trace covered, so read them with the table view (how much of the trace is on the sheet, and how many of the 400 slices it covers). The one-click trace is mostly off the sheet; the click-every-80 trace covers only ' + ((RC.filter(function(x){ return x.clicks === 5; })[0] || {}).slices || 'part') + ' slices; only the click-every-40 trace covers most of the window at a steady distance. No smoothed trace shows readable letters yet; agreement here measures broad ink strokes, and reading needs agreement close to the official surface and a papyrologist\'s check.';
+  }
+
+  var PB = E.probe24;
+  if (PB) {
+    document.getElementById('probesection').hidden = false;
+    var M = PB.median_by_level_and_mode, pp = function(x){ return Math.round(100*x) + '%'; };
+    document.getElementById('probenote').textContent = 'The Vesuvius Challenge now works on finer scans. The unchanged tracer ran on Scroll 1\'s 2.4 µm volume (' + PB.volume + '), streamed from the Challenge\'s open data bucket, with ' + PB.clicks + ' clicks on the community\'s 2026 trace of the same sheet (' + PB.layer + '), before and after the first-slice fix, at 2.4 µm and downsampled to 4.8 µm. ' + PB.completed + ' of ' + PB.runs + ' runs completed in ' + Math.round(PB.minutes) + ' minutes on a Kaggle T4. Medians over clicks:';
+    var rowsP = [['2.4 µm, original first slice', M.L0_dp], ['2.4 µm, with the fix', M.L0_walk], ['4.8 µm, original first slice', M.L1_dp], ['4.8 µm, with the fix', M.L1_walk]];
+    document.getElementById('probetable').innerHTML = '<tr><th>Scan · tracer</th><th>Median distance to the layer</th><th>Trace within 40 µm</th><th>Within 12 µm (5 voxels)</th></tr>' +
+      rowsP.filter(function(r){ return r[1]; }).map(function(r){ return '<tr><td>' + r[0] + '</td><td>' + r[1].median_um.toFixed(0) + ' µm</td><td>' + pp(r[1].within_40um) + '</td><td>' + pp(r[1].within5_vx) + '</td></tr>'; }).join('');
+    var capP = {'0': 'First click, 2.4 µm, with the fix (teal) and the 2026 layer (orange)', '1': 'Same click at 4.8 µm'};
+    document.getElementById('probeimgs').innerHTML = Object.keys(capP).filter(function(k){ return PB.images[k]; }).map(function(k){ return '<figure><img src="' + PB.images[k] + '" style="filter:none" alt="' + capP[k] + '"><figcaption>' + capP[k] + '</figcaption></figure>'; }).join('');
+    document.getElementById('probecaveat').textContent = 'A probe, not a result: ' + PB.clicks + ' clicks on one sheet, short traces (about 0.5 mm), a reference stored on a 48 µm grid that crosses some slices twice, and densely packed sheets, so staying on the same sheet is not confirmed. It shows the tracer runs unchanged on the current scans and stays near the layer.';
+  }
+
+  var T = E.triage;
+  if (T) {
+    document.getElementById('triagesection').hidden = false;
+    var P = function(x){ return Math.round(100*x) + '%'; };
+    document.getElementById('triagenote').textContent =
+      'Reviewing every trace is slow. Unscroll ranks traces by risk using only signals available without a reference: whether the trace passes through the click, whether it sits on a bright sheet core rather than the gap beside it, and whether the two first-slice methods agree. Reviewing riskiest-first, how many wrong-layer traces (more than ' + E.on_layer_vx + ' voxels from the human layer) are caught? The rule was chosen on development clicks and tested on the ' + T.heldout.traces + ' held-out traces. A first rule written before any results failed on held-out (AUC ' + T.heldout.auc_v1.toFixed(2) + ', chance) and is reported, not hidden.';
+    var tl = function(k, v, d){ return '<div class="tile"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="d">'+d+'</div></div>'; };
+    document.getElementById('triagetiles').innerHTML =
+      tl('Held-out: review to catch all', P(T.heldout.review_for_100), 'of traces (development ' + P(T.dev.review_for_100) + '; Muse Spark reviewer needed ' + P(T.spark.review_load) + ' on development)') +
+      tl('Held-out: review to catch 80%', P(T.heldout.review_for_80), 'of traces, riskiest first') +
+      tl('Held-out ranking AUC', T.heldout.auc.toFixed(2), 'development ' + T.dev.auc.toFixed(2) + ' · 0.5 = random') +
+      tl('Most reliable signal', 'Ridge', 'on a bright sheet core: AUC ' + T.dev.auc_per_signal.ridge_contrast.toFixed(2) + ' dev / ' + T.heldout.auc_per_signal.ridge_contrast.toFixed(2) + ' held-out');
+    var svg = document.getElementById('triagechart'), NS = 'http://www.w3.org/2000/svg';
+    var L = 64, R = 600, Tp = 20, B = 310, X = function(v){ return L + v*(R-L); }, Y = function(v){ return B - v*(B-Tp); };
+    var el = function(tag, at, txt){ var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; svg.appendChild(e); return e; };
+    [0, .25, .5, .75, 1].forEach(function(v){
+      el('line', {x1: L, x2: R, y1: Y(v), y2: Y(v), stroke: 'var(--line)', 'stroke-width': 1});
+      el('text', {x: L-10, y: Y(v)+4, 'text-anchor': 'end', fill: 'var(--muted)', 'font-size': 11}, P(v));
+      el('text', {x: X(v), y: B+20, 'text-anchor': 'middle', fill: 'var(--muted)', 'font-size': 11}, P(v));
+    });
+    el('text', {x: (L+R)/2, y: B+42, 'text-anchor': 'middle', fill: 'var(--muted)', 'font-size': 12}, 'Traces reviewed, riskiest first');
+    el('text', {x: 16, y: (Tp+B)/2, 'text-anchor': 'middle', fill: 'var(--muted)', 'font-size': 12, transform: 'rotate(-90 16 ' + (Tp+B)/2 + ')'}, 'Wrong-layer traces caught');
+    el('line', {x1: X(0), y1: Y(0), x2: X(1), y2: Y(1), stroke: 'var(--muted)', 'stroke-width': 1.5, 'stroke-dasharray': '2 5'});
+    var step = function(c){ var d = 'M' + X(c[0][0]) + ' ' + Y(c[0][1]); for (var i = 1; i < c.length; i++) d += ' H' + X(c[i][0]) + ' V' + Y(c[i][1]); return d; };
+    [{c: T.dev.curve, color: 'var(--orange)', dash: '7 5'}, {c: T.heldout.curve, color: 'var(--teal)', dash: null}].forEach(function(s){
+      var at = {d: step(s.c), fill: 'none', stroke: s.color, 'stroke-width': 2, 'stroke-linejoin': 'round'}; if (s.dash) at['stroke-dasharray'] = s.dash; el('path', at);
+    });
+    el('text', {x: X(1) + 10, y: Y(1) + 4, fill: 'var(--text)', 'font-size': 12}, 'all caught');
+    el('circle', {cx: X(T.spark.review_load), cy: Y(T.spark.catch_rate), r: 6, fill: 'var(--bg)', stroke: 'var(--pink)', 'stroke-width': 2});
+    el('text', {x: X(T.spark.review_load), y: Y(T.spark.catch_rate) - 10, 'text-anchor': 'middle', fill: 'var(--text)', 'font-size': 12}, 'Muse Spark reviewer, development (' + P(T.spark.review_load) + ')');
+    var lg = [['Held-out clicks', 'var(--teal)', null], ['Development clicks', 'var(--orange)', '7 5'], ['Random order', 'var(--muted)', '2 5']];
+    lg.forEach(function(g, i){ var y = B - 64 + i*18; var at = {x1: R-150, x2: R-124, y1: y, y2: y, stroke: g[1], 'stroke-width': 2}; if (g[2]) at['stroke-dasharray'] = g[2]; el('line', at); el('text', {x: R-118, y: y+4, fill: 'var(--muted)', 'font-size': 11}, g[0]); });
+    var cross = el('line', {x1: 0, x2: 0, y1: Tp, y2: B, stroke: 'var(--muted)', 'stroke-width': 1, visibility: 'hidden'});
+    var hit = el('rect', {x: L, y: Tp, width: R-L, height: B-Tp, fill: 'transparent'}), tip = document.getElementById('triagetip');
+    var at = function(c, f){ var v = 0; c.forEach(function(p){ if (p[0] <= f + 1e-9) v = p[1]; }); return v; };
+    hit.addEventListener('mousemove', function(ev){
+      var r = svg.getBoundingClientRect(), sx = (ev.clientX - r.left) * 760 / r.width, f = Math.max(0, Math.min(1, (sx - L) / (R - L)));
+      cross.setAttribute('x1', sx); cross.setAttribute('x2', sx); cross.setAttribute('visibility', 'visible');
+      tip.style.display = 'block'; tip.style.left = Math.max(0, Math.min(r.width - 260, ev.clientX - r.left + 12)) + 'px'; tip.style.top = '6px';
+      tip.innerHTML = 'Review ' + P(f) + ' → caught: held-out <b>' + P(at(T.heldout.curve, f)) + '</b> · development <b>' + P(at(T.dev.curve, f)) + '</b>';
+    });
+    hit.addEventListener('mouseleave', function(){ tip.style.display = 'none'; cross.setAttribute('visibility', 'hidden'); });
+    document.getElementById('triagetable').innerHTML = '<tr><th>Clicks</th><th>Traces</th><th>Wrong layer</th><th>AUC</th><th>Caught at 25%</th><th>Caught at 50%</th><th>Review for 80%</th><th>Review for all</th></tr>' +
+      [['Development', T.dev], ['Held-out', T.heldout]].map(function(x){ var t = x[1]; return '<tr><td>'+x[0]+'</td><td>'+t.traces+'</td><td>'+t.wrong_layer+'</td><td>'+t.auc.toFixed(2)+'</td><td>'+P(t.caught_at_25)+'</td><td>'+P(t.caught_at_50)+'</td><td>'+P(t.review_for_80)+'</td><td>'+P(t.review_for_100)+'</td></tr>'; }).join('');
+  }
+
+  var LT = E.letters || {};
+  if (LT.unassisted || LT.assisted) {
+    document.getElementById('lettersection').hidden = false;
+    var base = LT.unassisted || LT.assisted;
+    document.getElementById('letternote').textContent =
+      'A released Scroll 1 sheet with known Greek text (segment 20230827161847, slices ' + Math.round(base.window_z[0]) + '–' + Math.round(base.window_z[1]) +
+      '). The 2023 Grand Prize ink model (MIT) reads the official layers (1). Re-sampling the official surface from the raw CT through Unscroll\'s data path reproduces it (2, correlation ' +
+      base.control_corr.toFixed(2) + '). Unscroll\'s own traces (3, 4) are not yet close enough for ink, which sits on the papyrus surface: no letters are claimed from them. Unrolling the official surface with Unscroll\'s own 3D normals (5) still reads the letters, so the remaining gap is trace accuracy, not unrolling (6).';
+    var fig = function(src, cap){ return src ? '<figure style="margin:0"><img src="'+src+'" alt="'+cap+'" style="width:100%;border:1px solid var(--line);border-radius:4px;image-rendering:auto"><figcaption style="font-size:12px;color:var(--muted);margin-top:6px">'+cap+'</figcaption></figure>' : ''; };
+    var d = function(x){ return x && x.distance ? (100*x.distance.within5).toFixed(0)+'% within 5 vx of the official surface, median '+x.distance.median_vx.toFixed(1)+' vx' : ''; };
+    var html = '<div class="gallery">' +
+      fig(base.images.official_ink, '1 · Official surface → Grand Prize ink model (reference)') +
+      fig(base.images.control_ink, '2 · Same surface re-sampled from raw CT by Unscroll (control)');
+    if (LT.unassisted) html += fig(LT.unassisted.images.ours_ink, '3 · Unscroll trace, 1 click, ' + LT.unassisted.traced_slices + ' slices · ' + d(LT.unassisted));
+    if (LT.assisted) html += fig(LT.assisted.images.ours_ink, '4 · Unscroll trace, ' + LT.assisted.clicks + ' simulated scholar clicks, ' + LT.assisted.traced_slices + ' slices · ' + d(LT.assisted));
+    var A3 = LT.assisted;
+    if (A3 && A3.images.control3d_ink && A3.control3d)
+      html += fig(A3.images.control3d_ink, '5 · Official surface, unrolled with Unscroll\'s own 3D normals · correlation ' + A3.control3d.corr_with_official_ink.toFixed(2) + ' with (1)');
+    if (A3 && A3.images.ours3d_ink && A3.ours3d)
+      html += fig(A3.images.ours3d_ink, '6 · Trace 4 unrolled along 3D normals, depth chosen without the reference · correlation ' + A3.ours3d.ink_corr_with_official_all_matched.toFixed(2) + ' with (1)');
+    document.getElementById('letters').innerHTML = html + '</div>';
+  }
+  var sheets = (E.sheets || []).filter(function(s){ return s.flat_mean; })
+    .sort(function(a,b){ return (b.meta.image_rows||b.meta.rows) - (a.meta.image_rows||a.meta.rows); });
+  if (sheets.length) {
+    document.getElementById('sheetsection').hidden = false;
+    document.getElementById('sheetnote').textContent = 'A traced sheet unrolled flat: each row is one CT slice, each column one voxel along the sheet (7.91 µm in both directions), averaged across the sheet thickness. This shows papyrus texture; it is not a claim of legible ink.';
+    document.getElementById('sheets').innerHTML = sheets.map(function(s){
+      var m = s.meta, mm = function(n){ return (n*0.00791).toFixed(2); };
+      var scale = Math.max(1, Math.min(4, Math.floor(1100 / m.columns)));
+      return '<figure style="margin:0 0 22px"><img src="'+s.flat_mean+'" alt="Flattened papyrus surface '+s.name+'" style="image-rendering:pixelated;width:'+(m.columns*scale)+'px;max-width:100%;height:auto;border:1px solid var(--line);border-radius:4px">' +
+        '<figcaption style="font-size:12px;color:var(--muted);margin-top:6px"><strong style="color:var(--text)">'+s.name.replace('sheet_','')+'</strong> · slices '+(m.z_range_traced||m.z_range)[0]+'–'+(m.z_range_traced||m.z_range)[1]+' ('+m.rows_traced+' traced) · '+m.columns+' × '+(m.image_rows||m.rows)+' voxels = '+mm(m.columns)+' × '+mm(m.image_rows||m.rows)+' mm'+(s.score ? ' · vs human layer ('+s.score.scored_slices+'): '+(100*s.score.within5).toFixed(1)+'% within 5 vx, median '+s.score.median_vx.toFixed(1)+' vx' : '')+'</figcaption></figure>';
+    }).join('');
+  }
+  var sp = E.spark, v1 = sp.v1 && sp.v1.summary, v2 = sp.v2 && sp.v2.summary;
+  if (v1) {
+    document.getElementById('sparknote').textContent = 'Muse Spark 1.3 saw only the CT, the red trace and the click (never the human reference) and judged whether the trace stays on one sheet. Two image designs were tried, the second declared in advance. Spark never let a wrong-layer trace through, but it flagged most good traces too, so it does not yet reduce expert review. Reported as measured.';
+    var t = function(k,v,d){ return '<div class="tile"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="d">'+d+'</div></div>'; };
+    document.getElementById('sparktiles').innerHTML =
+      t('Wrong-layer traces let through', (v1.wrong_layer_let_through + (v2?v2.wrong_layer_let_through:0)) + '/' + (v1.wrong_layer + (v2?v2.wrong_layer:0)), 'both designs combined') +
+      t('Auto-accepted and correct', v1.accepted_and_correct + '/' + v1.auto_accepted + (v2?' · '+v2.accepted_and_correct+'/'+v2.auto_accepted:''), 'overview · close-up tiles') +
+      t('Good traces still flagged', v1.good_sent_to_review + '/' + v1.on_layer + (v2?' · '+v2.good_sent_to_review+'/'+v2.on_layer:''), 'overview · close-up tiles') +
+      t('Sent to expert review', pct(v1.review_load) + (v2?' · '+pct(v2.review_load):''), 'not yet a workload saving');
+  }
+})();
+</script>
+<script>
+// sections render from data after load; honour #section links once they exist
+if (location.hash && /^#[\w-]+$/.test(location.hash)) {
+  var target = document.getElementById(location.hash.slice(1));
+  if (target && !target.hidden) target.scrollIntoView();
+}
+</script>
+</body></html>

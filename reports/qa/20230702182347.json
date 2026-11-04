@@ -1,0 +1,20 @@
+{
+ "seed": "20230702182347",
+ "model": "muse-spark-1.3",
+ "facts": {
+  "seed_mesh": "20230702182347",
+  "slices_traced": 19,
+  "slices_total": 20,
+  "within_5_voxels_percent": 80.5,
+  "within_2_voxels_percent": 15.5,
+  "median_distance_voxels": 3.6,
+  "before_fix_within_5_voxels_percent": 41.3,
+  "before_fix_median_distance_voxels": 5.9,
+  "on_clicked_layer": true,
+  "voxel_size_micrometres": 7.91,
+  "image": "red line = trace, yellow dot = click; panels: close-up, slice 0, slice 19"
+ },
+ "text": "The automated trace follows the clicked layer through 19 of 20 slices and stays broadly on that layer, so it can be trusted for the general course of the sheet but not for exact surface detail. It is weakest at fine scale, with 15.5 percent within 2 voxels and a median distance of 3.6 voxels, even though 80.5 percent within 5 voxels shows improvement from 41.3 percent with a median distance of 5.9 before the fix. The red line in the close-up and in slice 0 and slice 19 shows places where the trace rides near or between neighbouring bright layers, especially toward the ends. A person should check the red line against the yellow dot click and the bright layer in the panels and correct where it drifts off the clicked layer.",
+ "numbers_ok": true,
+ "attempts": 1
+}

@@ -1,0 +1,18 @@
+﻿Verdict: This brief does not clear the existence bar â€” the scroll half duplicates solved Vesuvius-winner segmentation/unwrapping work with a worse-suited tracker, and the battery half is scope creep that doubles the build to chase the track rubric.
+
+Blocker â€” Part 2 (Click-to-trace with SAM 3.1): why must slice-stack-as-video plus SAM 3.1 exist when Vesuvius winners already ship open segmentation pipelines purpose-built for thin, touching papyrus layers? SAM is trained on natural video objects with area, not 1-voxel curves that touch; layer-jump is the normal case, not the edge case, so the "core innovation" looks like a tool chasing a problem.
+
+Blocker â€” Concept + Wow moment step 5 (battery mode): cylindrical battery cells are near-perfect concentric layers, a far easier geometry already served by existing CT segmentation and commercial battery-inspection tools. Claiming "same algorithm" inspects both conflates a hard problem (crushed scroll) with an easy one (clean cylinders) purely to fit "energy and materials" â€” textbook scope creep that doubles generator, metrics, and viewer work.
+
+Major â€” Part 3 (Flattening for free): stacking traced curves into (arc-length, slice-index) coordinates is only distortion-free for an ideal spiral. Once Part 1 crushes, warps, and creases the sheet, that mapping is not "already flat" â€” real unwrapping needs mesh parameterization. The brief hand-waves away the hardest geometry step.
+
+Major â€” Part 3 (Ink detection): training a "small 3D CNN" on synthetic faint-ink ground truth proves nothing about carbon-ink recovery, and the brief admits the fallback is "use the open-source ink models from past winners." If the winners' models are the real solution, the custom CNN is YAGNI; if they are not, synthetic ink will not transfer.
+
+Major â€” Part 4 (agent layer): Spark-reads-Greek, Wonder-orchestrates-clicks, Voice commands, Image reconstruction are four API dependencies stapled onto a pipeline whose wow moment (click â†’ trace â†’ letters) needs none of them. In an 8-day plan with feature freeze on Day 5, this is solution-chasing-Meta-tools to score Tooling 25%, not required functionality.
+
+Major â€” Evidence (metrics): "human clicks per cmÂ² vs dense manual work" attacks a strawman; winner tooling (e.g. ThaumatoAnakalyptor-style volumetric segmentation) is already semi-automated. Without a head-to-head against those tools on the same volume, all synthetic metrics only prove the generator is solvable by its own author.
+
+Nit â€” Part 1 (synthetic generator as open benchmark): releasing another CC-BY phantom fragments effort rather than reusing existing open Vesuvius fragments/phantoms; the community does not need a second benchmark format to learn.
+
+Nit â€” How it scores (Tooling 25% as "unexpected capability"): SAM-on-CT is positioned to please the rubric, not the physics; "unexpected" does not mean effective.
+

@@ -1,0 +1,139 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unscroll · Predict</title><link rel="stylesheet" href="style.css">
+<style>
+.pr-nav{display:flex;gap:22px;font-size:13px}.pr-nav a{text-decoration:none;color:var(--muted)}.pr-nav a.active{color:var(--teal)}
+.pr-section{padding:30px 0;border-bottom:1px solid var(--line)}
+.pr-section h2{font-size:24px;font-weight:400;letter-spacing:-.5px;margin:0 0 6px}
+.pr-section p.note{color:var(--muted);font-size:13px;line-height:1.7;max-width:860px;margin:0 0 16px}
+.ask{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px}
+.ask textarea{width:100%;box-sizing:border-box;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;padding:12px;font:inherit;font-size:18px;line-height:1.5;resize:vertical}
+.ask textarea:focus{outline:none;border-color:var(--teal)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.row label{font-size:12px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{background:none;border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+.chip:hover,.chip:focus-visible{border-color:var(--teal);color:var(--text)}
+.hint{font-size:12px;color:var(--muted);line-height:1.6}
+.result{margin-top:18px}
+.badge{display:inline-block;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;padding:3px 10px;border-radius:99px;border:1px solid}
+.badge.ok{color:var(--teal);border-color:var(--teal)}.badge.warn{color:var(--orange,#e0a050);border-color:var(--orange,#e0a050)}.badge.bad{color:var(--pink);border-color:var(--pink)}
+.sent{font-size:22px;line-height:1.7;margin:12px 0 6px}
+.sent .given{background:rgba(127,127,127,.18);border-radius:3px;padding:1px 2px}
+.sent .pred{color:var(--teal)}
+.ref{font-size:13px;color:var(--muted)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin-top:12px}
+.card .en{font-size:13px;color:var(--muted);margin-top:4px}
+.key{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+.key i{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px}
+.tile .k{font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase}
+.tile .v{font-size:30px;margin-top:6px;font-variant-numeric:tabular-nums}
+.tile .d{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style></head><body>
+<header><a class="brand" href="home.html">◉ <strong>unscroll</strong><span>PREDICT</span></a><nav class="pr-nav"><a href="home.html">Home</a><a href="story.html">Story</a><a href="evaluate.html">Evaluation</a><a href="index.html">Surface workbench</a><a href="read.html">Read &amp; Translate</a><a class="active" href="predict.html" aria-current="page">Predict</a></nav></header>
+<main>
+<section class="intro"><div><p class="eyebrow">FRAGMENT → WHOLE SENTENCE</p><h1>Give part of a sentence. <em>Get the whole one, with its source.</em></h1>
+<p class="lede">Type any part of a Greek sentence: the beginning, the middle or the end, even with a word cut off as on a papyrus edge. Unscroll first looks for it in attested Greek text and returns the full sentence with its reference. Only when nothing is attested does Muse Spark propose completions, clearly marked as conjecture.</p></div></section>
+
+<section class="pr-section" aria-label="Complete a sentence">
+<div class="ask">
+<label for="frag" class="hint">Greek fragment (accents optional) or Latin transliteration: th ph ch ps, ē ō (or w for ω)</label>
+<textarea id="frag" lang="grc" rows="2" spellcheck="false" placeholder="e.g. πρὸς ἡμᾶς εἶναι τὸν θάνα  ·  or  ta spania pantos kai"></textarea>
+<div class="row"><button id="go">Complete sentence</button><label for="pos">Fragment is the</label><select id="pos" style="background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:4px;padding:6px 8px;font:inherit;font-size:13px"><option value="any">not sure</option><option value="start">beginning</option><option value="middle">middle</option><option value="end">end</option></select><label><input type="checkbox" id="useModel" checked> Ask Muse Spark if it is not attested</label><span id="status" role="status" class="hint"></span></div>
+<div class="chips" id="examples" aria-label="Examples"></div>
+</div>
+<div class="result" id="result" aria-live="polite"></div>
+</section>
+
+<section class="pr-section" id="accsection" hidden><h2>How accurate is it?</h2><p class="note" id="accnote"></p><div class="tiles" id="lookuptiles"></div>
+<p class="note" id="sparknote" style="margin-top:22px"></p><div class="tiles" id="sparktiles"></div></section>
+
+<section class="pr-section"><p class="note">Corpus: Diogenes Laertius, <em>Lives of Eminent Philosophers</em> (Greek, Perseus Digital Library, CC BY-SA 4.0), including Epicurus' letters and Principal Doctrines, the school Philodemus wrote for, plus the published preliminary reading of PHerc. Paris. 4 col. −8. Attested results are only as good as that edition. Model conjectures are unreviewed suggestions, never readings of the scroll.</p></section>
+<p class="bgcredit">Background: Scroll 1 (PHerc. Paris. 4), CT slice 6100, EduceLab-Scrolls / Vesuvius Challenge, <a href="https://scrollprize.org/data" target="_blank" rel="noreferrer">CC BY-NC 4.0</a>. Teal: ten Unscroll SAM 3.1 traces from development clicks that stayed on the clicked layer.</p></main>
+<script src="predict-data.js"></script>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+  var pct = function(x){ var v = 100*x; return (Math.abs(v - Math.round(v)) < 0.05 ? Math.round(v) : v.toFixed(1)) + '%'; };
+  var EX = [
+    ['Epicurus, middle', 'πρὸς ἡμᾶς εἶναι τὸν θάνα'],
+    ['Epicurus, no accents', 'μητε νεος τις ων μελλετω'],
+    ['Philodemus scroll, Latin letters', 'ta spania pantos kai'],
+    ['Principal Doctrines, end', 'οὔτε ἄλλῳ παρέχει'],
+    ['Not in corpus (Plato)', 'ὁ δὲ ἀνεξέταστος βίος']
+  ];
+  $('examples').innerHTML = EX.map(function(e, i){ return '<button class="chip" data-i="'+i+'">'+esc(e[0])+'</button>'; }).join('');
+  $('examples').onclick = function(ev){ var b = ev.target.closest('.chip'); if (!b) return; $('frag').value = EX[+b.dataset.i][1]; run(); };
+  $('frag').addEventListener('keydown', function(e){ if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); run(); } });
+  $('go').onclick = run;
+
+  var LABEL = {
+    attested: ['ok', 'Attested in source'], attested_approx: ['warn', 'Attested, approximate match'],
+    too_short: ['warn', 'Too short to identify'], conjecture: ['bad', 'Muse Spark conjecture, not attested'], not_found: ['bad', 'Not found']
+  };
+  function sentence(m){
+    return '<div class="sent" lang="grc"><span class="pred">'+esc(m.before)+'</span><span class="given">'+esc(m.matched)+'</span><span class="pred">'+esc(m.after)+'</span></div>';
+  }
+  var KEY = '<div class="key"><span><i style="background:rgba(127,127,127,.35)"></i>your fragment</span><span><i style="background:var(--teal)"></i>completed</span></div>';
+
+  function render(r){
+    var l = LABEL[r.status] || ['bad', r.status], h = '<span class="badge '+l[0]+'">'+l[1]+'</span>';
+    if (r.greek !== r.query) h += ' <span class="hint">read as: <span lang="grc">'+esc(r.greek)+'</span></span>';
+    if (r.matches && r.matches.length){
+      var m = r.matches[0];
+      h += sentence(m) + '<div class="ref">'+esc(m.ref)+' · word match '+pct(m.score)+'</div>' + KEY;
+      if (r.status === 'too_short') h += '<p class="hint">Fewer than three words can match many sentences. Add a word or two for a certain answer.</p>';
+      if (r.ambiguous) h += '<p class="hint">This fragment occurs in more than one attested sentence; all are listed below. Add words to decide.</p>';
+      var alts = r.matches.slice(1);
+      if (alts.length) h += '<p class="hint" style="margin-top:16px">Other attested sentences containing it:</p>' + alts.map(function(a){ return '<div class="card">'+sentence(a)+'<div class="ref">'+esc(a.ref)+' · word match '+pct(a.score)+'</div></div>'; }).join('');
+    } else if (r.candidates && r.candidates.length){
+      h += '<p class="hint">Not in the corpus. Muse Spark proposed these; each was checked to contain your fragment unchanged'
+        + (r.dropped_for_changing_fragment ? ' ('+r.dropped_for_changing_fragment+' rejected for altering it or its position)' : '') + '. Treat them as suggestions for a scholar.</p>'
+        + r.candidates.map(function(c, i){
+          return '<div class="card"><span class="hint">'+(i+1)+(c.source ? ' · model names the source: '+esc(c.source)+' (unverified)' : ' · no source named')
+            + (c.agreement != null ? ' · agreement with other candidates '+pct(c.agreement) : '')+'</span>'
+            + sentence(c) + (c.en ? '<div class="en">'+esc(c.en)+'</div>' : '') + '</div>';
+        }).join('') + KEY;
+    } else {
+      h += '<p class="hint">'+esc(r.note || 'No attested sentence contains this fragment.' + (!$('useModel').checked ? ' Tick “Ask Muse Spark” for a conjecture.' : ''))+'</p>';
+    }
+    $('result').innerHTML = h;
+  }
+
+  var busy = false;
+  function run(){
+    var t = $('frag').value.trim();
+    if (!t || busy) return;
+    busy = true; $('go').disabled = true; $('status').textContent = 'Searching attested text…';
+    var slow = setTimeout(function(){ $('status').textContent = 'Not attested; asking Muse Spark (about 20 s)…'; }, 1200);
+    fetch('/api/predict/complete', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({text: t, model: $('useModel').checked, position: $('pos').value})})
+      .then(function(r){ return r.json().then(function(j){ return [r, j]; }); })
+      .then(function(x){ if (!x[0].ok) throw new Error(x[1].error || 'Request failed'); render(x[1]); $('status').textContent = ''; })
+      .catch(function(e){ $('status').textContent = e.message || 'Server unavailable: start Launch Unscroll.cmd'; })
+      .then(function(){ clearTimeout(slow); busy = false; $('go').disabled = false; });
+  }
+
+  var P = window.UNSCROLL_PREDICT;
+  if (P){
+    var L = P.lookup, a = L.accuracy, tile = function(k, v, d){ return '<div class="tile"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="d">'+d+'</div></div>'; };
+    $('accsection').hidden = false;
+    $('accnote').textContent = 'Attested lookup, measured on ' + L.fragments + ' fragments cut from ' + L.sentences + ' random corpus sentences (' + L.fragment_words + '), taken from the beginning, middle and end, typed cleanly or noisily (no accents, one letter dropped, first and last words cut). Correct means the top answer is the source sentence.';
+    $('lookuptiles').innerHTML =
+      tile('Whole sentence recovered', pct(a.all), 'all ' + L.fragments + ' fragments') +
+      tile('When it says “attested”', pct(L.confident_precision), L.confident_answers + ' single-source answers; otherwise it says ambiguous or not found') +
+      tile('Clean / noisy input', pct(a.clean) + ' <small style="font-size:16px;color:var(--muted)">/ ' + pct(a.noisy) + '</small>', 'accents, typos and cut words tolerated') +
+      tile('Speed', Math.round(1000*L.seconds_per_query) + ' ms', 'per fragment, on this laptop, offline');
+    var S = P.spark;
+    if (S){
+      $('sparknote').textContent = 'Muse Spark conjecture alone (lookup switched off), on ' + S.all.n + ' corpus sentences given only their ' + S.fragment + '. Exact means the whole sentence matches the original word for word (accents ignored). Half the sentences are Epicurus, famous text the model may have memorised; the rest are other books of Diogenes Laertius. This is why attested lookup always runs first.';
+      $('sparktiles').innerHTML =
+        tile('Exact, first answer', pct(S.all.exact_top1), 'Epicurus ' + pct(S.epicurus.exact_top1) + ' · other books ' + pct(S.other_books.exact_top1)) +
+        tile('Exact, any of 5', pct(S.all.exact_any_of_5), 'Epicurus ' + pct(S.epicurus.exact_any_of_5) + ' · other books ' + pct(S.other_books.exact_any_of_5)) +
+        tile('Missing words right', pct(S.all.mean_word_accuracy_top1), 'mean word overlap of the first answer with the original') +
+        tile('Model', esc(S.model), 'Meta Model API');
+    }
+  }
+})();
+</script></body></html>

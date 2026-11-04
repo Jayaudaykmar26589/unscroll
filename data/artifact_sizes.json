@@ -1,0 +1,17 @@
+{
+ "ink_9um": {
+  "error": "HTTPError: HTTP Error 401: Unauthorized"
+ },
+ "https://dl.ash2txt.org/datasets/grand-prize-banner-region/gp_meshes.7z": {
+  "status": 200,
+  "gb": 0.29
+ },
+ "https://dl.ash2txt.org/datasets/grand-prize-banner-region/README.txt": {
+  "status": 200,
+  "gb": 0.0
+ },
+ "https://dl.ash2txt.org/datasets/fiber-skeletons/fiber-skeletons.zip": {
+  "status": 200,
+  "gb": 0.44
+ }
+}

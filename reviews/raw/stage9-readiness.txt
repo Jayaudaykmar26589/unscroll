@@ -1,0 +1,70 @@
+﻿VERDICT: NO-GO. This range lists files and intents but leaves algorithms, schemas, thresholds, and pass/fail criteria to the implementer â€” it is not executable decision-free.
+
+Blocker â€” unscroll.md:312 (`src/ink/model.py` "small 3D CNN architecture"): no layers, channels, kernels, params, or I/O shapes. Implementer must design the model, not build it.
+
+Blocker â€” unscroll.md:313 (`src/ink/train.py`): no lr, batch size, epochs, accumulation steps, optimizer, loss, checkpoint path, or early-stop/metric. Two implementers produce incomparable training.
+
+Blocker â€” unscroll.md:282 (`src/dataio/preprocess.py` "region-based train/val split"): no region definition, split ratio, or seed; leakage-free claim (G3) is unverifiable without it.
+
+Blocker â€” unscroll.md:292 (`src/trace/sam_tracker.py`): no SAM variant/version, no clickencoding, z-chunk size, thinning algorithm, curve format, or memory-bank cap value.
+
+Blocker â€” unscroll.md:294 (`src/trace/guards.py`): winding/spacing/smoothness checks named but no formulas, thresholds, or config file location. G2 enforcement is unimplementable.
+
+Blocker â€” unscroll.md:298 ("same curve-log interface as SAM path"): the shared interface is never defined in range (no schema, path, or fields), so SAM/fallback interchangeability cannot be built or tested.
+
+Blocker â€” unscroll.md:300 + unscroll.md:358 ("50-slice hold test", "pass = SAM primary, fail = fallback primary"): no slice-selection rule and no numeric pass threshold. The plan's forcing function has no decision procedure.
+
+Blocker â€” unscroll.md:330 + unscroll.md:332 ("per-slice log schema", "exact G1-G4 formulas"): schemas and formulas are referenced but absent from this range; an implementer with no other context cannot write `runlog.py`/`metrics.py` or evaluate anything.
+
+Blocker â€” unscroll.md:363 ("API-free demo runs with network disabled (the actual test)"): no demo command, no procedure for disabling network, no expected observable. The key golden test is not executable.
+
+Blocker â€” unscroll.md:274 (`data/recipe.lock`): "chosen fragmentsâ€¦" with no selection criteria, no lock schema, and no generating command. Reproducibility input is a decision, not a step.
+
+Major â€” unscroll.md:265 vs unscroll.md:272,302,344 (`probe_report.md`, `gono_verdict.md`, `README.md`, `requirements.txt`, `.gitignore` without directory): "all paths relative to `unscroll/`" still leaves output locations ambiguous (repo root vs `scripts/` vs `docs/`).
+
+Major â€” unscroll.md:277 (`src/dataio/download.py` "enforces 10GB-per-artifact rule"): no behavior on violation (error/skip/truncate) and no CLI signature.
+
+Major â€” unscroll.md:280 (`src/dataio/stream.py`): no function names, signatures, chunk sizes, or tile-index format.
+
+Major â€” unscroll.md:296 (`src/trace/reprompt.py` "suspect flags, shortlist writer"): flag schema and output path missing (only "max 3/region" is concrete).
+
+Major â€” unscroll.md:306 (`src/flatten/anchor.py`): no resample step, alignment algorithm, shift-log path/schema, or shear-metric formula.
+
+Major â€” unscroll.md:308 (`src/flatten/surface.py`): no sampling distance, resolution, output path/format, or streaming chunk size.
+
+Major â€” unscroll.md:310 (`src/ink/dataset.py`): no patch size, stride, sampling, or label encoding.
+
+Major â€” unscroll.md:315 (`src/ink/infer.py`): no tile size, overlap, or output path.
+
+Major â€” unscroll.md:324 (`src/agents/wonder.py` "iteration cap"): cap value missing â€” a decision disguised as a step.
+
+Major â€” unscroll.md:326 (`src/agents/cli.py` "equivalents of Voice commands"): command set never enumerated in range; nothing to implement against.
+
+Major â€” unscroll.md:328 (`src/agents/stubs.py` "API-off switch"): no switch mechanism (env var/flag/config) and no fixture paths.
+
+Major â€” unscroll.md:334 (`src/eval/report.py` "tier report (A/B/C)"): tier definitions absent in range.
+
+Major â€” unscroll.md:335 (`scripts/freeze_golden.py` "locks golden artifacts"): no lock mechanism, output dir, or manifest/hash procedure.
+
+Major â€” unscroll.md:340 (`viewer/index.html`, `viewer/app.js` "2 live views"): no framework, data-source paths, or interaction spec.
+
+Major â€” unscroll.md:342 (`viewer/frames/`): no render command, sizes, or formats.
+
+Major â€” unscroll.md:356 ("Probe" verification): command given but no assertion or pass/fail â€” "shows VRAM/RAM/â€¦" is unverifiable.
+
+Major â€” unscroll.md:361 (`python -m src.eval.report --tier A B C`): CLI syntax ambiguous (one flag, three values, or three runs?) and "every number links to a run ID" names no link mechanism.
+
+Major â€” unscroll.md:365 ("Hygiene"): three checks without exact commands â€” `pip freeze` exact-match semantics brittle/undefined, no grep pattern for keys, no size-audit command for "zero volume bytes".
+
+Major â€” unscroll.md:267 + unscroll.md:317 ("grouped by day" vs "Days 0-2 + Day 5"): Day 1 is unaccounted for and eval/agent scheduling ("start Days 0-2â€¦ land Day 5") contradicts a single day-grouped list.
+
+Major â€” unscroll.md:351 ("create at Step 6"): Step 6 undefined in range, and target is the file being read â€” implementer cannot resolve what to do.
+
+Nit â€” unscroll.md:287 (`.gitignore`): lists categories ("data cache, checkpoints, `.env`, reports") but no exact patterns; secrets-exclusion needs literals.
+
+Nit â€” unscroll.md:344 (`README.md`): promises "run commands" but no command list in range to copy.
+
+Nit â€” unscroll.md:346 + unscroll.md:349 (tests): "toy arrays/curves" with no cases or expected values; directionally clear, assertions left open.
+
+GO / NO-GO: NO-GO.
+

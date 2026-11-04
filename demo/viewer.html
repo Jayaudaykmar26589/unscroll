@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Unscroll viewer</title>
+<style>
+  body { background: #111; color: #ddd; font-family: sans-serif; margin: 0; }
+  header { padding: 8px 16px; background: #1c1c1c; }
+  main { display: flex; gap: 12px; padding: 12px; }
+  figure { margin: 0; flex: 1; }
+  figcaption { padding: 4px 0 8px; color: #9d9; }
+  img { width: 100%; image-rendering: pixelated; background: #000; }
+  #ctl { padding: 0 16px 16px; }
+  input[type=range] { width: 60%; }
+  #xlate { margin: 0 12px 16px; padding: 10px 12px; background: #1c1c1c; border-radius: 6px; }
+  #xlate h2 { margin: 0 0 8px; font-size: 15px; color: #9d9; }
+  #xlate table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  #xlate td, #xlate th { border-top: 1px solid #333; padding: 4px 8px; text-align: left; }
+  #xlate .grc { font-size: 16px; }
+  #xlate select { margin-left: 8px; }
+  #xlate .note { color: #999; font-size: 12px; margin-top: 6px; }
+</style>
+</head>
+<body>
+<header><b>Unscroll</b> &mdash; click once, unroll anything rolled</header>
+<main>
+  <figure>
+    <figcaption id="capL">CT slice + traced layer</figcaption>
+    <img id="slice" alt="ct slice">
+  </figure>
+  <figure>
+    <figcaption>Flattened sheet</figcaption>
+    <img id="sheet" src="frames_pilot/flat.png" alt="flat sheet">
+  </figure>
+</main>
+<div id="ctl">
+  <input id="scrub" type="range" min="0" max="7" value="0" step="1">
+  <span id="zlab">z=0</span>
+</div>
+<section id="xlate">
+  <h2>Reading + translation
+    <select id="lang">
+      <option value="en">English</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+    </select>
+    <select id="mode">
+      <option value="fluent">fluent</option>
+      <option value="gloss">gloss</option>
+    </select>
+  </h2>
+  <table>
+    <thead><tr><th>Greek</th><th>read conf</th><th>translation</th><th>tconf</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <div class="note">Golden fixtures (API-free). Live Spark translations use the same schema via scripts/translate_demo.py.</div>
+</section>
+<script>
+const N = 8, DIR = "frames_pilot", PAD = 5;
+const GOLDEN = {
+  "en": {
+    "fluent": [
+      {"input": "χαῖρε κόσμε", "conf": 0.92, "translation": "Hello world", "tconf": 1.0},
+      {"input": "καὶ ὁ μῦθος", "conf": 0.61, "translation": "and the μῦθος?", "tconf": 0.667}
+    ],
+    "gloss": [
+      {"input": "χαῖρε κόσμε", "conf": 0.92, "translation": "Hello world", "tconf": 1.0},
+      {"input": "καὶ ὁ μῦθος", "conf": 0.61, "translation": "καὶ = and | ὁ = the | μῦθος = ?", "tconf": 0.667}
+    ]
+  },
+  "de": {
+    "fluent": [
+      {"input": "χαῖρε κόσμε", "conf": 0.92, "translation": "[de-STUB] Hello world", "tconf": 1.0},
+      {"input": "καὶ ὁ μῦθος", "conf": 0.61, "translation": "[de-STUB] and the μῦθος?", "tconf": 0.667}
+    ],
+    "gloss": [
+      {"input": "χαῖρε κόσμε", "conf": 0.92, "translation": "[de-STUB] Hello world", "tconf": 1.0},
+      {"input": "καὶ ὁ μῦθος", "conf": 0.61, "translation": "[de-STUB] καὶ = and | ὁ = the | μῦθος = ?", "tconf": 0.667}
+    ]
+  },
+  "fr": {
+    "fluent": [
+      {"input": "χαῖρε κόσμε", "conf": 0.92, "translation": "[fr-STUB] Hello world", "tconf": 1.0},
+      {"input": "καὶ ὁ μῦθος", "conf": 0.61, "translation": "[fr-STUB] and the μῦθος?", "tconf": 0.667}
+    ],
+    "gloss": [
+      {"input": "χαῖρε κόσμε", "conf": 0.92, "translation": "[fr-STUB] Hello world", "tconf": 1.0},
+      {"input": "καὶ ὁ μῦθος", "conf": 0.61, "translation": "[fr-STUB] καὶ = and | ὁ = the | μῦθος = ?", "tconf": 0.667}
+    ]
+  }
+};
+const slice = document.getElementById("slice");
+const scrub = document.getElementById("scrub");
+const zlab = document.getElementById("zlab");
+function show(i) {
+  slice.src = DIR + "/" + String(i).padStart(PAD, "0") + ".png";
+  zlab.textContent = "z=" + i;
+}
+scrub.addEventListener("input", e => show(+e.target.value));
+show(0);
+const lang = document.getElementById("lang");
+const mode = document.getElementById("mode");
+const rows = document.getElementById("rows");
+function renderXlate() {
+  rows.innerHTML = "";
+  for (const r of GOLDEN[lang.value][mode.value]) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td class="grc">${r.input}</td><td>${r.conf}</td><td>${r.translation}</td><td>${r.tconf}</td>`;
+    rows.appendChild(tr);
+  }
+}
+lang.addEventListener("change", renderXlate);
+mode.addEventListener("change", renderXlate);
+renderXlate();
+</script>
+</body>
+</html>

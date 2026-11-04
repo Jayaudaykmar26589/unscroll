@@ -1,0 +1,9 @@
+{"run_id": "20261027T160020_f71337", "note": "sam3-local 4820,3403,6100", "type": "header"}
+{"run_id": "20261027T160020_f71337", "z": 0, "status": "suspect", "curve_ref": "00000.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T160020_f71337", "z": 1, "status": "failed", "curve_ref": "00001.jsonl", "checks": {}, "reprompts": 0}
+{"run_id": "20261027T160020_f71337", "z": 2, "status": "failed", "curve_ref": "00002.jsonl", "checks": {}, "reprompts": 0}
+{"run_id": "20261027T160020_f71337", "z": 3, "status": "failed", "curve_ref": "00003.jsonl", "checks": {}, "reprompts": 0}
+{"run_id": "20261027T160020_f71337", "z": 4, "status": "failed", "curve_ref": "00004.jsonl", "checks": {}, "reprompts": 0}
+{"run_id": "20261027T160020_f71337", "z": 5, "status": "failed", "curve_ref": "00005.jsonl", "checks": {}, "reprompts": 0}
+{"run_id": "20261027T160020_f71337", "z": 6, "status": "failed", "curve_ref": "00006.jsonl", "checks": {}, "reprompts": 0}
+{"run_id": "20261027T160020_f71337", "z": 7, "status": "failed", "curve_ref": "00007.jsonl", "checks": {}, "reprompts": 0}

@@ -1,0 +1,20 @@
+{
+ "seed": "20231221180251",
+ "model": "muse-spark-1.3",
+ "facts": {
+  "seed_mesh": "20231221180251",
+  "slices_traced": 20,
+  "slices_total": 20,
+  "within_5_voxels_percent": 79.0,
+  "within_2_voxels_percent": 48.3,
+  "median_distance_voxels": 2.1,
+  "before_fix_within_5_voxels_percent": 43.1,
+  "before_fix_median_distance_voxels": 8.2,
+  "on_clicked_layer": true,
+  "voxel_size_micrometres": 7.91,
+  "image": "red line = trace, yellow dot = click; panels: close-up, slice 0, slice 19"
+ },
+ "text": "The trace follows the clicked layer and was found in 20 of 20 slices, with 79.0 percent within 5 voxels and 48.3 percent within 2 voxels and median distance 2.1 voxels, much improved from 43.1 percent and 8.2 voxels before the fix, so it can be largely trusted near the click. It is weakest away from the yellow dot, as seen in slice 0 and slice 19 where the red line drifts. A person should check the red line against the sheet in the close-up and in slice 0 and slice 19, remembering each voxel is 7.91 micrometres.",
+ "numbers_ok": true,
+ "attempts": 1
+}

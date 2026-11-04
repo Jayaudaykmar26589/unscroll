@@ -1,0 +1,3 @@
+{"run_id": "20261027T151900_c3c9ee", "note": "ridge 3892,5500,6100 bright", "type": "header"}
+{"run_id": "20261027T151900_c3c9ee", "z": 0, "status": "suspect", "curve_ref": "00000.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T151900_c3c9ee", "z": 1, "status": "suspect", "curve_ref": "00001.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}

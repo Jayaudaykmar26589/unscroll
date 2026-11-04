@@ -1,0 +1,164 @@
+{
+ "prediction": {
+  "schema_version": 1,
+  "model": "muse-spark-1.3",
+  "kind": "image_prediction",
+  "image_sha256": "8f7fd4bd8c19983dcf384dca0711a82a18fc01613ce0fb6b23de67c7c4cf0234",
+  "seconds": 19.028163299983134,
+  "prompt_sha256": "8cf1aea0c60239c8d2851885135e2e8246f9670d5f477b7a93ceba0fdc85422f",
+  "reference_sent": false,
+  "local_gpu_required": false,
+  "preprocessing": "baseline",
+  "request_images_sha256": [
+   "1f67da08eadff4c3e1f3d5813add174b65be52a9f620cc589a3fa053f205d93d",
+   "b73f3995258b348564248ac2e0ed781d05f8909f3855e391664f84741834293a",
+   "73c3cc4cc374e03ed1f659aef2ff5013c65396f0884fd9bc60a2b58f7c4d3b37",
+   "e0f853a6445cda114f58be1f4e2d1d351ee0069a7215073b214e3edd056b5de1",
+   "de4c1cefe2e2d92f77bd97ce6359383f2775120e2de3222d94582cdec616df46",
+   "78bc82cd83dac653c4327ccfd938de9c71a19c32d02d2ab56936f44ac59d77a4"
+  ],
+  "lines": [
+   {
+    "id": "l1",
+    "request_id": "r1",
+    "bbox": [
+     0,
+     25,
+     971,
+     144
+    ],
+    "crop_sha256": "1f67da08eadff4c3e1f3d5813add174b65be52a9f620cc589a3fa053f205d93d",
+    "text": ""
+   },
+   {
+    "id": "l2",
+    "request_id": "r2",
+    "bbox": [
+     0,
+     121,
+     971,
+     240
+    ],
+    "crop_sha256": "b73f3995258b348564248ac2e0ed781d05f8909f3855e391664f84741834293a",
+    "text": "?ΙΕ??????ΚΕ??ΤΑ??"
+   },
+   {
+    "id": "l3",
+    "request_id": "r3",
+    "bbox": [
+     0,
+     217,
+     971,
+     336
+    ],
+    "crop_sha256": "73c3cc4cc374e03ed1f659aef2ff5013c65396f0884fd9bc60a2b58f7c4d3b37",
+    "text": "ΙΑΤΕ?ΕΟΝΚΑΙΟΜΕΙΝ"
+   },
+   {
+    "id": "l4",
+    "request_id": "r4",
+    "bbox": [
+     0,
+     313,
+     971,
+     433
+    ],
+    "crop_sha256": "e0f853a6445cda114f58be1f4e2d1d351ee0069a7215073b214e3edd056b5de1",
+    "text": "ΝΟΘΗΜΙΝΔΛΗΚΑΙ"
+   },
+   {
+    "id": "l5",
+    "request_id": "r5",
+    "bbox": [
+     0,
+     409,
+     971,
+     529
+    ],
+    "crop_sha256": "de4c1cefe2e2d92f77bd97ce6359383f2775120e2de3222d94582cdec616df46",
+    "text": "ΤΕΙΜΕ???Ε?ΙΣΟ??ΥΤ"
+   },
+   {
+    "id": "l6",
+    "request_id": "r6",
+    "bbox": [
+     0,
+     506,
+     971,
+     606
+    ],
+    "crop_sha256": "78bc82cd83dac653c4327ccfd938de9c71a19c32d02d2ab56936f44ac59d77a4",
+    "text": ""
+   }
+  ],
+  "run_id": "cdc8851d7f222f4d688c594b494243fbbcb0ab57c1670ce83e566d45038176b6"
+ },
+ "evaluation": {
+  "lines": [
+   {
+    "id": "l1",
+    "reference": "ὰρ ἀπ̣εχόμ̣ε̣θ̣α̣ τὰ",
+    "prediction": "",
+    "strict_edits": 20,
+    "strict_characters": 20,
+    "letter_edits": 13,
+    "reference_letters": 13,
+    "normalized_exact": false
+   },
+   {
+    "id": "l2",
+    "reference": "μὲν κρίνειν, τὰ δὲ",
+    "prediction": "?ΙΕ??????ΚΕ??ΤΑ??",
+    "strict_edits": 18,
+    "strict_characters": 18,
+    "letter_edits": 13,
+    "reference_letters": 14,
+    "normalized_exact": false
+   },
+   {
+    "id": "l3",
+    "reference": "κατέχειν καὶ ἐμφαί",
+    "prediction": "ΙΑΤΕ?ΕΟΝΚΑΙΟΜΕΙΝ",
+    "strict_edits": 18,
+    "strict_characters": 18,
+    "letter_edits": 7,
+    "reference_letters": 16,
+    "normalized_exact": false
+   },
+   {
+    "id": "l4",
+    "reference": "νoιθ’ ἡμῖν ἀληθῆ λέ-",
+    "prediction": "ΝΟΘΗΜΙΝΔΛΗΚΑΙ",
+    "strict_edits": 20,
+    "strict_characters": 20,
+    "letter_edits": 7,
+    "reference_letters": 15,
+    "normalized_exact": false
+   },
+   {
+    "id": "l5",
+    "reference": "γειν ὥϲπερ πολλά̣κιϲ",
+    "prediction": "ΤΕΙΜΕ???Ε?ΙΣΟ??ΥΤ",
+    "strict_edits": 20,
+    "strict_characters": 20,
+    "letter_edits": 15,
+    "reference_letters": 17,
+    "normalized_exact": false
+   },
+   {
+    "id": "l6",
+    "reference": "ἂν ἐ̣μφανε̣ίη̣{ι}.",
+    "prediction": "",
+    "strict_edits": 18,
+    "strict_characters": 18,
+    "letter_edits": 11,
+    "reference_letters": 11,
+    "normalized_exact": false
+   }
+  ],
+  "strict_cer": 1.0,
+  "normalized_cer": 0.7674418604651163,
+  "normalized_exact_lines": 0,
+  "limitations": "6 manually located lines from one public image; not a held-out test. Model memorization cannot be excluded. Strict CER includes editorial marks; normalized CER removes diacritics, spaces and punctuation and folds sigma forms. No uncertainty-detection or scholarly accuracy claim."
+ }
+}

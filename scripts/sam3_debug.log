@@ -1,0 +1,11 @@
+session: 1e2ddd6f-5333-4902-bebe-5744e528d6cc
+add_prompt keys: ['frame_index', 'outputs']
+frame_index: 0
+outputs type: <class 'dict'>
+state keys: ['image_size', 'num_frames', 'device', 'orig_height', 'orig_width', 'constants', 'input_batch', 'previous_stages_out', 'text_prompt', 'per_frame_raw_point_input', 'per_frame_raw_box_input', 'per_frame_visual_prompt', 'per_frame_geometric_prompt', 'per_frame_cur_step', 'backbone_out', 'visual_prompt_embed', 'visual_prompt_mask', 'sam2_inference_states', 'tracker_metadata', 'feature_cache', 'cached_frame_outputs', 'is_image_only', 'action_history']
+  prompt-ish text_prompt <class 'NoneType'>
+  prompt-ish per_frame_raw_point_input <class 'list'>
+  prompt-ish per_frame_visual_prompt <class 'list'>
+  prompt-ish per_frame_geometric_prompt <class 'list'>
+  prompt-ish visual_prompt_embed <class 'NoneType'>
+  prompt-ish visual_prompt_mask <class 'NoneType'>

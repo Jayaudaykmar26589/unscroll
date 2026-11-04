@@ -1,0 +1,462 @@
+{
+  "segment": "20230827161847",
+  "volume": "20230205180739",
+  "zarr": "54keV_7.91um_Scroll1A.zarr level 0 (uint8)",
+  "window": {
+    "image_rows": [
+      3650,
+      4650
+    ],
+    "image_cols": [
+      3000,
+      3400
+    ],
+    "official_mean_ink": 0.4916456639766693,
+    "official_ink_std": 0.3317282497882843,
+    "z_range": [
+      10655.965116995674,
+      11068.310391249006
+    ]
+  },
+  "crop": {
+    "z": [
+      10653,
+      11072
+    ],
+    "y": [
+      2250,
+      3189
+    ],
+    "x": [
+      2271,
+      3822
+    ],
+    "shape": [
+      419,
+      939,
+      1551
+    ]
+  },
+  "calibration": {
+    "gain": 0.6293211310370458,
+    "offset": 84.22925517485598,
+    "corr_zarr_vs_official": 0.977156063860234
+  },
+  "control": {
+    "mean_ink": 0.6305627822875977,
+    "corr_with_official_ink": 0.831314922994842
+  },
+  "click_crop": [
+    796,
+    305,
+    10684
+  ],
+  "assisted": {
+    "every_slices": 40,
+    "clicks_crop": [
+      [
+        796,
+        307,
+        10693
+      ],
+      [
+        792,
+        326,
+        10732
+      ],
+      [
+        789,
+        334,
+        10772
+      ],
+      [
+        786,
+        345,
+        10813
+      ],
+      [
+        782,
+        360,
+        10853
+      ],
+      [
+        778,
+        374,
+        10894
+      ],
+      [
+        775,
+        388,
+        10935
+      ],
+      [
+        768,
+        412,
+        10971
+      ],
+      [
+        762,
+        433,
+        11008
+      ],
+      [
+        759,
+        450,
+        11049
+      ]
+    ],
+    "source": "official segment surface (simulated scholar clicks)"
+  },
+  "traced_slices": 278,
+  "traced_z": [
+    10693,
+    11062
+  ],
+  "reseeds": 0,
+  "distance_to_official_surface": {
+    "within5": 0.31903350235214667,
+    "within2": 0.07948081083246535,
+    "median_vx": 6.98921067587587,
+    "points": 87367,
+    "note": "points outside the official window's extent count as far"
+  },
+  "ours": {
+    "image": [
+      278,
+      786
+    ],
+    "mean_ink": 0.746125340461731,
+    "p99": 0.9185535311698914,
+    "frac_above_0.5": 0.36424753327109305,
+    "flatten_meta": {
+      "curves": "/tmp/letters/curves_merged",
+      "click": [
+        796.0,
+        305.0
+      ],
+      "rows": 278,
+      "rows_traced": 278,
+      "columns": 786,
+      "anchor_column": 474,
+      "normal_offsets_vx": [
+        -32,
+        -31,
+        -30,
+        -29,
+        -28,
+        -27,
+        -26,
+        -25,
+        -24,
+        -23,
+        -22,
+        -21,
+        -20,
+        -19,
+        -18,
+        -17,
+        -16,
+        -15,
+        -14,
+        -13,
+        -12,
+        -11,
+        -10,
+        -9,
+        -8,
+        -7,
+        -6,
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "layers_in_flat_layers_png": [
+        -32,
+        -29,
+        -26,
+        -23,
+        -20,
+        -17,
+        -14,
+        -11,
+        -8,
+        -5,
+        -2,
+        1,
+        4,
+        7,
+        10,
+        13,
+        16,
+        19,
+        22,
+        25,
+        28,
+        31
+      ],
+      "z_range": [
+        10693,
+        11062
+      ],
+      "z_range_traced": [
+        10693,
+        11062
+      ],
+      "image_rows": 278,
+      "voxel_um": 7.91
+    }
+  },
+  "tracer_errors": [],
+  "control_own_normals": {
+    "corr_with_official_ink": 0.8217580540349657,
+    "normal_agreement": 0.9956271096513828
+  },
+  "ours3d_sigma12": {
+    "sigma_rows": 12.0,
+    "image": [
+      278,
+      786
+    ],
+    "snap_shift_vx": 0,
+    "snap_side": -1,
+    "snap_scores": [
+      {
+        "side": 1,
+        "shift": -8,
+        "ink_std": 0.21038860082626343
+      },
+      {
+        "side": 1,
+        "shift": -6,
+        "ink_std": 0.19799722731113434
+      },
+      {
+        "side": 1,
+        "shift": -4,
+        "ink_std": 0.19037403166294098
+      },
+      {
+        "side": 1,
+        "shift": -2,
+        "ink_std": 0.19552995264530182
+      },
+      {
+        "side": 1,
+        "shift": 0,
+        "ink_std": 0.19992958009243011
+      },
+      {
+        "side": 1,
+        "shift": 2,
+        "ink_std": 0.19951774179935455
+      },
+      {
+        "side": 1,
+        "shift": 4,
+        "ink_std": 0.19799505174160004
+      },
+      {
+        "side": 1,
+        "shift": 6,
+        "ink_std": 0.19243240356445312
+      },
+      {
+        "side": 1,
+        "shift": 8,
+        "ink_std": 0.2023107260465622
+      },
+      {
+        "side": -1,
+        "shift": -8,
+        "ink_std": 0.22758811712265015
+      },
+      {
+        "side": -1,
+        "shift": -6,
+        "ink_std": 0.23293910920619965
+      },
+      {
+        "side": -1,
+        "shift": -4,
+        "ink_std": 0.22246283292770386
+      },
+      {
+        "side": -1,
+        "shift": -2,
+        "ink_std": 0.23862625658512115
+      },
+      {
+        "side": -1,
+        "shift": 0,
+        "ink_std": 0.24500474333763123
+      },
+      {
+        "side": -1,
+        "shift": 2,
+        "ink_std": 0.2398945838212967
+      },
+      {
+        "side": -1,
+        "shift": 4,
+        "ink_std": 0.2418263852596283
+      },
+      {
+        "side": -1,
+        "shift": 6,
+        "ink_std": 0.24030518531799316
+      },
+      {
+        "side": -1,
+        "shift": 8,
+        "ink_std": 0.24156242609024048
+      }
+    ],
+    "mean_ink": 0.6544548273086548,
+    "frac_above_0.5": 0.2843740274955608,
+    "points_within_5vx_of_official": 0.4178648414409209,
+    "ink_corr_with_official_where_within_5vx": 0.7495931954184885,
+    "ink_corr_with_official_all_matched": 0.7249153332125561
+  },
+  "ours3d_sigma16": {
+    "sigma_rows": 16.0,
+    "image": [
+      278,
+      786
+    ],
+    "snap_shift_vx": 0,
+    "snap_side": -1,
+    "snap_scores": [
+      {
+        "side": 1,
+        "shift": -8,
+        "ink_std": 0.20022651553153992
+      },
+      {
+        "side": 1,
+        "shift": -6,
+        "ink_std": 0.18965114653110504
+      },
+      {
+        "side": 1,
+        "shift": -4,
+        "ink_std": 0.18544144928455353
+      },
+      {
+        "side": 1,
+        "shift": -2,
+        "ink_std": 0.19147072732448578
+      },
+      {
+        "side": 1,
+        "shift": 0,
+        "ink_std": 0.19309677183628082
+      },
+      {
+        "side": 1,
+        "shift": 2,
+        "ink_std": 0.19914549589157104
+      },
+      {
+        "side": 1,
+        "shift": 4,
+        "ink_std": 0.19997389614582062
+      },
+      {
+        "side": 1,
+        "shift": 6,
+        "ink_std": 0.2036447823047638
+      },
+      {
+        "side": 1,
+        "shift": 8,
+        "ink_std": 0.21226371824741364
+      },
+      {
+        "side": -1,
+        "shift": -8,
+        "ink_std": 0.23276394605636597
+      },
+      {
+        "side": -1,
+        "shift": -6,
+        "ink_std": 0.2363848090171814
+      },
+      {
+        "side": -1,
+        "shift": -4,
+        "ink_std": 0.22401827573776245
+      },
+      {
+        "side": -1,
+        "shift": -2,
+        "ink_std": 0.22654181718826294
+      },
+      {
+        "side": -1,
+        "shift": 0,
+        "ink_std": 0.23930461704730988
+      },
+      {
+        "side": -1,
+        "shift": 2,
+        "ink_std": 0.23097224533557892
+      },
+      {
+        "side": -1,
+        "shift": 4,
+        "ink_std": 0.2294360250234604
+      },
+      {
+        "side": -1,
+        "shift": 6,
+        "ink_std": 0.23013518750667572
+      },
+      {
+        "side": -1,
+        "shift": 8,
+        "ink_std": 0.23270469903945923
+      }
+    ],
+    "mean_ink": 0.6597872972488403,
+    "frac_above_0.5": 0.28571036300730407,
+    "points_within_5vx_of_official": 0.40975355007889064,
+    "ink_corr_with_official_where_within_5vx": 0.7174786945438834,
+    "ink_corr_with_official_all_matched": 0.7258862697621883
+  },
+  "minutes": 53.0
+}

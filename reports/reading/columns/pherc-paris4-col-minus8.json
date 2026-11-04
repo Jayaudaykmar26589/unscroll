@@ -1,0 +1,325 @@
+{
+ "prediction": {
+  "schema_version": 1,
+  "model": "muse-spark-1.3",
+  "kind": "image_prediction",
+  "image_sha256": "22088b39a60a13cc1aca9d14a2377f0f3fbd66e62d9199ce7f934c13f2d6c672",
+  "seconds": 19.166005000006407,
+  "prompt_sha256": "8cf1aea0c60239c8d2851885135e2e8246f9670d5f477b7a93ceba0fdc85422f",
+  "reference_sent": false,
+  "local_gpu_required": false,
+  "preprocessing": "baseline",
+  "request_images_sha256": [
+   "c884961d8f22ecc12e8f4d5650679b1243e0e209aeb822f2a29fd82d447056d2",
+   "d6a655e8091fd6a0d0c37cfbdfaac33800d6ffb22a91e3416f0622e2de2c1a40",
+   "94e464d90a2d040f4e37c82a6394bd6661bcc556c22cbbb0f8109f86948b8eaf",
+   "7af10a51d2e662a9e22258c5dd1d8465e3fa70b77861e411a832d4914fd369d1",
+   "529daea37e96b6e29af3a20e8f08ea5edc958307bdd9eb45e92fa523e0c54034",
+   "4468b8e26c498501d8cdff7994db4a3da3e92404e4b057a1c7662c0ddcefc49d",
+   "9d5b2322786247c81c0be11f9641f65199e3eb3fd065f95e5effa583ca78a5cf",
+   "44b2df6bb81a1694bb8c80bf7882460ee35eb5453d53e333f90ad26ccc1f0cbc",
+   "38d3095c644f9ee2685404a8cf810f87c56aa0269099b720bf817426d85f0837",
+   "83f1d4351eebe85889b91888c4a5c2167dbc5caa411076d7dc71ff24a6f95fde",
+   "889a27abad66420380b3eefa604df8d5f81c12ac95115db055b13e59c3c65fc6",
+   "5cb99a3293df2d58a31dfe8fed614a4707a8ef8dd9fe52c6a9e7199583a60000",
+   "2011d683d36d149af5f7644f48b86f2687f88a797e4f9bc6a29d8e926ad08790"
+  ],
+  "lines": [
+   {
+    "id": "l2",
+    "request_id": "r1",
+    "bbox": [
+     0,
+     0,
+     936,
+     108
+    ],
+    "crop_sha256": "c884961d8f22ecc12e8f4d5650679b1243e0e209aeb822f2a29fd82d447056d2",
+    "text": "?Α?ΕΝΤΟΤΣ?"
+   },
+   {
+    "id": "l3",
+    "request_id": "r2",
+    "bbox": [
+     0,
+     86,
+     936,
+     200
+    ],
+    "crop_sha256": "d6a655e8091fd6a0d0c37cfbdfaac33800d6ffb22a91e3416f0622e2de2c1a40",
+    "text": "?????????????????ΟΙ"
+   },
+   {
+    "id": "l4",
+    "request_id": "r3",
+    "bbox": [
+     0,
+     178,
+     936,
+     292
+    ],
+    "crop_sha256": "94e464d90a2d040f4e37c82a6394bd6661bcc556c22cbbb0f8109f86948b8eaf",
+    "text": "ΟΦΕΙΛΕΤ???ΩΝ?????"
+   },
+   {
+    "id": "l5",
+    "request_id": "r4",
+    "bbox": [
+     0,
+     270,
+     936,
+     385
+    ],
+    "crop_sha256": "7af10a51d2e662a9e22258c5dd1d8465e3fa70b77861e411a832d4914fd369d1",
+    "text": "ΓΕΙΝΕΣΘΑΙ ΣΧΗΜΑΤΗ"
+   },
+   {
+    "id": "l6",
+    "request_id": "r5",
+    "bbox": [
+     0,
+     362,
+     936,
+     477
+    ],
+    "crop_sha256": "529daea37e96b6e29af3a20e8f08ea5edc958307bdd9eb45e92fa523e0c54034",
+    "text": "????????????????????"
+   },
+   {
+    "id": "l7",
+    "request_id": "r6",
+    "bbox": [
+     0,
+     455,
+     936,
+     569
+    ],
+    "crop_sha256": "4468b8e26c498501d8cdff7994db4a3da3e92404e4b057a1c7662c0ddcefc49d",
+    "text": "?????????????Ν??"
+   },
+   {
+    "id": "l8",
+    "request_id": "r7",
+    "bbox": [
+     0,
+     547,
+     936,
+     661
+    ],
+    "crop_sha256": "9d5b2322786247c81c0be11f9641f65199e3eb3fd065f95e5effa583ca78a5cf",
+    "text": "????????ΠΑΡΑΤΑΙ??"
+   },
+   {
+    "id": "l9",
+    "request_id": "r8",
+    "bbox": [
+     0,
+     639,
+     936,
+     754
+    ],
+    "crop_sha256": "44b2df6bb81a1694bb8c80bf7882460ee35eb5453d53e333f90ad26ccc1f0cbc",
+    "text": "??????????????????"
+   },
+   {
+    "id": "l10",
+    "request_id": "r9",
+    "bbox": [
+     0,
+     732,
+     936,
+     846
+    ],
+    "crop_sha256": "38d3095c644f9ee2685404a8cf810f87c56aa0269099b720bf817426d85f0837",
+    "text": "??Ε?Κ?Μ??????Μ????"
+   },
+   {
+    "id": "l11",
+    "request_id": "r10",
+    "bbox": [
+     0,
+     824,
+     936,
+     938
+    ],
+    "crop_sha256": "83f1d4351eebe85889b91888c4a5c2167dbc5caa411076d7dc71ff24a6f95fde",
+    "text": "???????????????Λ?"
+   },
+   {
+    "id": "l12",
+    "request_id": "r11",
+    "bbox": [
+     0,
+     916,
+     936,
+     1031
+    ],
+    "crop_sha256": "889a27abad66420380b3eefa604df8d5f81c12ac95115db055b13e59c3c65fc6",
+    "text": "ΠΑΡΙ?ΜΕΝ?ΑΙΜΗΝΙ?"
+   },
+   {
+    "id": "l13",
+    "request_id": "r12",
+    "bbox": [
+     0,
+     1009,
+     936,
+     1123
+    ],
+    "crop_sha256": "5cb99a3293df2d58a31dfe8fed614a4707a8ef8dd9fe52c6a9e7199583a60000",
+    "text": "ΤΩΝ??????????????"
+   },
+   {
+    "id": "l14",
+    "request_id": "r13",
+    "bbox": [
+     0,
+     1101,
+     936,
+     1204
+    ],
+    "crop_sha256": "2011d683d36d149af5f7644f48b86f2687f88a797e4f9bc6a29d8e926ad08790",
+    "text": "ΝΕΑΝΙ??ΑΙ???ΟΤΙ??"
+   }
+  ],
+  "run_id": "3f4c04b2a25fa64a2a13f8bc20beaaa56a93c46ed2a14f0689f23cc388dd938d"
+ },
+ "evaluation": {
+  "lines": [
+   {
+    "id": "l2",
+    "reference": "...]ι̣μ̣εν τοὺϲ̣ [πα]ρ̣[ὰ Ξ]ε̣-",
+    "prediction": "?Α?ΕΝΤΟΤΣ?",
+    "strict_edits": 31,
+    "strict_characters": 31,
+    "letter_edits": 10,
+    "reference_letters": 14,
+    "normalized_exact": false
+   },
+   {
+    "id": "l3",
+    "reference": "νοφάντωι το̣ιούτου[ϲ,",
+    "prediction": "?????????????????ΟΙ",
+    "strict_edits": 21,
+    "strict_characters": 21,
+    "letter_edits": 19,
+    "reference_letters": 17,
+    "normalized_exact": false
+   },
+   {
+    "id": "l4",
+    "reference": "ὃ καὶ ὑπ’ ἄ̣λλων δοκεῖ",
+    "prediction": "ΟΦΕΙΛΕΤ???ΩΝ?????",
+    "strict_edits": 22,
+    "strict_characters": 22,
+    "letter_edits": 13,
+    "reference_letters": 16,
+    "normalized_exact": false
+   },
+   {
+    "id": "l5",
+    "reference": "γείνεϲθαι, παραπλη-",
+    "prediction": "ΓΕΙΝΕΣΘΑΙ ΣΧΗΜΑΤΗ",
+    "strict_edits": 18,
+    "strict_characters": 19,
+    "letter_edits": 6,
+    "reference_letters": 16,
+    "normalized_exact": false
+   },
+   {
+    "id": "l6",
+    "reference": "ϲίωϲ δ̣’ ο̣ὐδὲ παρ̣’ ἑτέρωι",
+    "prediction": "????????????????????",
+    "strict_edits": 27,
+    "strict_characters": 27,
+    "letter_edits": 20,
+    "reference_letters": 18,
+    "normalized_exact": false
+   },
+   {
+    "id": "l7",
+    "reference": "ἴδι̣ον το̣ῦ δ̣οκοῦ̣ντοϲ̣",
+    "prediction": "?????????????Ν??",
+    "strict_edits": 24,
+    "strict_characters": 24,
+    "letter_edits": 16,
+    "reference_letters": 17,
+    "normalized_exact": false
+   },
+   {
+    "id": "l8",
+    "reference": "εἶναι καὶ παρὰ πλε̣ί-",
+    "prediction": "????????ΠΑΡΑΤΑΙ??",
+    "strict_edits": 21,
+    "strict_characters": 21,
+    "letter_edits": 13,
+    "reference_letters": 16,
+    "normalized_exact": false
+   },
+   {
+    "id": "l9",
+    "reference": "οϲ̣ι̣ν̣ ἥδιο̣ν, ἀλλ’ ὡ̣ϲ̣ καὶ",
+    "prediction": "??????????????????",
+    "strict_edits": 29,
+    "strict_characters": 29,
+    "letter_edits": 18,
+    "reference_letters": 17,
+    "normalized_exact": false
+   },
+   {
+    "id": "l10",
+    "reference": "ἐ̣π̣ὶ τῶν βρω̣μ̣άτ̣ων",
+    "prediction": "??Ε?Κ?Μ??????Μ????",
+    "strict_edits": 21,
+    "strict_characters": 21,
+    "letter_edits": 16,
+    "reference_letters": 14,
+    "normalized_exact": false
+   },
+   {
+    "id": "l11",
+    "reference": "ο̣ὐ̣κ ἤδ̣η τὰ ϲπάνια",
+    "prediction": "???????????????Λ?",
+    "strict_edits": 20,
+    "strict_characters": 20,
+    "letter_edits": 17,
+    "reference_letters": 14,
+    "normalized_exact": false
+   },
+   {
+    "id": "l12",
+    "reference": "πάντωϲ̣ καὶ ἡδ̣ίω",
+    "prediction": "ΠΑΡΙ?ΜΕΝ?ΑΙΜΗΝΙ?",
+    "strict_edits": 17,
+    "strict_characters": 17,
+    "letter_edits": 10,
+    "reference_letters": 13,
+    "normalized_exact": false
+   },
+   {
+    "id": "l13",
+    "reference": "τῶν δ̣αψιλῶν̣ ε̣ἶναι̣",
+    "prediction": "ΤΩΝ??????????????",
+    "strict_edits": 21,
+    "strict_characters": 21,
+    "letter_edits": 14,
+    "reference_letters": 15,
+    "normalized_exact": false
+   },
+   {
+    "id": "l14",
+    "reference": "νομίζ̣ο̣με̣ν· οὐ γ̣ὰρ̣",
+    "prediction": "ΝΕΑΝΙ??ΑΙ???ΟΤΙ??",
+    "strict_edits": 22,
+    "strict_characters": 22,
+    "letter_edits": 14,
+    "reference_letters": 14,
+    "normalized_exact": false
+   }
+  ],
+  "strict_cer": 0.9966101694915255,
+  "normalized_cer": 0.9253731343283582,
+  "normalized_exact_lines": 0,
+  "limitations": "13 manually located lines from one public image; not a held-out test. Model memorization cannot be excluded. Strict CER includes editorial marks; normalized CER removes diacritics, spaces and punctuation and folds sigma forms. No uncertainty-detection or scholarly accuracy claim."
+ }
+}

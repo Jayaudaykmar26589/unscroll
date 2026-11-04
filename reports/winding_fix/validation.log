@@ -1,0 +1,105 @@
+z=6100 suspect assessed=False runs=0 ref=None reason=missing_reference
+z=6101 suspect assessed=True runs=4 ref=6100 reason=transverse_discontinuity
+z=6102 suspect assessed=False runs=1 ref=6100 reason=stale_reference_departure
+z=6103 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6104 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6105 suspect assessed=False runs=9 ref=6100 reason=stale_reference_departure
+z=6106 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6107 suspect assessed=False runs=8 ref=6100 reason=stale_reference_departure
+z=6108 suspect assessed=False runs=4 ref=6100 reason=stale_reference_departure
+z=6109 suspect assessed=False runs=4 ref=6100 reason=stale_reference_departure
+z=6110 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6111 suspect assessed=False runs=8 ref=6100 reason=stale_reference_departure
+z=6112 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6113 suspect assessed=False runs=5 ref=6100 reason=stale_reference_departure
+z=6114 suspect assessed=False runs=5 ref=6100 reason=stale_reference_departure
+z=6115 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6116 suspect assessed=False runs=7 ref=6100 reason=stale_reference_departure
+z=6117 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6118 suspect assessed=False runs=5 ref=6100 reason=stale_reference_departure
+z=6119 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6120 suspect assessed=False runs=7 ref=6100 reason=stale_reference_departure
+z=6121 suspect assessed=False runs=5 ref=6100 reason=stale_reference_departure
+z=6122 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6123 suspect assessed=False runs=5 ref=6100 reason=stale_reference_departure
+z=6124 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6125 suspect assessed=False runs=7 ref=6100 reason=stale_reference_departure
+z=6126 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6127 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6128 suspect assessed=False runs=7 ref=6100 reason=stale_reference_departure
+z=6129 suspect assessed=False runs=7 ref=6100 reason=stale_reference_departure
+z=6130 suspect assessed=False runs=8 ref=6100 reason=stale_reference_departure
+z=6131 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6132 suspect assessed=False runs=7 ref=6100 reason=stale_reference_departure
+z=6133 suspect assessed=False runs=4 ref=6100 reason=stale_reference_departure
+z=6134 suspect assessed=False runs=3 ref=6100 reason=stale_reference_departure
+z=6135 suspect assessed=False runs=5 ref=6100 reason=stale_reference_departure
+z=6136 suspect assessed=False runs=4 ref=6100 reason=stale_reference_departure
+z=6137 suspect assessed=False runs=6 ref=6100 reason=stale_reference_departure
+z=6138 suspect assessed=False runs=5 ref=6100 reason=stale_reference_departure
+z=6139 suspect assessed=False runs=3 ref=6100 reason=stale_reference_departure
+z=6140 suspect assessed=False runs=2 ref=6100 reason=stale_reference_departure
+z=6141 suspect assessed=False runs=3 ref=6100 reason=stale_reference_departure
+z=6142 suspect assessed=False runs=3 ref=6100 reason=stale_reference_departure
+z=6143 suspect assessed=False runs=3 ref=6100 reason=stale_reference_departure
+z=6144 suspect assessed=False runs=1 ref=6100 reason=stale_reference_departure
+z=6145 suspect assessed=False runs=1 ref=6100 reason=stale_reference_departure
+z=6146 suspect assessed=False runs=1 ref=6100 reason=stale_reference_departure
+z=6147 suspect assessed=False runs=1 ref=6100 reason=stale_reference_departure
+z=6148 suspect assessed=False runs=1 ref=6100 reason=stale_reference_departure
+z=6149 suspect assessed=False runs=1 ref=6100 reason=stale_reference_departure
+{
+  "method": "Guard-only replay of unchanged ridge-fix curves; same live LayerGuard implementation.",
+  "limitations": "No real layer-ID annotations: flagged transverse departures are candidate jumps, deformation or segmentation errors, not confirmed layer switches. First curve seeds an unverified hypothesis; no registration is fitted and rejected curves cannot reanchor it. Large legitimate motion can also exceed the G1 2-voxel tolerance.",
+  "legacy": {
+    "failed_slices": 50,
+    "point_violations": 2131,
+    "tangent_threshold_deg": 5.0
+  },
+  "corrected": {
+    "assessed_slices": 1,
+    "unassessed_slices": 49,
+    "flagged_slices": 1,
+    "passed_slices": 0,
+    "flagged_arc_runs": 4,
+    "anchor_departure_arc_runs_including_unassessed": 238,
+    "stale_reference_slices": 48,
+    "kink_failed_slices": 0,
+    "ok_slices": 0
+  },
+  "config": {
+    "layer_distance_voxels": 2.0,
+    "layer_min_run_voxels": 3.0,
+    "layer_min_overlap": 0.5,
+    "spacing_frac": 0.3,
+    "spacing_window": 10,
+    "kink_deg": 60.0
+  },
+  "geometry_unchanged": {
+    "slices": 50,
+    "points": 8782,
+    "edges": 8732,
+    "steps_gt20": 0,
+    "steps_gt_sqrt2": 8655,
+    "turns_gt60": 0,
+    "max_step": 2.9000000000002633,
+    "mean_arc_length": 358.73876718240143
+  },
+  "controlled_geometry_probes": {
+    "same_curve_reversed_and_rotated": {
+      "pass": 50,
+      "flag": 0,
+      "unassessed": 0
+    },
+    "normal_drift_1_5_voxels": {
+      "pass": 50,
+      "flag": 0,
+      "unassessed": 0
+    },
+    "normal_shift_20_voxels": {
+      "pass": 0,
+      "flag": 50,
+      "unassessed": 0
+    }
+  }
+}

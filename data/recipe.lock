@@ -1,0 +1,35 @@
+[
+ {
+  "artifact": "scroll1_1cm_crop",
+  "role": "tierC_eval",
+  "url": "https://dl.ash2txt.org/",
+  "version": "tutorial3-link",
+  "note": "exact 1cm path Day 1",
+  "bytes": null,
+  "status": "REACHABLE",
+  "http": 200,
+  "sha256": null
+ },
+ {
+  "artifact": "ink_labels",
+  "role": "train",
+  "url": "https://scrollprize.org/tutorial5",
+  "version": "ink_9um-docs",
+  "note": "resolve exact label files Day 1",
+  "bytes": null,
+  "status": "REACHABLE",
+  "http": 200,
+  "sha256": null
+ },
+ {
+  "artifact": "open_data_index",
+  "role": "index",
+  "url": "https://scrollprize.org/data",
+  "version": "index",
+  "note": "browse sample IDs Day 1",
+  "bytes": null,
+  "status": "REACHABLE",
+  "http": 200,
+  "sha256": null
+ }
+]

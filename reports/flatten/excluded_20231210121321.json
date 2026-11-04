@@ -1,0 +1,5 @@
+{
+ "reseed_6159": "Seam shows different sheet: median distance 181.4 vx (share within 3vx 0.105), length 288 to 1274 vx ratio 4.42, Spark same_sheet=false confidence 0.82 saying red follows brighter band below green sheet.",
+ "reseed_6162": "Continues excluded reseed_6159 (slice before 6162 length 1267 vx matches excluded run) so inherits its sheet; also Spark same_sheet=false confidence 0.8 and length 1267 to 682 vx ratio 0.54 despite median distance 1.3 vx.",
+ "reseed_6181": "Continues excluded reseed_6162 (slice before 6181 length 677 vx) so inherits its different sheet despite median distance 1.6 vx and length ratio 0.84; also Spark same_sheet=false confidence 0.85 saying red on lower bright band vs green sheet above."
+}

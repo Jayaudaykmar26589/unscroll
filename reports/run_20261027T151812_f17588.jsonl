@@ -1,0 +1,5 @@
+{"run_id": "20261027T151812_f17588", "note": "ridge 3892,5500,6100 bright", "type": "header"}
+{"run_id": "20261027T151812_f17588", "z": 0, "status": "suspect", "curve_ref": "00000.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T151812_f17588", "z": 1, "status": "suspect", "curve_ref": "00001.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T151812_f17588", "z": 2, "status": "suspect", "curve_ref": "00002.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T151812_f17588", "z": 3, "status": "suspect", "curve_ref": "00003.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}

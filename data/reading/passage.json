@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "pherc-paris4-col-minus8-lines10-14",
+  "title": "Does scarcity make food more pleasurable?",
+  "source_language": "grc",
+  "source": {
+    "title": "Vesuvius Challenge 2023 Grand Prize announcement",
+    "url": "https://scrollprize.org/grandprize#what-does-the-scroll-say",
+    "published_date": "2024-02-05",
+    "location": "PHerc. Paris. 4, column −8, lines 10–14 (ending at νομίζομεν)",
+    "transcription_status": "Published preliminary scholarly transcription; not Unscroll OCR",
+    "image_url": "https://scrollprize.org/img/grandprize/col-8.webp",
+    "image_path": "assets/published-col-8.webp",
+    "image_width": 936,
+    "image_height": 1244,
+    "image_sha256": "22088b39a60a13cc1aca9d14a2377f0f3fbd66e62d9199ce7f934c13f2d6c672",
+    "attribution": "Column image © Vesuvius Challenge; underlying scan: EduceLab-Scrolls / University of Kentucky; papyrus: Institut de France. Published preliminary transcription: Vesuvius papyrology team.",
+    "license_url": "https://scrollprize.org/data",
+    "relationship_to_experiment": "Separate published reading example. Not text recovered by our 50-slice tracing experiment.",
+    "region_method": "Manually located line rectangles on the published column illustration; not word-level or CT-coordinate annotations. Line 14 is excerpted before οὐ γὰρ."
+  },
+  "lines": [
+    {"id":"l10","label":"10","text":"ἐ̣π̣ὶ τῶν βρω̣μ̣άτ̣ων","bbox":[25,747,905,842]},
+    {"id":"l11","label":"11","text":"ο̣ὐ̣κ ἤδ̣η τὰ ϲπάνια","bbox":[25,843,905,937]},
+    {"id":"l12","label":"12","text":"πάντωϲ̣ καὶ ἡδ̣ίω","bbox":[25,938,905,1030]},
+    {"id":"l13","label":"13","text":"τῶν δ̣αψιλῶν̣ ε̣ἶναι̣","bbox":[25,1031,905,1125]},
+    {"id":"l14","label":"14 · excerpt","text":"νομίζ̣ο̣με̣ν·","bbox":[25,1126,570,1213]}
+  ],
+  "translations": {
+    "en": {"text":"With food, we do not immediately consider scarce things necessarily more pleasant than plentiful ones.","provenance":"Unscroll editorial draft based on the published Greek and its accompanying discussion; not the publisher's translation verbatim.","review_status":"Not independently reviewed by a classical Greek specialist."},
+    "ta": {"text":"உணவுகளைப் பொறுத்தவரை, அரிதாகக் கிடைப்பவை மிகுதியாகக் கிடைப்பவற்றைவிட அவசியம் அதிக இன்பம் தருபவை என்று நாம் உடனே கருதுவதில்லை.","provenance":"Unscroll Tamil draft conveying the same passage meaning as the English draft; not a published scholarly Tamil translation.","review_status":"Not independently reviewed by a Tamil translator or classical Greek specialist."}
+  },
+  "editorial_note": "Underdots mark uncertain letters in the published reading. Accents and word spacing are editorial. The excerpt begins and ends within a longer discussion; no missing text is reconstructed. Translations render the proposed sense, not certainty about every ink stroke."
+}

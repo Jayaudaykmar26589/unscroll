@@ -1,0 +1,111 @@
+z=6100 suspect n=327 image_ridge motion=(0,0) NCC=None maxstep=1.41 ridge=0.966
+z=6101 ok n=327 image_ridge motion=(0,-1) NCC=0.9510242911554148 maxstep=1.41 ridge=0.920
+z=6102 ok n=327 image_ridge motion=(0,-1) NCC=0.9492684864164506 maxstep=1.41 ridge=0.930
+z=6103 ok n=327 image_ridge motion=(0,-1) NCC=0.9536079216522463 maxstep=1.41 ridge=0.908
+z=6104 ok n=327 image_ridge motion=(0,-1) NCC=0.9522703780358585 maxstep=1.41 ridge=0.872
+z=6105 ok n=327 image_ridge motion=(0,-1) NCC=0.9546381294268308 maxstep=1.41 ridge=0.804
+z=6106 ok n=327 image_ridge motion=(0,-1) NCC=0.9537499539926316 maxstep=1.41 ridge=0.768
+z=6107 ok n=327 image_ridge motion=(0,-1) NCC=0.9470269303255712 maxstep=1.41 ridge=0.768
+z=6108 ok n=327 image_ridge motion=(0,-1) NCC=0.9508610775569658 maxstep=1.41 ridge=0.746
+z=6109 ok n=327 image_ridge motion=(0,-1) NCC=0.9495928690831952 maxstep=1.41 ridge=0.636
+z=6110 ok n=327 image_ridge motion=(0,-1) NCC=0.9441868980219602 maxstep=1.41 ridge=0.657
+z=6111 ok n=327 image_ridge motion=(0,-1) NCC=0.9453568294636178 maxstep=1.41 ridge=0.716
+z=6112 ok n=327 image_ridge motion=(0,-1) NCC=0.9526822916359096 maxstep=1.41 ridge=0.716
+z=6113 ok n=327 image_ridge motion=(0,-1) NCC=0.9556773955349386 maxstep=1.41 ridge=0.728
+z=6114 ok n=327 image_ridge motion=(0,-1) NCC=0.9554611178788467 maxstep=1.41 ridge=0.667
+z=6115 ok n=327 image_ridge motion=(0,-1) NCC=0.9582574601989026 maxstep=1.41 ridge=0.670
+z=6116 ok n=327 image_ridge motion=(0,-1) NCC=0.9604933125383189 maxstep=1.41 ridge=0.716
+z=6117 ok n=327 image_ridge motion=(0,-1) NCC=0.9616170657050861 maxstep=1.41 ridge=0.722
+z=6118 ok n=327 image_ridge motion=(0,-1) NCC=0.9584046386083909 maxstep=1.41 ridge=0.722
+z=6119 ok n=327 image_ridge motion=(0,-1) NCC=0.9586493601424643 maxstep=1.41 ridge=0.709
+z=6120 ok n=327 image_ridge motion=(0,0) NCC=0.9624925169954796 maxstep=1.41 ridge=0.654
+z=6121 ok n=327 image_ridge motion=(0,-1) NCC=0.9612679597730337 maxstep=1.41 ridge=0.654
+z=6122 ok n=327 image_ridge motion=(0,-1) NCC=0.9627842354340272 maxstep=1.41 ridge=0.621
+z=6123 ok n=327 image_ridge motion=(0,-1) NCC=0.9611831281186015 maxstep=1.41 ridge=0.612
+z=6124 ok n=327 image_ridge motion=(0,-1) NCC=0.9619465592437085 maxstep=1.41 ridge=0.602
+z=6125 ok n=327 image_ridge motion=(0,-1) NCC=0.9622651763589589 maxstep=1.41 ridge=0.544
+z=6126 ok n=327 image_ridge motion=(0,-1) NCC=0.9641703518160281 maxstep=1.41 ridge=0.538
+z=6127 ok n=327 image_ridge motion=(0,-1) NCC=0.964311935276199 maxstep=1.41 ridge=0.505
+z=6128 ok n=327 image_ridge motion=(0,-1) NCC=0.9626457475486229 maxstep=1.41 ridge=0.578
+z=6129 ok n=327 image_ridge motion=(0,-1) NCC=0.9642101906956417 maxstep=1.41 ridge=0.575
+z=6130 ok n=327 image_ridge motion=(0,-1) NCC=0.961135204624353 maxstep=1.41 ridge=0.587
+z=6131 ok n=327 image_ridge motion=(0,-1) NCC=0.9611376491697776 maxstep=1.41 ridge=0.544
+z=6132 ok n=327 image_ridge motion=(0,-1) NCC=0.9583331585536136 maxstep=1.41 ridge=0.547
+z=6133 ok n=327 image_ridge motion=(0,0) NCC=0.9586707411426608 maxstep=1.41 ridge=0.554
+z=6134 ok n=327 image_ridge motion=(0,0) NCC=0.9592078202317857 maxstep=1.41 ridge=0.544
+z=6135 ok n=327 image_ridge motion=(0,0) NCC=0.9596803117541944 maxstep=1.41 ridge=0.480
+z=6136 ok n=327 image_ridge motion=(0,0) NCC=0.9616342727474217 maxstep=1.41 ridge=0.578
+z=6137 ok n=327 image_ridge motion=(0,0) NCC=0.9619887602179632 maxstep=1.41 ridge=0.593
+z=6138 ok n=327 image_ridge motion=(0,0) NCC=0.9622423713283614 maxstep=1.41 ridge=0.578
+z=6139 ok n=327 image_ridge motion=(0,0) NCC=0.9606869403177235 maxstep=1.41 ridge=0.456
+z=6140 ok n=327 image_ridge motion=(0,0) NCC=0.9613238065255056 maxstep=1.41 ridge=0.526
+z=6141 ok n=327 image_ridge motion=(0,0) NCC=0.962803220539864 maxstep=1.41 ridge=0.544
+z=6142 ok n=327 image_ridge motion=(0,0) NCC=0.9635530208400676 maxstep=1.41 ridge=0.544
+z=6143 ok n=327 image_ridge motion=(0,0) NCC=0.9657093167113066 maxstep=1.41 ridge=0.526
+z=6144 ok n=327 image_ridge motion=(0,0) NCC=0.9674725043283081 maxstep=1.41 ridge=0.557
+z=6145 ok n=327 image_ridge motion=(0,0) NCC=0.964188473841479 maxstep=1.41 ridge=0.557
+z=6146 ok n=327 image_ridge motion=(0,-1) NCC=0.9656493583949418 maxstep=1.41 ridge=0.560
+z=6147 ok n=327 image_ridge motion=(0,0) NCC=0.9682614082106915 maxstep=1.41 ridge=0.502
+z=6148 ok n=327 image_ridge motion=(0,-1) NCC=0.968142485445272 maxstep=1.41 ridge=0.523
+z=6149 ok n=327 image_ridge motion=(0,-1) NCC=0.9653916331664165 maxstep=1.41 ridge=0.468
+sheet: (50, 512, 2) D:\Meta\unscroll\reports\departure_fix\final\sheet_corrected\sheet.json
+surface: (50, 512, 9) float32
+{
+  "method": "Original 50 cached SAM masks; click-anchored CT ridge DP and independent CT NCC; same live extraction and LayerGuard.",
+  "limitations": "Evidence identifies medial-axis instability at 6101, not 20-voxel CT motion. Monotone ROI tracing is a local-sheet method, not a whole-scroll guarantee. Image consistency and geometric guards do not replace annotated layer IDs.",
+  "guard_config": {
+    "layer_distance_voxels": 2.0,
+    "layer_min_run_voxels": 3.0,
+    "layer_min_overlap": 0.5,
+    "spacing_frac": 0.3,
+    "spacing_window": 10,
+    "kink_deg": 60.0
+  },
+  "summary": {
+    "baseline": {
+      "slices": 50,
+      "points": 8782,
+      "edges": 8732,
+      "steps_gt20": 0,
+      "steps_gt_sqrt2": 8655,
+      "turns_gt60": 0,
+      "max_step": 2.9000000000002633,
+      "mean_arc_length": 358.73876718240143,
+      "mean_ridge_frac2": 0.660537632842519,
+      "ridge_slices_ge_0_5": 49
+    },
+    "corrected": {
+      "slices": 50,
+      "points": 16350,
+      "edges": 16300,
+      "steps_gt20": 0,
+      "steps_gt_sqrt2": 0,
+      "turns_gt60": 0,
+      "max_step": 1.4142135623730951,
+      "mean_arc_length": 359.9664815240417,
+      "mean_ridge_frac2": 0.6398165137614679,
+      "ridge_slices_ge_0_5": 47
+    }
+  },
+  "guard_summary": {
+    "ok": 49,
+    "failed": 0,
+    "suspect": 1,
+    "assessed": 49,
+    "unassessed": 1,
+    "winding_alerts": 0,
+    "kink_failed_slices": 0
+  },
+  "flattening": {
+    "shape": [
+      50,
+      512,
+      2
+    ],
+    "along_step_p95": 0.711362138446475,
+    "along_step_max": 0.7120299873256237,
+    "cross_slice_distance_median": 0.3055964551830823,
+    "cross_slice_distance_p95": 1.0,
+    "duplicate_edge_fraction": 0.04559686888454012
+  }
+}

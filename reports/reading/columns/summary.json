@@ -1,0 +1,44 @@
+{
+  "model_input": "line crops of the published column image only; no reference text",
+  "columns": [
+    {
+      "id": "pherc-paris4-col-minus1",
+      "lines": 6,
+      "seconds": 19.0,
+      "normalized_cer": 0.7674,
+      "strict_cer": 1.0,
+      "exact_lines": 0,
+      "reference_letters": 86
+    },
+    {
+      "id": "pherc-paris4-col-minus2",
+      "lines": 7,
+      "seconds": 27.1,
+      "normalized_cer": 0.6759,
+      "strict_cer": 1.0,
+      "exact_lines": 0,
+      "reference_letters": 108
+    },
+    {
+      "id": "pherc-paris4-col-minus7",
+      "lines": 7,
+      "seconds": 16.6,
+      "normalized_cer": 0.6842,
+      "strict_cer": 1.0,
+      "exact_lines": 0,
+      "reference_letters": 114
+    },
+    {
+      "id": "pherc-paris4-col-minus8",
+      "lines": 13,
+      "seconds": 19.2,
+      "normalized_cer": 0.9254,
+      "strict_cer": 0.9966,
+      "exact_lines": 0,
+      "reference_letters": 201
+    }
+  ],
+  "overall_normalized_cer": 0.7917,
+  "lines": 33,
+  "exact_lines": 0
+}

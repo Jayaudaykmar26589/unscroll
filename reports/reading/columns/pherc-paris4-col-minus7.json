@@ -1,0 +1,187 @@
+{
+ "prediction": {
+  "schema_version": 1,
+  "model": "muse-spark-1.3",
+  "kind": "image_prediction",
+  "image_sha256": "e69faafdde68ad316ee4f055cfd0d2b9f122353ba8ac3f67a640edaa1412ddea",
+  "seconds": 16.593308600015007,
+  "prompt_sha256": "8cf1aea0c60239c8d2851885135e2e8246f9670d5f477b7a93ceba0fdc85422f",
+  "reference_sent": false,
+  "local_gpu_required": false,
+  "preprocessing": "baseline",
+  "request_images_sha256": [
+   "4180bfbe59928c184dc38e927eace45a538f9c577b7d6653fcf3fa3a7b5810fe",
+   "23b2df36ef4d176e707ccab3c7ed14299a67878e8813d5fbe188557df4219f14",
+   "e7308238510d48ce0fc35f4594aaab2daa6fd9f00fad3df657f7af85e456141a",
+   "2c98ffe1504f4a1b93e001c4f5ec0f4ef889a0dd1d053be9affea1f8c91dd5bf",
+   "8aff94ffd512555a6ffa273b6835062f040fbab706843b2977898414a777e824",
+   "b47b38d8844a33e04bbb870564c815dd2f344b23ed81715d3eab09921fd289e9",
+   "711a1b95a2c9bcf989eaf9fddc7a9a002fe56b55e902eff688654ebcf01cc74f"
+  ],
+  "lines": [
+   {
+    "id": "l4",
+    "request_id": "r1",
+    "bbox": [
+     0,
+     0,
+     911,
+     104
+    ],
+    "crop_sha256": "4180bfbe59928c184dc38e927eace45a538f9c577b7d6653fcf3fa3a7b5810fe",
+    "text": "?Ε??ΙΑΡΑ???ΑΤΙΣΗ"
+   },
+   {
+    "id": "l5",
+    "request_id": "r2",
+    "bbox": [
+     0,
+     82,
+     911,
+     196
+    ],
+    "crop_sha256": "23b2df36ef4d176e707ccab3c7ed14299a67878e8813d5fbe188557df4219f14",
+    "text": "ΕΡΙΩΡΜΕΝΗ ΕΥΤΑ?ΕΤΑ"
+   },
+   {
+    "id": "l6",
+    "request_id": "r3",
+    "bbox": [
+     0,
+     174,
+     911,
+     287
+    ],
+    "crop_sha256": "e7308238510d48ce0fc35f4594aaab2daa6fd9f00fad3df657f7af85e456141a",
+    "text": "ΤΟΙΑΤΕ??Τ???Τ?ΥΡ?"
+   },
+   {
+    "id": "l7",
+    "request_id": "r4",
+    "bbox": [
+     0,
+     265,
+     911,
+     379
+    ],
+    "crop_sha256": "2c98ffe1504f4a1b93e001c4f5ec0f4ef889a0dd1d053be9affea1f8c91dd5bf",
+    "text": "ΙΕΜ?ΤΕ ΚΑΙ ΚΑΤΑ?ΤΤΑ"
+   },
+   {
+    "id": "l8",
+    "request_id": "r5",
+    "bbox": [
+     0,
+     357,
+     911,
+     470
+    ],
+    "crop_sha256": "8aff94ffd512555a6ffa273b6835062f040fbab706843b2977898414a777e824",
+    "text": "ΡΗΤΟ??? ?Ι?Ε? ΤΟ ΡΟΝ"
+   },
+   {
+    "id": "l9",
+    "request_id": "r6",
+    "bbox": [
+     0,
+     448,
+     911,
+     562
+    ],
+    "crop_sha256": "b47b38d8844a33e04bbb870564c815dd2f344b23ed81715d3eab09921fd289e9",
+    "text": "Η? ?Ε??ΙΣΝΟΝΑΣΤΑ?ΝΤ"
+   },
+   {
+    "id": "l10",
+    "request_id": "r7",
+    "bbox": [
+     0,
+     540,
+     911,
+     627
+    ],
+    "crop_sha256": "711a1b95a2c9bcf989eaf9fddc7a9a002fe56b55e902eff688654ebcf01cc74f",
+    "text": "ΤΕ??????????ΤΤΑ?"
+   }
+  ],
+  "run_id": "92c6aa4bded32014c2283c980101f1f8c60b989c52a36649455597d4b2fe45c8"
+ },
+ "evaluation": {
+  "lines": [
+   {
+    "id": "l4",
+    "reference": "λ̣ει παρὰ τὰ δαψιλῆ.",
+    "prediction": "?Ε??ΙΑΡΑ???ΑΤΙΣΗ",
+    "strict_edits": 20,
+    "strict_characters": 20,
+    "letter_edits": 9,
+    "reference_letters": 15,
+    "normalized_exact": false
+   },
+   {
+    "id": "l5",
+    "reference": "θεωρηθήϲεται δὲ τὰ",
+    "prediction": "ΕΡΙΩΡΜΕΝΗ ΕΥΤΑ?ΕΤΑ",
+    "strict_edits": 18,
+    "strict_characters": 18,
+    "letter_edits": 10,
+    "reference_letters": 16,
+    "normalized_exact": false
+   },
+   {
+    "id": "l6",
+    "reference": "τοιαῦθ’ οὕτω{ι} πολ̣λά-",
+    "prediction": "ΤΟΙΑΤΕ??Τ???Τ?ΥΡ?",
+    "strict_edits": 23,
+    "strict_characters": 23,
+    "letter_edits": 12,
+    "reference_letters": 16,
+    "normalized_exact": false
+   },
+   {
+    "id": "l7",
+    "reference": "κιϲ πότερον ὅ̣ταν πα-",
+    "prediction": "ΙΕΜ?ΤΕ ΚΑΙ ΚΑΤΑ?ΤΤΑ",
+    "strict_edits": 20,
+    "strict_characters": 21,
+    "letter_edits": 12,
+    "reference_letters": 16,
+    "normalized_exact": false
+   },
+   {
+    "id": "l8",
+    "reference": "ρῇ τὸ δαψιλέϲτερον",
+    "prediction": "ΡΗΤΟ??? ?Ι?Ε? ΤΟ ΡΟΝ",
+    "strict_edits": 19,
+    "strict_characters": 18,
+    "letter_edits": 7,
+    "reference_letters": 16,
+    "normalized_exact": false
+   },
+   {
+    "id": "l9",
+    "reference": "ἡ φύϲιϲ ἥδιον ἀπαλλάτ-",
+    "prediction": "Η? ?Ε??ΙΣΝΟΝΑΣΤΑ?ΝΤ",
+    "strict_edits": 22,
+    "strict_characters": 22,
+    "letter_edits": 13,
+    "reference_letters": 18,
+    "normalized_exact": false
+   },
+   {
+    "id": "l10",
+    "reference": "τει το̣ύ̣τ̣ο̣υ̣ καὶ πάλ̣ι̣ν̣ ̣ ̣",
+    "prediction": "ΤΕ??????????ΤΤΑ?",
+    "strict_edits": 32,
+    "strict_characters": 32,
+    "letter_edits": 15,
+    "reference_letters": 17,
+    "normalized_exact": false
+   }
+  ],
+  "strict_cer": 1.0,
+  "normalized_cer": 0.6842105263157895,
+  "normalized_exact_lines": 0,
+  "limitations": "7 manually located lines from one public image; not a held-out test. Model memorization cannot be excluded. Strict CER includes editorial marks; normalized CER removes diacritics, spaces and punctuation and folds sigma forms. No uncertainty-detection or scholarly accuracy claim."
+ }
+}

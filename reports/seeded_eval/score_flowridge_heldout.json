@@ -1,0 +1,282 @@
+{
+  "summary": {
+    "seeds": 15,
+    "seeds_with_trace": 14,
+    "slices_traced": 280,
+    "slices_total": 280,
+    "within2_median": 0.1789,
+    "within2_mean": 0.1833,
+    "within5_median": 0.4634,
+    "within5_mean": 0.4589,
+    "mean_dist_median": 8.273,
+    "mean_dist_mean": 17.6434,
+    "closer_to_other_layer_median": 0.0,
+    "closer_to_other_layer_mean": 0.0354
+  },
+  "seeds": [
+    {
+      "id": "20230518181521",
+      "key": "20230518181521",
+      "seed": [
+        2274,
+        5385,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 29606.4,
+      "within2": 0.1288,
+      "within5": 0.4111,
+      "mean_dist": 107.692,
+      "median_dist": 14.516,
+      "closer_to_other_layer": 0.0
+    },
+    {
+      "id": "20230606105130",
+      "key": "20230606105130",
+      "seed": [
+        2796,
+        4328,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 953.1,
+      "within2": 0.0457,
+      "within5": 0.1631,
+      "mean_dist": 8.143,
+      "median_dist": 7.715,
+      "closer_to_other_layer": 0.0
+    },
+    {
+      "id": "20230613204956",
+      "key": "20230613204956",
+      "seed": [
+        2227,
+        4748,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 19718.1,
+      "within2": 0.1983,
+      "within5": 0.6625,
+      "mean_dist": 4.604,
+      "median_dist": 3.825,
+      "closer_to_other_layer": 0.0356
+    },
+    {
+      "id": "20230619113941",
+      "key": "20230619113941",
+      "seed": [
+        3958,
+        4880,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 26844.2,
+      "within2": 0.0569,
+      "within5": 0.1673,
+      "mean_dist": 23.877,
+      "median_dist": 18.745,
+      "closer_to_other_layer": 0.0
+    },
+    {
+      "id": "20230627170800",
+      "key": "20230627170800",
+      "seed": [
+        4373,
+        4309,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 19463.1,
+      "within2": 0.2381,
+      "within5": 0.4517,
+      "mean_dist": 13.89,
+      "median_dist": 7.305,
+      "closer_to_other_layer": 0.0
+    },
+    {
+      "id": "20230629215956",
+      "key": "20230629215956",
+      "seed": [
+        4420,
+        4647,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 17174.6,
+      "within2": 0.1349,
+      "within5": 0.2315,
+      "mean_dist": 17.429,
+      "median_dist": 19.399,
+      "closer_to_other_layer": 0.0
+    },
+    {
+      "id": "20230701020044",
+      "key": "20230701020044",
+      "seed": [
+        2953,
+        2824,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 4966.1,
+      "within2": 0.1755,
+      "within5": 0.6264,
+      "mean_dist": 4.872,
+      "median_dist": 4.0,
+      "closer_to_other_layer": 0.3849
+    },
+    {
+      "id": "20230701115953",
+      "key": "20230701115953",
+      "seed": [
+        4317,
+        4719,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 30350.0,
+      "within2": 0.0003,
+      "within5": 0.0114,
+      "mean_dist": 33.249,
+      "median_dist": 36.392,
+      "closer_to_other_layer": 0.0
+    },
+    {
+      "id": "20230702182347",
+      "key": "20230702182347",
+      "seed": [
+        2860,
+        3902,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 5975.3,
+      "within2": 0.2763,
+      "within5": 0.7696,
+      "mean_dist": 3.582,
+      "median_dist": 3.86,
+      "closer_to_other_layer": 0.0
+    },
+    {
+      "id": "20230702185753",
+      "key": "20230702185753",
+      "seed": [
+        4430,
+        3309,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 7243.9,
+      "within2": 0.1822,
+      "within5": 0.4019,
+      "mean_dist": 9.21,
+      "median_dist": 7.764,
+      "closer_to_other_layer": 0.0
+    },
+    {
+      "id": "20230929220926",
+      "key": "20230929220926",
+      "seed": [
+        3584,
+        2107,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 15751.7,
+      "within2": 0.3564,
+      "within5": 0.8237,
+      "mean_dist": 3.074,
+      "median_dist": 2.659,
+      "closer_to_other_layer": 0.0
+    },
+    {
+      "id": "20231031143852",
+      "key": "20231031143852",
+      "seed": [
+        4483,
+        3361,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 0,
+      "slices_with_trace": 0
+    },
+    {
+      "id": "20231106155351",
+      "key": "20231106155351",
+      "seed": [
+        4560,
+        3320,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 4559.5,
+      "within2": 0.1716,
+      "within5": 0.4751,
+      "mean_dist": 5.344,
+      "median_dist": 5.187,
+      "closer_to_other_layer": 0.0694
+    },
+    {
+      "id": "20231210121321",
+      "key": "20231210121321",
+      "seed": [
+        4188,
+        2508,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 14305.9,
+      "within2": 0.2276,
+      "within5": 0.4824,
+      "mean_dist": 8.403,
+      "median_dist": 5.451,
+      "closer_to_other_layer": 0.0
+    },
+    {
+      "id": "20231221180251",
+      "key": "20231221180251",
+      "seed": [
+        2943,
+        2866,
+        6100
+      ],
+      "same_sheet_meshes": [],
+      "slices": 20,
+      "slices_with_trace": 20,
+      "arc_voxels": 7628.9,
+      "within2": 0.3737,
+      "within5": 0.7464,
+      "mean_dist": 3.638,
+      "median_dist": 2.825,
+      "closer_to_other_layer": 0.0056
+    }
+  ]
+}

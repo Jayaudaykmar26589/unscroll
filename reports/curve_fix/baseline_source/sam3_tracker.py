@@ -1,0 +1,272 @@
+"""Local SAM 3.1 click tracker (point prompts, direct tracker propagation).
+
+Same CLI + curve JSONL interface as sam_tracker.py (drop-in).
+Needs gated weights: checkpoints/sam3.1_multiplex.pt (see README) or
+HF cache auth (HF_HOME defaults to project .hf-cache).
+
+Design notes (see scripts/sam3_debug*.py):
+- multiplex handle_stream_request drops point-only objects after frame 0
+  (detection-association scaffolding); we propagate via the tracker's native
+  SAM2 video API instead (stable, verified on CT + synthetic controls).
+- prompt = config C sweep winner: click + ridge-snapped tangent +/-60
+  positives, tight normal negatives (+/-15/30/50).
+- skeleton ridge-snapped to the nearest bright ridge per point.
+"""
+import argparse
+import json
+import os
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+os.environ.setdefault("HF_HOME", str(ROOT / ".hf-cache"))
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "external" / "sam3"))
+
+import numpy as np  # noqa: E402
+
+from src.eval.runlog import RunLog  # noqa: E402
+from src.trace.guards import check_curvature, check_winding, load_cfg  # noqa: E402
+from src.trace.sam_tracker import layer_normal, load_frame  # noqa: E402
+from src.trace.thin import mask_to_curve  # noqa: E402
+
+
+def build_prompt_points(gray, px, py):
+    """Config-C prompt: snapped tangent positives + tight normal negatives.
+
+    Returns (points_Nx2_normalized, labels) in frame pixels -> [0,1].
+    """
+    NH, NW = gray.shape
+    nx, ny = layer_normal(gray, px, py)
+    tx, ty = -ny, nx
+
+    def snap(x, y, span=15):
+        best, bv = (x, y), -1.0
+        for s in range(-span, span + 1):
+            xx, yy = int(round(x + s * nx)), int(round(y + s * ny))
+            if 0 <= xx < NW and 0 <= yy < NH and gray[yy, xx] > bv:
+                bv, best = gray[yy, xx], (xx, yy)
+        return best
+
+    pts, labs = [[px / NW, py / NH]], [1]
+    for s in (60, -60):
+        x, y = snap(px + s * tx, py + s * ty)
+        pts.append([x / NW, y / NH])
+        labs.append(1)
+    for s in (15, 30, 50, -15, -30, -50):
+        pts.append([(px + s * nx) / NW, (py + s * ny) / NH])
+        labs.append(0)
+    return pts, labs
+
+
+def ridge_snap(curve, gray, span=10):
+    """Snap each curve point to max intensity along its normal (+/-span)."""
+    if len(curve) < 3:
+        return curve
+    H, W = gray.shape
+    d = np.gradient(curve, axis=0)
+    n = np.linalg.norm(d, axis=1, keepdims=True)
+    n[n == 0] = 1.0
+    normals = np.stack([-d[:, 1], d[:, 0]], axis=1) / n
+    out = curve.copy()
+    for i, (p, v) in enumerate(zip(curve, normals)):
+        best, bv = p, -1.0
+        for s in range(-span, span + 1):
+            q = p + s * v
+            xi, yi = int(round(q[0])), int(round(q[1]))
+            if 0 <= xi < W and 0 <= yi < H and gray[yi, xi] > bv:
+                bv, best = gray[yi, xi], q
+        out[i] = best
+    return out
+
+
+def fullres_ridge_snap(curve, tif_path, span=12, k=1.5):
+    """Snap full-res curve points onto row-maximum ridge pixels (Tier B metric).
+
+    Same ridge definition as scripts/ridge_eval.py: row-local-maximum above
+    median+k*std. Each point searches +/-span along its normal for the nearest
+    ridge pixel; points with no ridge nearby are kept as-is.
+    """
+    import tifffile
+    if len(curve) < 3:
+        return curve
+    img = tifffile.imread(tif_path).astype(float)
+    thr = np.median(img) + k * img.std()
+    rm = ((img > thr) & (img >= np.roll(img, 1, 1))
+          & (img >= np.roll(img, -1, 1)))
+    H, W = rm.shape
+    d = np.gradient(curve, axis=0)
+    n = np.linalg.norm(d, axis=1, keepdims=True)
+    n[n == 0] = 1.0
+    normals = np.stack([-d[:, 1], d[:, 0]], axis=1) / n
+    out = curve.copy()
+    for i, (p, v) in enumerate(zip(curve, normals)):
+        found = None
+        for s in range(0, span + 1):
+            for q in (p + s * v, p - s * v):
+                xi, yi = int(round(q[0])), int(round(q[1]))
+                if 0 <= xi < W and 0 <= yi < H and rm[yi, xi]:
+                    found = q
+                    break
+            if found is not None:
+                break
+        if found is not None:
+            out[i] = found
+    return out
+
+
+def extract_mask(outputs, frame_hw):
+    """Defensive mask extraction across predictor output shapes."""
+    import torch
+    from PIL import Image
+    h, w = frame_hw
+    if isinstance(outputs, dict) and "out_binary_masks" in outputs:
+        m = outputs["out_binary_masks"]
+        m = m.detach().cpu().numpy() if isinstance(m, torch.Tensor) else np.asarray(m)
+        if m.shape[0] == 0:
+            return np.zeros((h, w), dtype=bool)
+        a = m[0].astype(np.float32)
+        if a.shape != (h, w):
+            a = np.asarray(Image.fromarray(a).resize((w, h), Image.NEAREST))
+        return a > 0.5
+    cands = []
+    if isinstance(outputs, dict):
+        for k in ("masks", "mask", "pred_masks"):
+            if k in outputs:
+                cands.append(outputs[k])
+        cands.extend(outputs.values())
+    elif isinstance(outputs, (list, tuple)):
+        cands = list(outputs)
+    else:
+        cands = [outputs]
+    for c in cands:
+        if isinstance(c, dict):
+            for k in ("mask", "masks"):
+                if k in c:
+                    c = c[k]
+                    break
+        if isinstance(c, torch.Tensor):
+            a = c.detach().cpu().numpy()
+        elif isinstance(c, np.ndarray):
+            a = c
+        else:
+            continue
+        while a.ndim > 2:
+            a = a[0]
+        if a.shape == (h, w):
+            if a.max() <= 1.0 and a.min() >= 0.0:
+                return a > 0.5
+            return a > 0.0
+    raise ValueError(f"no (H,W) mask in outputs: {type(outputs)}")
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--slices", required=True)
+    ap.add_argument("--click", required=True)
+    ap.add_argument("--window", type=int, default=32)
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--crop", type=int, default=2048)
+    ap.add_argument("--z0", type=int, default=0)
+    ap.add_argument("--ckpt", default="",
+                    help="local sam3.1_multiplex.pt (else HF cache)")
+    a = ap.parse_args(argv)
+
+    import torch
+    from PIL import Image
+    from sam3.model_builder import build_sam3_multiplex_video_predictor
+
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    dtype = torch.bfloat16 if device == "cuda" else torch.float32
+    tifs = sorted(Path(a.slices).glob("*.tif*"))
+    cx, cy, _ = (int(v) for v in a.click.split(","))
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
+    runlog = RunLog(ROOT, note=f"sam3-local {a.click}")
+    cfg = load_cfg(ROOT / "src" / "trace" / "guards.yaml")
+
+    kw = {"checkpoint_path": a.ckpt} if a.ckpt else {}
+    kw["use_fa3"] = False  # no flash_attn wheels on Windows
+    kw["async_loading_frames"] = False
+    try:
+        predictor = build_sam3_multiplex_video_predictor(**kw)
+    except TypeError:
+        predictor = build_sam3_multiplex_video_predictor()
+    with torch.inference_mode(), torch.autocast(device, dtype=dtype):
+        fdir = out / "frames3"
+        fdir.mkdir(parents=True, exist_ok=True)
+        crop = (cx, cy, a.crop) if a.crop > 0 else None
+        meta, NW, NH = None, 0, 0
+        for i, t in enumerate(tifs[:a.window]):
+            rgb, meta = load_frame(t, crop=crop)
+            Image.fromarray(rgb).save(fdir / f"{i:05d}.jpg")
+            NH, NW = rgb.shape[:2]
+        xs, ys, ox, oy = meta
+        r = predictor.handle_request(dict(type="start_session",
+                                          resource_path=str(fdir)))
+        sid = r["session_id"]
+        first = np.array(Image.open(fdir / "00000.jpg"))[:, :, 0]
+        px, py = (cx - ox) / xs, (cy - oy) / ys
+        pts, labs = build_prompt_points(first.astype(np.float32), px, py)
+        predictor.handle_request(dict(
+            type="add_prompt", session_id=sid, frame_index=0,
+            points=torch.tensor(pts, dtype=torch.float32),
+            point_labels=torch.tensor(labs, dtype=torch.int32),
+            obj_id=0))
+        model = predictor.model
+        state = predictor._all_inference_states[sid]["state"]
+        sam2_state = state["sam2_inference_states"][0]
+        model.tracker.propagate_in_video_preflight(sam2_state,
+                                                   run_mem_encoder=True)
+        for z in range(min(a.window, len(tifs))):
+            model._prepare_backbone_feats(state, z, False)
+            got = None
+            for res in model.tracker.propagate_in_video(
+                    sam2_state, start_frame_idx=z, max_frame_num_to_track=0,
+                    reverse=False, tqdm_disable=True, run_mem_encoder=True):
+                got = res
+            _fz, oids, _low, vres, _scores = got
+            gray = np.array(Image.open(fdir / f"{z:05d}.jpg"))[:, :, 0]
+            if len(oids):
+                m = vres[0, 0].detach().cpu().numpy()
+                if m.shape != (NH, NW):
+                    m = np.asarray(Image.fromarray(m).resize((NW, NH)))
+                mask = m > 0.0
+            else:
+                mask = np.zeros((NH, NW), dtype=bool)
+            curve_small = mask_to_curve(mask)
+            if len(curve_small):
+                curve_small = ridge_snap(curve_small,
+                                         gray.astype(np.float32), span=10)
+            curve = (curve_small * np.array([xs, ys]) +
+                     np.array([ox, oy])) if len(curve_small) \
+                else curve_small
+            if len(curve):
+                curve = fullres_ridge_snap(curve, tifs[z])
+            rec = {"z": z,
+                   "points": [[round(float(x), 1), round(float(y), 1)]
+                              for x, y in curve],
+                   "origin": ([round(float(curve[0][0]), 1),
+                               round(float(curve[0][1]), 1)]
+                              if len(curve) else None),
+                   "shift": [0, 0]}
+            (out / f"{z:05d}.jsonl").write_text(json.dumps(rec) + "\n")
+            status, checks = "ok", {}
+            if len(curve) >= 3:
+                ang = np.unwrap(np.arctan2(np.diff(curve[:, 1]),
+                                           np.diff(curve[:, 0])))
+                w = check_winding(np.degrees(ang).tolist(),
+                                  cfg["winding_reversal_deg"])
+                k = check_curvature(curve, cfg["kink_deg"])
+                checks = {"winding": w["pass"], "kink": k["pass"]}
+                status = "ok" if (w["pass"] and k["pass"]) else "suspect"
+            else:
+                status = "failed"
+            runlog.log_slice(z, status, f"{z:05d}.jsonl", checks, 0)
+            print(f"z={z} pts={len(curve)} {status}", flush=True)
+    print(f"run {runlog.run_id}: curves in {out}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,210 @@
+{
+  "measure": "share of trace within 5 voxels of the clicked layer, per click; no trace = 0",
+  "labels": {
+    "before": "SAM 3.1, original first slice",
+    "after": "SAM 3.1 + first-slice fix (Unscroll)",
+    "flow": "Optical-flow baseline",
+    "flowridge": "Optical flow + ridge snap baseline"
+  },
+  "groups": {
+    "development": {
+      "clicks": 15,
+      "sets": [
+        "main"
+      ],
+      "methods": {
+        "before": {
+          "median": 0.3668,
+          "median_ci95": [
+            0.1552,
+            0.6444
+          ],
+          "mean": 0.3899,
+          "mean_ci95": [
+            0.2519,
+            0.5331
+          ],
+          "slices_traced": 282,
+          "slices_total": 300
+        },
+        "after": {
+          "median": 0.5506,
+          "median_ci95": [
+            0.3117,
+            0.8051
+          ],
+          "mean": 0.5524,
+          "mean_ci95": [
+            0.4087,
+            0.6899
+          ],
+          "slices_traced": 282,
+          "slices_total": 300
+        },
+        "flow": {
+          "median": 0.5212,
+          "median_ci95": [
+            0.324,
+            0.8004
+          ],
+          "mean": 0.5312,
+          "mean_ci95": [
+            0.368,
+            0.6838
+          ],
+          "slices_traced": 280,
+          "slices_total": 280
+        },
+        "flowridge": {
+          "median": 0.502,
+          "median_ci95": [
+            0.2969,
+            0.7725
+          ],
+          "mean": 0.5133,
+          "mean_ci95": [
+            0.3566,
+            0.6682
+          ],
+          "slices_traced": 280,
+          "slices_total": 280
+        }
+      },
+      "vs_after": {
+        "before": {
+          "mean_gain": 0.1625,
+          "mean_gain_ci95": [
+            0.0312,
+            0.2893
+          ],
+          "after_better": 11,
+          "after_worse": 3,
+          "ties": 1,
+          "sign_test_p": 0.05737
+        },
+        "flow": {
+          "mean_gain": 0.0211,
+          "mean_gain_ci95": [
+            -0.0131,
+            0.0711
+          ],
+          "after_better": 4,
+          "after_worse": 9,
+          "ties": 2,
+          "sign_test_p": 0.26685
+        },
+        "flowridge": {
+          "mean_gain": 0.039,
+          "mean_gain_ci95": [
+            -0.0028,
+            0.0937
+          ],
+          "after_better": 7,
+          "after_worse": 5,
+          "ties": 3,
+          "sign_test_p": 0.77441
+        }
+      }
+    },
+    "new_clicks": {
+      "clicks": 74,
+      "sets": [
+        "heldout",
+        "large"
+      ],
+      "methods": {
+        "before": {
+          "median": 0.249,
+          "median_ci95": [
+            0.2119,
+            0.3241
+          ],
+          "mean": 0.3208,
+          "mean_ci95": [
+            0.2658,
+            0.3778
+          ],
+          "slices_traced": 1286,
+          "slices_total": 1480
+        },
+        "after": {
+          "median": 0.5007,
+          "median_ci95": [
+            0.366,
+            0.5841
+          ],
+          "mean": 0.4797,
+          "mean_ci95": [
+            0.4174,
+            0.5418
+          ],
+          "slices_traced": 1070,
+          "slices_total": 1480
+        },
+        "flow": {
+          "median": 0.4531,
+          "median_ci95": [
+            0.3114,
+            0.5629
+          ],
+          "mean": 0.4348,
+          "mean_ci95": [
+            0.3713,
+            0.4984
+          ],
+          "slices_traced": 1300,
+          "slices_total": 1300
+        },
+        "flowridge": {
+          "median": 0.4568,
+          "median_ci95": [
+            0.3545,
+            0.5949
+          ],
+          "mean": 0.4457,
+          "mean_ci95": [
+            0.3795,
+            0.5098
+          ],
+          "slices_traced": 1300,
+          "slices_total": 1300
+        }
+      },
+      "vs_after": {
+        "before": {
+          "mean_gain": 0.1589,
+          "mean_gain_ci95": [
+            0.1078,
+            0.2129
+          ],
+          "after_better": 50,
+          "after_worse": 19,
+          "ties": 5,
+          "sign_test_p": 0.00024
+        },
+        "flow": {
+          "mean_gain": 0.0448,
+          "mean_gain_ci95": [
+            0.0217,
+            0.0726
+          ],
+          "after_better": 44,
+          "after_worse": 13,
+          "ties": 17,
+          "sign_test_p": 5e-05
+        },
+        "flowridge": {
+          "mean_gain": 0.0339,
+          "mean_gain_ci95": [
+            0.0095,
+            0.0617
+          ],
+          "after_better": 43,
+          "after_worse": 21,
+          "ties": 10,
+          "sign_test_p": 0.00815
+        }
+      }
+    }
+  }
+}

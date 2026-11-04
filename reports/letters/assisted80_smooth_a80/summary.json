@@ -1,0 +1,649 @@
+{
+  "segment": "20230827161847",
+  "volume": "20230205180739",
+  "zarr": "54keV_7.91um_Scroll1A.zarr level 0 (uint8)",
+  "window": {
+    "image_rows": [
+      3650,
+      4650
+    ],
+    "image_cols": [
+      3000,
+      3400
+    ],
+    "official_mean_ink": 0.4916456639766693,
+    "official_ink_std": 0.3317282497882843,
+    "z_range": [
+      10655.965116995674,
+      11068.310391249006
+    ]
+  },
+  "crop": {
+    "z": [
+      10653,
+      11072
+    ],
+    "y": [
+      2250,
+      3189
+    ],
+    "x": [
+      2271,
+      3822
+    ],
+    "shape": [
+      419,
+      939,
+      1551
+    ]
+  },
+  "calibration": {
+    "gain": 0.6293211310370458,
+    "offset": 84.22925517485598,
+    "corr_zarr_vs_official": 0.977156063860234
+  },
+  "control": {
+    "mean_ink": 0.6305627822875977,
+    "corr_with_official_ink": 0.831314922994842
+  },
+  "click_crop": [
+    796,
+    305,
+    10684
+  ],
+  "assisted": {
+    "every_slices": 80,
+    "clicks_crop": [
+      [
+        796,
+        307,
+        10693
+      ],
+      [
+        789,
+        334,
+        10772
+      ],
+      [
+        782,
+        360,
+        10853
+      ],
+      [
+        775,
+        388,
+        10935
+      ],
+      [
+        762,
+        433,
+        11008
+      ]
+    ],
+    "source": "official segment surface (simulated scholar clicks)"
+  },
+  "traced_slices": 165,
+  "traced_z": [
+    10693,
+    11039
+  ],
+  "reseeds": 0,
+  "distance_to_official_surface": {
+    "within5": 0.2908009712266826,
+    "within2": 0.08361563849430785,
+    "median_vx": 7.12575091734049,
+    "points": 68779,
+    "note": "points outside the official window's extent count as far"
+  },
+  "ours": {
+    "image": [
+      165,
+      773
+    ],
+    "mean_ink": 0.7459760904312134,
+    "p99": 0.9204675555229187,
+    "frac_above_0.5": 0.45906150770316356,
+    "flatten_meta": {
+      "curves": "/tmp/letters/curves_merged",
+      "click": [
+        796.0,
+        305.0
+      ],
+      "rows": 165,
+      "rows_traced": 165,
+      "columns": 773,
+      "anchor_column": 474,
+      "normal_offsets_vx": [
+        -32,
+        -31,
+        -30,
+        -29,
+        -28,
+        -27,
+        -26,
+        -25,
+        -24,
+        -23,
+        -22,
+        -21,
+        -20,
+        -19,
+        -18,
+        -17,
+        -16,
+        -15,
+        -14,
+        -13,
+        -12,
+        -11,
+        -10,
+        -9,
+        -8,
+        -7,
+        -6,
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "layers_in_flat_layers_png": [
+        -32,
+        -29,
+        -26,
+        -23,
+        -20,
+        -17,
+        -14,
+        -11,
+        -8,
+        -5,
+        -2,
+        1,
+        4,
+        7,
+        10,
+        13,
+        16,
+        19,
+        22,
+        25,
+        28,
+        31
+      ],
+      "z_range": [
+        10693,
+        11039
+      ],
+      "z_range_traced": [
+        10693,
+        11039
+      ],
+      "image_rows": 165,
+      "voxel_um": 7.91
+    }
+  },
+  "tracer_errors": [],
+  "control_own_normals": {
+    "corr_with_official_ink": 0.8217580540349657,
+    "normal_agreement": 0.9956271096513828
+  },
+  "ours3d": {
+    "sigma_rows": 2.0,
+    "image": [
+      165,
+      773
+    ],
+    "snap_shift_vx": -2,
+    "snap_side": -1,
+    "snap_scores": [
+      {
+        "side": 1,
+        "shift": -8,
+        "ink_std": 0.231989324092865
+      },
+      {
+        "side": 1,
+        "shift": -6,
+        "ink_std": 0.2250494807958603
+      },
+      {
+        "side": 1,
+        "shift": -4,
+        "ink_std": 0.20018261671066284
+      },
+      {
+        "side": 1,
+        "shift": -2,
+        "ink_std": 0.2032887190580368
+      },
+      {
+        "side": 1,
+        "shift": 0,
+        "ink_std": 0.20823143422603607
+      },
+      {
+        "side": 1,
+        "shift": 2,
+        "ink_std": 0.2122608870267868
+      },
+      {
+        "side": 1,
+        "shift": 4,
+        "ink_std": 0.19955694675445557
+      },
+      {
+        "side": 1,
+        "shift": 6,
+        "ink_std": 0.1996428668498993
+      },
+      {
+        "side": 1,
+        "shift": 8,
+        "ink_std": 0.19152237474918365
+      },
+      {
+        "side": -1,
+        "shift": -8,
+        "ink_std": 0.23998193442821503
+      },
+      {
+        "side": -1,
+        "shift": -6,
+        "ink_std": 0.23675265908241272
+      },
+      {
+        "side": -1,
+        "shift": -4,
+        "ink_std": 0.24600642919540405
+      },
+      {
+        "side": -1,
+        "shift": -2,
+        "ink_std": 0.2470824271440506
+      },
+      {
+        "side": -1,
+        "shift": 0,
+        "ink_std": 0.23679427802562714
+      },
+      {
+        "side": -1,
+        "shift": 2,
+        "ink_std": 0.2242828607559204
+      },
+      {
+        "side": -1,
+        "shift": 4,
+        "ink_std": 0.2371644377708435
+      },
+      {
+        "side": -1,
+        "shift": 6,
+        "ink_std": 0.23170971870422363
+      },
+      {
+        "side": -1,
+        "shift": 8,
+        "ink_std": 0.23067346215248108
+      }
+    ],
+    "mean_ink": 0.6394873857498169,
+    "frac_above_0.5": 0.3893370967109648,
+    "points_within_5vx_of_official": 0.2943903953632788,
+    "ink_corr_with_official_where_within_5vx": 0.6834404152439231,
+    "ink_corr_with_official_all_matched": 0.5815438940305998
+  },
+  "ours3d_sigma4": {
+    "sigma_rows": 4.0,
+    "image": [
+      165,
+      773
+    ],
+    "snap_shift_vx": -2,
+    "snap_side": -1,
+    "snap_scores": [
+      {
+        "side": 1,
+        "shift": -8,
+        "ink_std": 0.19824209809303284
+      },
+      {
+        "side": 1,
+        "shift": -6,
+        "ink_std": 0.19528885185718536
+      },
+      {
+        "side": 1,
+        "shift": -4,
+        "ink_std": 0.1801314502954483
+      },
+      {
+        "side": 1,
+        "shift": -2,
+        "ink_std": 0.19076836109161377
+      },
+      {
+        "side": 1,
+        "shift": 0,
+        "ink_std": 0.1973426789045334
+      },
+      {
+        "side": 1,
+        "shift": 2,
+        "ink_std": 0.20041553676128387
+      },
+      {
+        "side": 1,
+        "shift": 4,
+        "ink_std": 0.20317837595939636
+      },
+      {
+        "side": 1,
+        "shift": 6,
+        "ink_std": 0.20047685503959656
+      },
+      {
+        "side": 1,
+        "shift": 8,
+        "ink_std": 0.2070181518793106
+      },
+      {
+        "side": -1,
+        "shift": -8,
+        "ink_std": 0.22974972426891327
+      },
+      {
+        "side": -1,
+        "shift": -6,
+        "ink_std": 0.24312427639961243
+      },
+      {
+        "side": -1,
+        "shift": -4,
+        "ink_std": 0.2523576617240906
+      },
+      {
+        "side": -1,
+        "shift": -2,
+        "ink_std": 0.2588348388671875
+      },
+      {
+        "side": -1,
+        "shift": 0,
+        "ink_std": 0.25609275698661804
+      },
+      {
+        "side": -1,
+        "shift": 2,
+        "ink_std": 0.24924102425575256
+      },
+      {
+        "side": -1,
+        "shift": 4,
+        "ink_std": 0.25595855712890625
+      },
+      {
+        "side": -1,
+        "shift": 6,
+        "ink_std": 0.24921736121177673
+      },
+      {
+        "side": -1,
+        "shift": 8,
+        "ink_std": 0.24209018051624298
+      }
+    ],
+    "mean_ink": 0.6118597388267517,
+    "frac_above_0.5": 0.36820729938453095,
+    "points_within_5vx_of_official": 0.28075622714413856,
+    "ink_corr_with_official_where_within_5vx": 0.7111877617743938,
+    "ink_corr_with_official_all_matched": 0.6247296869611392
+  },
+  "ours3d_sigma8": {
+    "sigma_rows": 8.0,
+    "image": [
+      165,
+      773
+    ],
+    "snap_shift_vx": -4,
+    "snap_side": -1,
+    "snap_scores": [
+      {
+        "side": 1,
+        "shift": -8,
+        "ink_std": 0.19966669380664825
+      },
+      {
+        "side": 1,
+        "shift": -6,
+        "ink_std": 0.18959249556064606
+      },
+      {
+        "side": 1,
+        "shift": -4,
+        "ink_std": 0.1829545646905899
+      },
+      {
+        "side": 1,
+        "shift": -2,
+        "ink_std": 0.18575622141361237
+      },
+      {
+        "side": 1,
+        "shift": 0,
+        "ink_std": 0.19085703790187836
+      },
+      {
+        "side": 1,
+        "shift": 2,
+        "ink_std": 0.1991625279188156
+      },
+      {
+        "side": 1,
+        "shift": 4,
+        "ink_std": 0.19565458595752716
+      },
+      {
+        "side": 1,
+        "shift": 6,
+        "ink_std": 0.19814978539943695
+      },
+      {
+        "side": 1,
+        "shift": 8,
+        "ink_std": 0.20329999923706055
+      },
+      {
+        "side": -1,
+        "shift": -8,
+        "ink_std": 0.24355274438858032
+      },
+      {
+        "side": -1,
+        "shift": -6,
+        "ink_std": 0.25569573044776917
+      },
+      {
+        "side": -1,
+        "shift": -4,
+        "ink_std": 0.266641229391098
+      },
+      {
+        "side": -1,
+        "shift": -2,
+        "ink_std": 0.2647694945335388
+      },
+      {
+        "side": -1,
+        "shift": 0,
+        "ink_std": 0.2546747922897339
+      },
+      {
+        "side": -1,
+        "shift": 2,
+        "ink_std": 0.25446873903274536
+      },
+      {
+        "side": -1,
+        "shift": 4,
+        "ink_std": 0.2659720480442047
+      },
+      {
+        "side": -1,
+        "shift": 6,
+        "ink_std": 0.25781548023223877
+      },
+      {
+        "side": -1,
+        "shift": 8,
+        "ink_std": 0.2559893727302551
+      }
+    ],
+    "mean_ink": 0.6168056130409241,
+    "frac_above_0.5": 0.3821082755106041,
+    "points_within_5vx_of_official": 0.27262816532118955,
+    "ink_corr_with_official_where_within_5vx": 0.6781912704920673,
+    "ink_corr_with_official_all_matched": 0.5970194122127058
+  },
+  "ours3d_sigma16": {
+    "sigma_rows": 16.0,
+    "image": [
+      165,
+      773
+    ],
+    "snap_shift_vx": -4,
+    "snap_side": -1,
+    "snap_scores": [
+      {
+        "side": 1,
+        "shift": -8,
+        "ink_std": 0.18624486029148102
+      },
+      {
+        "side": 1,
+        "shift": -6,
+        "ink_std": 0.19661828875541687
+      },
+      {
+        "side": 1,
+        "shift": -4,
+        "ink_std": 0.20445933938026428
+      },
+      {
+        "side": 1,
+        "shift": -2,
+        "ink_std": 0.20990337431430817
+      },
+      {
+        "side": 1,
+        "shift": 0,
+        "ink_std": 0.2038257122039795
+      },
+      {
+        "side": 1,
+        "shift": 2,
+        "ink_std": 0.21161386370658875
+      },
+      {
+        "side": 1,
+        "shift": 4,
+        "ink_std": 0.20753082633018494
+      },
+      {
+        "side": 1,
+        "shift": 6,
+        "ink_std": 0.21100516617298126
+      },
+      {
+        "side": 1,
+        "shift": 8,
+        "ink_std": 0.21092207729816437
+      },
+      {
+        "side": -1,
+        "shift": -8,
+        "ink_std": 0.22414922714233398
+      },
+      {
+        "side": -1,
+        "shift": -6,
+        "ink_std": 0.25182172656059265
+      },
+      {
+        "side": -1,
+        "shift": -4,
+        "ink_std": 0.2574155628681183
+      },
+      {
+        "side": -1,
+        "shift": -2,
+        "ink_std": 0.2554042935371399
+      },
+      {
+        "side": -1,
+        "shift": 0,
+        "ink_std": 0.24876846373081207
+      },
+      {
+        "side": -1,
+        "shift": 2,
+        "ink_std": 0.2379196137189865
+      },
+      {
+        "side": -1,
+        "shift": 4,
+        "ink_std": 0.2441597580909729
+      },
+      {
+        "side": -1,
+        "shift": 6,
+        "ink_std": 0.24992647767066956
+      },
+      {
+        "side": -1,
+        "shift": 8,
+        "ink_std": 0.25547128915786743
+      }
+    ],
+    "mean_ink": 0.6501299738883972,
+    "frac_above_0.5": 0.40763652044376497,
+    "points_within_5vx_of_official": 0.3118608983647278,
+    "ink_corr_with_official_where_within_5vx": 0.5933185262191418,
+    "ink_corr_with_official_all_matched": 0.5417913060643543
+  },
+  "minutes": 46.1
+}

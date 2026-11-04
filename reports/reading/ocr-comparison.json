@@ -1,0 +1,106 @@
+[
+  {
+    "experiment": "recognition-validation.json",
+    "strict_cer": 0.9021739130434783,
+    "normalized_cer": 0.9538461538461539,
+    "exact_lines": 0,
+    "seconds": 23.28149789996678,
+    "peak_ram_bytes": null
+  },
+  {
+    "experiment": "recognition-browser-validation.json",
+    "strict_cer": 0.8804347826086957,
+    "normalized_cer": 0.8769230769230769,
+    "exact_lines": 0,
+    "seconds": 26.127335600031074,
+    "peak_ram_bytes": null
+  },
+  {
+    "experiment": "contact-1.json",
+    "strict_cer": 1.0434782608695652,
+    "normalized_cer": 1.2923076923076924,
+    "exact_lines": 0,
+    "seconds": 18.450028399995063,
+    "peak_ram_bytes": null
+  },
+  {
+    "experiment": "gray_contact-1.json",
+    "strict_cer": 1.0,
+    "normalized_cer": 1.0,
+    "exact_lines": 0,
+    "seconds": 12.754432099987753,
+    "peak_ram_bytes": null
+  },
+  {
+    "experiment": "gray_crops-1.json",
+    "strict_cer": 1.0,
+    "normalized_cer": 0.9230769230769231,
+    "exact_lines": 0,
+    "seconds": 20.696674200007692,
+    "peak_ram_bytes": null
+  },
+  {
+    "experiment": "tesseract_binary-1.json",
+    "strict_cer": 1.0,
+    "normalized_cer": 1.0,
+    "exact_lines": 0,
+    "seconds": 0.31156770000234246,
+    "peak_ram_bytes": 53547008
+  },
+  {
+    "experiment": "tesseract_binary-rawline-1.json",
+    "strict_cer": 0.9239130434782609,
+    "normalized_cer": 0.9230769230769231,
+    "exact_lines": 0,
+    "seconds": 0.5595935999881476,
+    "peak_ram_bytes": null
+  },
+  {
+    "experiment": "tesseract_gray-1.json",
+    "strict_cer": 0.9891304347826086,
+    "normalized_cer": 0.9846153846153847,
+    "exact_lines": 0,
+    "seconds": 0.4602994000306353,
+    "peak_ram_bytes": null
+  },
+  {
+    "experiment": "tesseract_gray-rawline-1.json",
+    "strict_cer": 0.9347826086956522,
+    "normalized_cer": 0.8461538461538461,
+    "exact_lines": 0,
+    "seconds": 0.6313551999628544,
+    "peak_ram_bytes": null
+  },
+  {
+    "experiment": "tesseract_gray-rawline-2.json",
+    "strict_cer": 0.9347826086956522,
+    "normalized_cer": 0.8461538461538461,
+    "exact_lines": 0,
+    "seconds": 0.31655819999286905,
+    "peak_ram_bytes": 59191296
+  },
+  {
+    "experiment": "tesseract_raw-1.json",
+    "strict_cer": 1.0,
+    "normalized_cer": 1.0,
+    "exact_lines": 0,
+    "seconds": 0.34898810001323,
+    "peak_ram_bytes": null
+  },
+  {
+    "experiment": "tesseract_raw-rawline-1.json",
+    "strict_cer": 0.9456521739130435,
+    "normalized_cer": 0.8615384615384616,
+    "exact_lines": 0,
+    "seconds": 0.5639250000240281,
+    "peak_ram_bytes": 58802176
+  },
+  {
+    "experiment": "tesseract_red-rawline-1.json",
+    "strict_cer": 0.9130434782608695,
+    "normalized_cer": 0.9230769230769231,
+    "exact_lines": 0,
+    "seconds": 0.3152680999482982,
+    "peak_ram_bytes": 59310080
+  }
+]

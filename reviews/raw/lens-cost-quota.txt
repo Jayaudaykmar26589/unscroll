@@ -1,0 +1,22 @@
+﻿Verdict: The budget does not close â€” one 8GB RTX 4060 cannot hold local SAM video-tracking plus 512Â³ volumes plus 3D CNN training/inference without an explicit tiling/chunking/VRAM-partition plan, and the single-day full benchmark plus back-to-back ML milestones leave no slack for the API-call and wall-clock multiplication the evidence table demands.
+
+Blocker â€” Part 2 (local SAM bulk tracking on 4060) vs Concept (Â§17, 512Â³ "fits your laptop and RTX 4060): 512Â³ float32 â‰ˆ 0.5 GB per array, but SAM video mode carries a memory bank over "hundreds of slices" of 512Ã—512 frames plus ground-truth surfaces plus surface volumes; on a likely-8GB 4060 there is no chunking, stride, mixed-precision, frame-subsample, or VRAM-partition plan, so bulk tracking OOMs or forces an unbudgeted rewrite mid-sprint.
+
+Blocker â€” Evidence table (5 crushing levels + battery mode) vs 8-day plan Day 6 (single-day "full benchmark"): metrics require local SAM tracing Ã— hundreds of slices Ã— 5 crush levels + battery volumes + CNN inference + Spark/Wonder calls, all on one 4060 in one day alongside an optional real-scroll demo â€” compute hours alone exceed the day, so Day 6 slips into viewer/README/video days with no buffer.
+
+Blocker â€” Part 2 (Spark vision "reviews the remaining hard cases") + Risks ("calling API on every slice gets expensiveâ€¦ use API for checking calls"): hard-case count scales with crush level, i.e. API usage peaks exactly where local SAM fails most; with 5 levels Ã— hundreds of slices Ã— re-prompts Ã— battery mode there is no per-slice cap, no max re-prompt budget, no token/rate-limit math â€” cost control fails under the heaviest load.
+
+Major â€” Part 3 ("small 3D CNNâ€¦ running in minutes on the 4060") vs Evidence (letter recovery across levels + battery): "minutes" covers one run, not training data spanning 5 crush levels + battery defects + ablations; dataset generation, I/O of multiple 512Â³ volumes, and retrains multiply into hours on a single GPU with no training-set size or epoch budget stated.
+
+Major â€” Part 4 (Wonder "chooses where to click nextâ€¦ runs the pipeline and writes the report") vs 8-day plan Day 5 (Spark + Wonder + battery mode + feature freeze in one day): agentic orchestration loop has no iteration cap, no tool-call budget, no fallback if Wonder mis-clicks; token burn and debugging risk land on the same day as battery mode, guaranteeing a three-way crunch on feature-freeze day.
+
+Major â€” 8-day plan Days 2â€“5 (SAM trace â†’ jump checks â†’ flatten+CNN "letters visible" â†’ Spark/Wonder/battery): four hard ML milestones back-to-back with zero slack days; any slip in tracing or jump-correction cascades directly into the benchmark, viewer, and video â€” the schedule assumes first-try success on every research step.
+
+Major â€” Part 1 ("Python and numpy only" generator for 512Â³ + crush/warps + fibre + blur/noise) vs Days 0â€“1: pure-numpy warps, touching-layer deformation, texture synthesis, and CT blur on 134M-voxel volumes Ã— multiple crush levels + battery variants is CPU/RAM-heavy (multiple GB resident per volume plus ground truth); two days with no RAM ceiling, resolution fallback, or precompute/caching plan underestimates wall-clock.
+
+Nit â€” Part 2 ("Meta Model API's SAM 3.1 for live demo and tricky regions") vs Demo (live click-to-spiral): live demo calls during the recorded video need latency/quota headroom and a no-network fallback; none is stated, so a rate limit or outage kills the wow moment.
+
+Nit â€” Part 4 (Spark reads flattened sheet + Voice + Image reconstruction) vs Tooling score drivers: three extra API surfaces (letter reading with confidences, voice commands, illustrative reconstruction) each add token/call costs and integration days but serve only one rubric line each; no "API-off" degraded mode is defined if quota runs out.
+
+Nit â€” After the hackathon (Progress Prizes/First Letters) vs Risks (permission optional): continued API + GPU spend toward monthly prizes is presented as upside with no ongoing-cost note; fine as aspiration, but it extends the same uncapped inference pattern past the 8-day window.
+

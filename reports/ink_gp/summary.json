@@ -1,0 +1,41 @@
+{
+  "model": "scrollprize/ink_detection_pipeline (Grand Prize 2023 TimeSformer, MIT)",
+  "layers": [
+    17,
+    42
+  ],
+  "tile": 64,
+  "stride": 21,
+  "validation": {
+    "segment": "20230827161847",
+    "crop_rows_cols": [
+      [
+        200,
+        5600
+      ],
+      [
+        1000,
+        4600
+      ]
+    ],
+    "shape": [
+      5400,
+      3600
+    ],
+    "mean": 0.34670114517211914,
+    "p99": 0.9225351810455322,
+    "frac_above_0.5": 0.2309427384274125
+  },
+  "ours": {
+    "surface65_20231210121321": {
+      "shape": [
+        59,
+        320
+      ],
+      "mean": 0.25299909710884094,
+      "p99": 0.5028667449951172,
+      "frac_above_0.5": 0.00958686440677966
+    }
+  },
+  "minutes": 4.8
+}

@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "bundle_id": "56729af77b80dcf06cbe3909d7801819764d80e90e385fbd915aab430a8e9920",
+  "source": {
+    "title": "Vesuvius Challenge 2023 Grand Prize announcement",
+    "url": "https://scrollprize.org/grandprize#what-does-the-scroll-say",
+    "published_date": "2024-02-05",
+    "location": "PHerc. Paris. 4, column −8, lines 10–14 (ending at νομίζομεν)",
+    "transcription_status": "Published preliminary scholarly transcription; not Unscroll OCR",
+    "image_url": "https://scrollprize.org/img/grandprize/col-8.webp",
+    "image_path": "assets/published-col-8.webp",
+    "image_width": 936,
+    "image_height": 1244,
+    "image_sha256": "22088b39a60a13cc1aca9d14a2377f0f3fbd66e62d9199ce7f934c13f2d6c672",
+    "attribution": "Column image © Vesuvius Challenge; underlying scan: EduceLab-Scrolls / University of Kentucky; papyrus: Institut de France. Published preliminary transcription: Vesuvius papyrology team.",
+    "license_url": "https://scrollprize.org/data",
+    "relationship_to_experiment": "Separate published reading example. Not text recovered by our 50-slice tracing experiment.",
+    "region_method": "Manually located line rectangles on the published column illustration; not word-level or CT-coordinate annotations. Line 14 is excerpted before οὐ γὰρ."
+  },
+  "source_text_sha256": "af4f856b52c95693711cf754ca0e48a3d1356501604d2eaf50ac23209ddfc6ab",
+  "published_lines": [
+    {
+      "id": "l10",
+      "label": "10",
+      "text": "ἐ̣π̣ὶ τῶν βρω̣μ̣άτ̣ων",
+      "bbox": [
+        25,
+        747,
+        905,
+        842
+      ]
+    },
+    {
+      "id": "l11",
+      "label": "11",
+      "text": "ο̣ὐ̣κ ἤδ̣η τὰ ϲπάνια",
+      "bbox": [
+        25,
+        843,
+        905,
+        937
+      ]
+    },
+    {
+      "id": "l12",
+      "label": "12",
+      "text": "πάντωϲ̣ καὶ ἡδ̣ίω",
+      "bbox": [
+        25,
+        938,
+        905,
+        1030
+      ]
+    },
+    {
+      "id": "l13",
+      "label": "13",
+      "text": "τῶν δ̣αψιλῶν̣ ε̣ἶναι̣",
+      "bbox": [
+        25,
+        1031,
+        905,
+        1125
+      ]
+    },
+    {
+      "id": "l14",
+      "label": "14 · excerpt",
+      "text": "νομίζ̣ο̣με̣ν·",
+      "bbox": [
+        25,
+        1126,
+        570,
+        1213
+      ]
+    }
+  ],
+  "corrected_lines": [
+    {
+      "id": "l10",
+      "label": "10",
+      "text": "ἐ̣π̣ὶ τῶν βρω̣μ̣άτ̣ων",
+      "bbox": [
+        25,
+        747,
+        905,
+        842
+      ],
+      "changed": false
+    },
+    {
+      "id": "l11",
+      "label": "11",
+      "text": "ο̣ὐ̣κ ἤδ̣η τὰ σπάνια",
+      "bbox": [
+        25,
+        843,
+        905,
+        937
+      ],
+      "changed": true
+    },
+    {
+      "id": "l12",
+      "label": "12",
+      "text": "πάντωϲ̣ καὶ ἡδ̣ίω",
+      "bbox": [
+        25,
+        938,
+        905,
+        1030
+      ],
+      "changed": false
+    },
+    {
+      "id": "l13",
+      "label": "13",
+      "text": "τῶν δ̣αψιλῶν̣ ε̣ἶναι̣",
+      "bbox": [
+        25,
+        1031,
+        905,
+        1125
+      ],
+      "changed": false
+    },
+    {
+      "id": "l14",
+      "label": "14 · excerpt",
+      "text": "νομίζ̣ο̣με̣ν·",
+      "bbox": [
+        25,
+        1126,
+        570,
+        1213
+      ],
+      "changed": false
+    }
+  ],
+  "translations": {
+    "en": {
+      "text": "In the matter of foods, we do not already consider the rare things to be altogether even more pleasant than the abundant things.",
+      "source_text": "ἐ̣π̣ὶ τῶν βρω̣μ̣άτ̣ων\nο̣ὐ̣κ ἤδ̣η τὰ σπάνια\nπάντωϲ̣ καὶ ἡδ̣ίω\nτῶν δ̣αψιλῶν̣ ε̣ἶναι̣\nνομίζ̣ο̣με̣ν·",
+      "kind": "model_draft",
+      "notes": "The supplied transcription carries sublinear dots on many letters indicating uncertain readings, distributed across all five lines as given. No square brackets indicating editorial supplement appear in the data. No question-mark character appears in the data; the final mark after νομίζομεν is transcribed as ano teleia. The translation renders the letters as printed without inventing missing words.",
+      "current": true
+    },
+    "ta": {
+      "text": "உணவுகள் விஷயத்தில், அரிதானவை மிகுதியாக உள்ளவற்றை விட எல்லா வகையிலும் மிகவும் இனிமையானவை என்று நாம் ஏற்கனவே கருதுவதில்லை.",
+      "source_text": "ἐ̣π̣ὶ τῶν βρω̣μ̣άτ̣ων\nο̣ὐ̣κ ἤδ̣η τὰ σπάνια\nπάντωϲ̣ καὶ ἡδ̣ίω\nτῶν δ̣αψιλῶν̣ ε̣ἶναι̣\nνομίζ̣ο̣με̣ν·",
+      "kind": "model_draft",
+      "notes": "The supplied transcription carries sublinear dots on many letters indicating uncertain readings, distributed across all five lines as given. No square brackets indicating editorial supplement appear in the data. No question-mark character appears in the data; the final mark after νομίζομεν is transcribed as ano teleia. The translation renders the letters as printed without inventing missing words.",
+      "current": true
+    }
+  },
+  "history": [
+    {
+      "type": "transcription",
+      "line_id": "l11",
+      "before": "ο̣ὐ̣κ ἤδ̣η τὰ ϲπάνια",
+      "after": "ο̣ὐ̣κ ἤδ̣η τὰ σπάνια",
+      "revision": 1,
+      "at": "2026-10-28T06:07:27.599Z"
+    },
+    {
+      "type": "model_translation",
+      "revision": 2,
+      "model": "muse-spark-1.3",
+      "source_text_sha256": "e218ac5521752cd925f7a8651b1db1f4d94456d4d8ebe70ecd05b0d8bf1a8ab9",
+      "at": "2026-10-28T06:08:00.441Z"
+    },
+    {
+      "type": "model_translation",
+      "revision": 3,
+      "model": "muse-spark-1.3",
+      "source_text_sha256": "e218ac5521752cd925f7a8651b1db1f4d94456d4d8ebe70ecd05b0d8bf1a8ab9",
+      "at": "2026-10-28T06:09:10.353Z"
+    }
+  ],
+  "revision": 3,
+  "disclosure": "Separate published reading example. Not text recovered by our 50-slice tracing experiment.",
+  "exported_at": "2026-10-28T06:10:32.354Z"
+}

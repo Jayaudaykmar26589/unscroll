@@ -1,0 +1,16 @@
+z=6100 suspect n=327 image_ridge motion=(0,0) NCC=None maxstep=1.41 ridge=0.966
+z=6101 ok n=327 image_ridge motion=(0,-1) NCC=0.9510242911554148 maxstep=1.41 ridge=0.920
+z=6102 ok n=327 image_ridge motion=(0,-1) NCC=0.9492684864164506 maxstep=1.41 ridge=0.930
+z=6103 ok n=327 image_ridge motion=(0,-1) NCC=0.9536079216522463 maxstep=1.41 ridge=0.908
+z=6104 ok n=327 image_ridge motion=(0,-1) NCC=0.9522703780358585 maxstep=1.41 ridge=0.872
+z=6105 failed n=0 no_supported_continuous_path motion=(0,-1) NCC=0.9546381294268308 maxstep=0.00 ridge=0.000
+z=6106 failed n=0 no_supported_continuous_path motion=(1,-1) NCC=0.8947540323158163 maxstep=0.00 ridge=0.000
+z=6107 failed n=0 no_supported_continuous_path motion=(1,-2) NCC=0.8074850534691237 maxstep=0.00 ridge=0.000
+z=6108 failed n=0 unverified_ct_motion motion=(2,-3) NCC=0.7218183546742847 maxstep=0.00 ridge=0.000
+z=6109 failed n=0 unverified_ct_motion motion=(2,-3) NCC=0.6518693330638848 maxstep=0.00 ridge=0.000
+z=6110 failed n=0 unverified_ct_motion motion=(3,-3) NCC=0.5881338393168274 maxstep=0.00 ridge=0.000
+z=6111 failed n=0 unverified_ct_motion motion=(3,-3) NCC=0.5433952679953232 maxstep=0.00 ridge=0.000
+z=6112 failed n=0 unverified_ct_motion motion=(3,-3) NCC=0.493061216043201 maxstep=0.00 ridge=0.000
+z=6113 failed n=0 unverified_ct_motion motion=(3,-3) NCC=0.43699653498998736 maxstep=0.00 ridge=0.000
+z=6114 failed n=0 unverified_ct_motion motion=(3,-3) NCC=0.3863672818157089 maxstep=0.00 ridge=0.000
+z=6115 failed n=0 unverified_ct_motion motion=(3,-3) NCC=0.3385760560278475 maxstep=0.00 ridge=0.000

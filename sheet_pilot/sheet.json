@@ -1,0 +1,42 @@
+{
+ "sheet_shape": [
+  8,
+  512,
+  2
+ ],
+ "shifts": [
+  {
+   "z": 0,
+   "shift": 0
+  },
+  {
+   "z": 1,
+   "shift": 13
+  },
+  {
+   "z": 2,
+   "shift": 64
+  },
+  {
+   "z": 3,
+   "shift": -40
+  },
+  {
+   "z": 4,
+   "shift": -7
+  },
+  {
+   "z": 5,
+   "shift": 16
+  },
+  {
+   "z": 6,
+   "shift": 19
+  },
+  {
+   "z": 7,
+   "shift": 64
+  }
+ ],
+ "note": "sheet[z, i] = (x, y) full-res coords; flat image coords = (i, z)"
+}

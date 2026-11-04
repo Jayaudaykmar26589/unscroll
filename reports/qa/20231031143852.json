@@ -1,0 +1,20 @@
+{
+ "seed": "20231031143852",
+ "model": "muse-spark-1.3",
+ "facts": {
+  "seed_mesh": "20231031143852",
+  "slices_traced": 20,
+  "slices_total": 20,
+  "within_5_voxels_percent": 45.6,
+  "within_2_voxels_percent": 8.3,
+  "median_distance_voxels": 5.3,
+  "before_fix_within_5_voxels_percent": 36.7,
+  "before_fix_median_distance_voxels": 6.2,
+  "on_clicked_layer": true,
+  "voxel_size_micrometres": 7.91,
+  "image": "red line = trace, yellow dot = click; panels: close-up, slice 0, slice 19"
+ },
+ "text": "The automated trace stays on the clicked layer and runs through 20 of 20 slices, but it cannot be trusted without manual checking. Only 45.6% lies within 5 voxels and 8.3% within 2 voxels, with a median distance of 5.3 voxels, which is only a modest improvement from 36.7% and 6.2 voxels before the fix. It is weakest away from the yellow dot, as seen where the red line drifts in the close-up and in slice 0 and slice 19 views. A person should check that the red line follows the same sheet and has not jumped to a neighbouring layer.",
+ "numbers_ok": true,
+ "attempts": 1
+}

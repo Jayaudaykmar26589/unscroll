@@ -1,0 +1,19 @@
+{
+  "published_lines_exact_match": {
+    "l10": true,
+    "l11": true,
+    "l12": true,
+    "l13": true,
+    "l14": true
+  },
+  "image_sha256": "22088b39a60a13cc1aca9d14a2377f0f3fbd66e62d9199ce7f934c13f2d6c672",
+  "source_text_sha256": "af4f856b52c95693711cf754ca0e48a3d1356501604d2eaf50ac23209ddfc6ab",
+  "source_html_sha256": "d96a66802e243b7e756cecbeadf722a212ef401e9ec29ef311ecd8b8ff4d9173",
+  "note": "Text fidelity and asset integrity checks, not independent OCR or translation accuracy.",
+  "browser_export": {
+    "revision": 3,
+    "history_events": 3,
+    "published_source_preserved": true,
+    "translation_source_binding_valid": true
+  }
+}

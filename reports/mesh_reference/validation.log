@@ -1,0 +1,45 @@
+{
+  "target_mesh": "20231210121321",
+  "target_identity_confirmed": false,
+  "summary": {
+    "baseline": {
+      "assessed": true,
+      "samples": 17962,
+      "arc_length_voxels": 17936.938359120082,
+      "mean_voxels": 20.899094105567567,
+      "median_voxels": 16.08735391573348,
+      "p95_voxels": 53.195653567618635,
+      "max_voxels": 73.90008490312705,
+      "within_2_voxels": 0.029504292838516893,
+      "within_5_voxels": 0.12399306871393559
+    },
+    "corrected": {
+      "assessed": true,
+      "samples": 18302,
+      "arc_length_voxels": 18273.367434827625,
+      "mean_voxels": 10.678750341829717,
+      "median_voxels": 11.215857723100685,
+      "p95_voxels": 18.293841282023536,
+      "max_voxels": 23.514331132546268,
+      "within_2_voxels": 0.06950730940102236,
+      "within_5_voxels": 0.19790878219320937
+    }
+  },
+  "reference_to_trace_in_roi": {
+    "assessed": true,
+    "samples": 46832,
+    "arc_length_voxels": 44232.250685780455,
+    "mean_voxels": 39.47810805357484,
+    "median_voxels": 33.87575461355331,
+    "p95_voxels": 130.50027390361842,
+    "max_voxels": 186.71266733406924,
+    "within_2_voxels": 0.027769225356066837,
+    "within_5_voxels": 0.07680335838139661
+  },
+  "runtime": {
+    "seconds": 78.48947989998851,
+    "peak_sampled_rss_mb": 248.85546875,
+    "os_peak_rss_mb": 492.93359375,
+    "gpu_used": false
+  }
+}

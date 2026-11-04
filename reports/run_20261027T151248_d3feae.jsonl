@@ -1,0 +1,9 @@
+{"run_id": "20261027T151248_d3feae", "note": "track 5568,3944,6100 small", "type": "header"}
+{"run_id": "20261027T151248_d3feae", "z": 0, "status": "suspect", "curve_ref": "00000.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T151248_d3feae", "z": 1, "status": "suspect", "curve_ref": "00001.jsonl", "checks": {"winding": true, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T151248_d3feae", "z": 2, "status": "suspect", "curve_ref": "00002.jsonl", "checks": {"winding": true, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T151248_d3feae", "z": 3, "status": "suspect", "curve_ref": "00003.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T151248_d3feae", "z": 4, "status": "suspect", "curve_ref": "00004.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T151248_d3feae", "z": 5, "status": "suspect", "curve_ref": "00005.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T151248_d3feae", "z": 6, "status": "suspect", "curve_ref": "00006.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T151248_d3feae", "z": 7, "status": "suspect", "curve_ref": "00007.jsonl", "checks": {"winding": true, "kink": false}, "reprompts": 0}

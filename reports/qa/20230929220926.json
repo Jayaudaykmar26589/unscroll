@@ -1,0 +1,20 @@
+{
+ "seed": "20230929220926",
+ "model": "muse-spark-1.3",
+ "facts": {
+  "seed_mesh": "20230929220926",
+  "slices_traced": 20,
+  "slices_total": 20,
+  "within_5_voxels_percent": 83.6,
+  "within_2_voxels_percent": 26.2,
+  "median_distance_voxels": 3.6,
+  "before_fix_within_5_voxels_percent": 72.7,
+  "before_fix_median_distance_voxels": 3.6,
+  "on_clicked_layer": true,
+  "voxel_size_micrometres": 7.91,
+  "image": "red line = trace, yellow dot = click; panels: close-up, slice 0, slice 19"
+ },
+ "text": "The automated trace was found in 20 of 20 slices and stays on the clicked layer, with 83.6 percent within 5 voxels and median distance 3.6 voxels after the fix from 72.7 percent, so it can be trusted for general location. It is weakest for close alignment, with only 26.2 percent within 2 voxels at 7.91 micrometres. A person should check the red line against the yellow dot in the close-up and in slice 0 and slice 19. Continue to check the red line through slice 0 to slice 19 for drift off the clicked layer.",
+ "numbers_ok": true,
+ "attempts": 1
+}

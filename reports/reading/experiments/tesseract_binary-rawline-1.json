@@ -1,0 +1,156 @@
+{
+  "prediction": {
+    "schema_version": 1,
+    "model": "Tesseract grc tessdata_best",
+    "engine": "tesseract 5.5.3\n leptonica-1.87.0 (Apr  6 2026, 06:47:44) [MSC v.1944 LIB Release x64]\n  libgif 5.2.2 : libjpeg 8d (libjpeg-turbo 3.1.2) : libpng 1.6.59 : libtiff 4.7.2 : zlib 1.3.2 : libwebp 1.6.0 : libopenjp2 2.5.4",
+    "model_sha256": "dfc9bda286cd9d8755b1832e5731a5425d1cf0803393a5fa6dee078466178cf1",
+    "kind": "image_prediction",
+    "image_sha256": "22088b39a60a13cc1aca9d14a2377f0f3fbd66e62d9199ce7f934c13f2d6c672",
+    "seconds": 0.5595935999881476,
+    "preprocessing": "tesseract_binary",
+    "raw_line": true,
+    "reference_sent": false,
+    "local_gpu_required": false,
+    "lines": [
+      {
+        "id": "l10",
+        "request_id": "r1",
+        "bbox": [
+          25,
+          747,
+          905,
+          842
+        ],
+        "crop_sha256": "c01dab66297356597b678aad5ff3af4087acc573bc7fdbcfb1e956d8e9d6ad2d",
+        "crop_size": [
+          1808,
+          238
+        ],
+        "text": "πρρι σπλονστδε  ἐο ΑΣοδε\""
+      },
+      {
+        "id": "l11",
+        "request_id": "r2",
+        "bbox": [
+          25,
+          843,
+          905,
+          937
+        ],
+        "crop_sha256": "432cbffeea071b9be0837bd6beaaf284601cffede4c18c46c4f718fbf396a6d5",
+        "crop_size": [
+          1808,
+          236
+        ],
+        "text": "ἩΤΚ στΣι ΡΣ"
+      },
+      {
+        "id": "l12",
+        "request_id": "r3",
+        "bbox": [
+          25,
+          938,
+          905,
+          1030
+        ],
+        "crop_sha256": "d8f7ed8e27c3830b21667a9c00ff37d30be127773e1d9f8b4484a7024f331ae6",
+        "crop_size": [
+          1808,
+          232
+        ],
+        "text": "πελοιχτδιεντεάθ"
+      },
+      {
+        "id": "l13",
+        "request_id": "r4",
+        "bbox": [
+          25,
+          1031,
+          905,
+          1125
+        ],
+        "crop_sha256": "5da2fee12439f92688cf5651428cb508f2316028805bd283e2227bbe2e138170",
+        "crop_size": [
+          1808,
+          236
+        ],
+        "text": "τον ει ιν, σῶς"
+      },
+      {
+        "id": "l14",
+        "request_id": "r5",
+        "bbox": [
+          25,
+          1126,
+          570,
+          1213
+        ],
+        "crop_sha256": "a42c0015338c311514d197e14a35512b1be34ccd09c14b184fcdab7147da6093",
+        "crop_size": [
+          1138,
+          222
+        ],
+        "text": "ἩΟΛΑΣΙ “3. γῆ"
+      }
+    ],
+    "run_id": "f6bcff5765fe62251c0e9e9b8913eb107a11585175556435b15a890e44b6263e"
+  },
+  "evaluation": {
+    "lines": [
+      {
+        "id": "l10",
+        "reference": "ἐ̣π̣ὶ τῶν βρω̣μ̣άτ̣ων",
+        "prediction": "πρρι σπλονστδε  ἐο ΑΣοδε\"",
+        "strict_edits": 23,
+        "strict_characters": 21,
+        "letter_edits": 17,
+        "reference_letters": 14,
+        "normalized_exact": false
+      },
+      {
+        "id": "l11",
+        "reference": "ο̣ὐ̣κ ἤδ̣η τὰ ϲπάνια",
+        "prediction": "ἩΤΚ στΣι ΡΣ",
+        "strict_edits": 18,
+        "strict_characters": 20,
+        "letter_edits": 11,
+        "reference_letters": 14,
+        "normalized_exact": false
+      },
+      {
+        "id": "l12",
+        "reference": "πάντωϲ̣ καὶ ἡδ̣ίω",
+        "prediction": "πελοιχτδιεντεάθ",
+        "strict_edits": 16,
+        "strict_characters": 17,
+        "letter_edits": 13,
+        "reference_letters": 13,
+        "normalized_exact": false
+      },
+      {
+        "id": "l13",
+        "reference": "τῶν δ̣αψιλῶν̣ ε̣ἶναι̣",
+        "prediction": "τον ει ιν, σῶς",
+        "strict_edits": 15,
+        "strict_characters": 21,
+        "letter_edits": 11,
+        "reference_letters": 15,
+        "normalized_exact": false
+      },
+      {
+        "id": "l14",
+        "reference": "νομίζ̣ο̣με̣ν·",
+        "prediction": "ἩΟΛΑΣΙ “3. γῆ",
+        "strict_edits": 13,
+        "strict_characters": 13,
+        "letter_edits": 8,
+        "reference_letters": 9,
+        "normalized_exact": false
+      }
+    ],
+    "strict_cer": 0.9239130434782609,
+    "normalized_cer": 0.9230769230769231,
+    "normalized_exact_lines": 0,
+    "limitations": "Five manually located lines from one public image; not a held-out test. Model memorization cannot be excluded. Strict CER includes editorial marks; normalized CER removes diacritics, spaces and punctuation and folds sigma forms. No uncertainty-detection or scholarly accuracy claim."
+  }
+}

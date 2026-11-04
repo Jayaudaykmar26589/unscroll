@@ -1,0 +1,9 @@
+{"run_id": "20261027T153048_c70fcb", "note": "outer-boundary contour", "type": "header"}
+{"run_id": "20261027T153048_c70fcb", "z": 0, "status": "suspect", "curve_ref": "00000.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T153048_c70fcb", "z": 1, "status": "suspect", "curve_ref": "00001.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T153048_c70fcb", "z": 2, "status": "suspect", "curve_ref": "00002.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T153048_c70fcb", "z": 3, "status": "suspect", "curve_ref": "00003.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T153048_c70fcb", "z": 4, "status": "suspect", "curve_ref": "00004.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T153048_c70fcb", "z": 5, "status": "suspect", "curve_ref": "00005.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T153048_c70fcb", "z": 6, "status": "suspect", "curve_ref": "00006.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}
+{"run_id": "20261027T153048_c70fcb", "z": 7, "status": "suspect", "curve_ref": "00007.jsonl", "checks": {"winding": false, "kink": false}, "reprompts": 0}

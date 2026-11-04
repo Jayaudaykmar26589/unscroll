@@ -1,0 +1,57 @@
+data/cache/
+checkpoints/
+.env
+*.zarr/
+*.tif
+*.tiff
+.venv/
+__pycache__/
+*.pyc
+golden/
+curves/
+kaggle/
+
+# Public repository: keep out caches, scratch, large data and material we may not redistribute
+.cache/
+.hf-cache/
+.claude/
+.pytest_cache/
+.review-tmp-*/
+.test-temp-*/
+pip-*/
+tmp*/
+pytest-of-*/
+curves_bound/
+curves_dbg/
+data/synth/
+# copy of the scrollprize.org Grand Prize page (fetch_reading_source.py)
+data/reading/source.html
+# copy of Meta's SAM 3 article, research notes only
+data/sam3_article.html
+data/sam3_notes*.txt
+data/frag1_listing.html
+# early experiment only; not used by Unscroll
+external/sam2/
+# third-party download helper; not used
+external/VesuviusDataDownload/
+# trained on 2023 Kaggle competition data: competition use only
+reports/ink/
+reports/ink20/
+reports/ink_kaggle/
+*.pt
+*.pth
+*.safetensors
+*.npy
+*.npz
+demo/frames_pilot/
+# third-party OCR binaries and wheels (fetch_ocr_model.py downloads them)
+tools/ocr/
+# early synthetic and go/no-go experiment frames
+curves_synth/
+curves_gono/frames*/
+# the Evaluation page serves copies from viewer/eval/
+reports/before_after/*.gif
+reports/overlays/
+
+# SAM 3.1 checkout (own git repo; Meta, SAM License). Unscroll ships its fixes as patches/sam3-unscroll.patch
+external/sam3/

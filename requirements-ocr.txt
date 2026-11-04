@@ -1,0 +1,2 @@
+# Optional CPU OCR; no changes to CUDA/PyTorch dependencies.
+tesserocr==2.12.0

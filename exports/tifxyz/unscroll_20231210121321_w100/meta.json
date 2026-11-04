@@ -1,0 +1,29 @@
+{
+  "format": "tifxyz",
+  "type": "seg",
+  "uuid": "unscroll_20231210121321_w100",
+  "scale": [
+    1.0,
+    1.0
+  ],
+  "bbox": [
+    [
+      3309.35,
+      2372.45,
+      6100.0
+    ],
+    [
+      3579.88,
+      2523.89,
+      6159.0
+    ]
+  ],
+  "volume": "20230205180739",
+  "source": "Unscroll SAM 3.1 trace (predicted surface, not released reference geometry)",
+  "slices": [
+    6100,
+    6159
+  ],
+  "smoothing_sigma_slices": 2.0,
+  "id": "7b081560-85e1-511f-bc31-fde27f049595"
+}

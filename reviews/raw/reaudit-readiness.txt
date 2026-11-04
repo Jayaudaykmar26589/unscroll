@@ -1,0 +1,21 @@
+﻿RE-AUDIT VERDICT: The range is now largely decision-free â€” 10 of 13 CB8 items are Fixed with concrete values/schemas/commands â€” but SAM variant/version pin and metric formulas by reference remain, so readiness is much improved yet not fully executable.
+
+Per-finding verdicts (all evidence `unscroll.md` lines 328-469):
+
+- CNN arch â€” Fixed. `unscroll.md:398-399` pins 3D U-Net tiny 16-32-64-128, 3^3 kernels, ~0.5M params, in 1x64^3, out 1x64^3 logits (was: "small 3D CNN", no layers/shapes).
+- CNN hparams â€” Fixed. `unscroll.md:400-402` pins Dice+BCE, AdamW 3e-4, eff. batch 8 (2x4), fp16, 50 epochs, early-stop val Dice patience 5, 1 retrain max, `checkpoints/` (was: no lr/batch/epochs/optimizer/loss/stop).
+- SAM pin â€” Open. `unscroll.md:370-372` names `sam_tracker.py` + chunking but gives no SAM variant/version/weights pin (was: no variant; still no variant).
+- Click encoding â€” Partial. `unscroll.md:372-373` gives `track --click X,Y,Z --window 32 --out curves/` plus `370-371` point prompt + prev-mask, but no +/- label, multi-click, or prompt-encoding rule.
+- Thinning â€” Fixed. `unscroll.md:371-372` names Zhang-Suen + spur-prune (was: no thinning algorithm).
+- Curve schema â€” Fixed. `unscroll.md:371-373` defines curve JSONL {z, points, origin, shift} + `curves/` out path (was: no format).
+- Guard values â€” Fixed. `unscroll.md:374-376` pins guards.py + guards.yaml, reversal <5deg, spacing 30%/10-slice median, kink >60deg, Tier C advisory; corroborated by executable tests `unscroll.md:442-444`.
+- Runlog/metrics schemas â€” Partial. `unscroll.md:362-366,415-418` fixes runlog JSONL {run_id, z, status, curve_ref, checks, reprompts} + run IDs, but metrics remain "G1/G2/G3 functions per Goals" â€” formulas still by reference, not in range.
+- recipe.lock schema â€” Partial. `unscroll.md:340-344` fixes lock schema {artifact, url, version, sha256, bytes, role} + generator `download.py --init`, but selection criteria still "from Q2 criteria" outside range.
+- CLI syntax â€” Fixed. `unscroll.md:373` (`track ...`), `unscroll.md:419,457-458` (`report --tier A|B|C`, one run per tier, then B, then C) resolves the one-flag-vs-three-runs ambiguity; plus `--init` (`344`), `--offline` (`460-461`).
+- Golden procedure â€” Partial. `unscroll.md:459-462` fixes command (`freeze_golden.py` then `demo.py --offline`), observable (exit 0 + PNGs byte-identical to manifest), but "network disabled" procedure itself is still unspecified.
+- Freeze manifest â€” Fixed. `unscroll.md:421-423,459-460` pins `golden/` dir, contents (trace + overlays + cached readings), SHA256SUMS manifest.
+- Dirs â€” Fixed. `unscroll.md:330` root rule plus explicit `reports/probe_report.md:338`, `reports/gono_verdict.md:386`, `checkpoints/:402`, `golden/:422`, `viewer/frames/:430-431`, `src/agents/fixtures/:413-414` (was: root files ambiguous).
+- Hygiene â€” Fixed. `unscroll.md:464-465` gives exact commands: `pip freeze | diff - requirements.txt`, `grep -rEi "(api[_-]?key|secret|token)\s*=" --include="*.py" .`, `git status --porcelain data/` (was: no exact commands). `.gitignore` literals also fixed at `unscroll.md:356-358`.
+
+STILL NO-GO â€” one Blocker-class gap remains (SAM variant/version pin; metric formulas and golden network-disable procedure only Partial), despite all other CB8 items Fixed/Partial.
+

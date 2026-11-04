@@ -1,0 +1,20 @@
+{
+ "seed": "20230701020044",
+ "model": "muse-spark-1.3",
+ "facts": {
+  "seed_mesh": "20230701020044",
+  "slices_traced": 20,
+  "slices_total": 20,
+  "within_5_voxels_percent": 59.7,
+  "within_2_voxels_percent": 34.0,
+  "median_distance_voxels": 3.6,
+  "before_fix_within_5_voxels_percent": 15.5,
+  "before_fix_median_distance_voxels": 22.1,
+  "on_clicked_layer": true,
+  "voxel_size_micrometres": 7.91,
+  "image": "red line = trace, yellow dot = click; panels: close-up, slice 0, slice 19"
+ },
+ "text": "The automated trace covers 20 of 20 slices, and after the fix agreement improved from 15.5% within 5 voxels with median distance 22.1 voxels to 59.7% within 5 voxels with median distance 3.6 voxels, so the broad path can be trusted but the exact placement cannot. It is weakest at fine detail, with only 34.0% within 2 voxels given a voxel size of 7.91 micrometres. The starting point is on the clicked layer. A person should check the red line against the yellow dot in the close-up and in slice 0 and slice 19 to confirm it stays on the same sheet and does not jump to a neighbor.",
+ "numbers_ok": true,
+ "attempts": 1
+}

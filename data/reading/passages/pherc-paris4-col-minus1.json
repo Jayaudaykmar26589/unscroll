@@ -1,0 +1,107 @@
+{
+ "schema_version": 1,
+ "id": "pherc-paris4-col-minus1",
+ "title": "PHerc. Paris. 4 · column −1, lines 1–6",
+ "scroll": "Scroll 1 · PHerc. Paris. 4",
+ "source_language": "grc",
+ "source": {
+  "title": "Vesuvius Challenge 2023 Grand Prize announcement",
+  "url": "https://scrollprize.org/grandprize#what-does-the-scroll-say",
+  "published_date": "2024-02-05",
+  "location": "PHerc. Paris. 4, column −1, lines 1–6",
+  "transcription_status": "Published initial, rough draft transcription; not Unscroll OCR",
+  "image_url": "https://scrollprize.org/img/grandprize/col-1.webp",
+  "image_path": "assets/published-col-1.webp",
+  "image_width": 971,
+  "image_height": 646,
+  "image_sha256": "8f7fd4bd8c19983dcf384dca0711a82a18fc01613ce0fb6b23de67c7c4cf0234",
+  "attribution": "Column image © Vesuvius Challenge (CC BY-NC 4.0); underlying scan: EduceLab-Scrolls / University of Kentucky; papyrus: Institut de France. Published preliminary transcription: Vesuvius papyrology team.",
+  "license_url": "https://scrollprize.org/data",
+  "relationship_to_experiment": "Published reading of a whole surviving column. Not text recovered by Unscroll's own tracing.",
+  "region_method": "Evenly spaced line rectangles fitted to the image darkness profile, checked by eye."
+ },
+ "lines": [
+  {
+   "id": "l1",
+   "label": "1",
+   "text": "ὰρ ἀπ̣εχόμ̣ε̣θ̣α̣ τὰ",
+   "bbox": [
+    0,
+    25,
+    971,
+    144
+   ]
+  },
+  {
+   "id": "l2",
+   "label": "2",
+   "text": "μὲν κρίνειν, τὰ δὲ",
+   "bbox": [
+    0,
+    121,
+    971,
+    240
+   ]
+  },
+  {
+   "id": "l3",
+   "label": "3",
+   "text": "κατέχειν καὶ ἐμφαί",
+   "bbox": [
+    0,
+    217,
+    971,
+    336
+   ]
+  },
+  {
+   "id": "l4",
+   "label": "4",
+   "text": "νoιθ’ ἡμῖν ἀληθῆ λέ-",
+   "bbox": [
+    0,
+    313,
+    971,
+    433
+   ]
+  },
+  {
+   "id": "l5",
+   "label": "5",
+   "text": "γειν ὥϲπερ πολλά̣κιϲ",
+   "bbox": [
+    0,
+    409,
+    971,
+    529
+   ]
+  },
+  {
+   "id": "l6",
+   "label": "6",
+   "text": "ἂν ἐ̣μφανε̣ίη̣{ι}.",
+   "bbox": [
+    0,
+    506,
+    971,
+    606
+   ]
+  }
+ ],
+ "editorial_note": "Underdots mark uncertain letters in the published reading; brackets mark lost text. Line rectangles were fitted to the published image and checked by eye; they are not CT coordinates. Starting translations are unreviewed Muse Spark drafts, not a scholarly translation.",
+ "translations": {
+  "en": {
+   "text": "ar, on this reading, we hold back: some things to judge, but others to keep hold of, and for speaking true things to be made manifest to us, just as it might often become manifest",
+   "kind": "model_draft",
+   "provenance": "muse-spark-1.3 draft; unreviewed",
+   "review_status": "Unreviewed model draft; not a scholarly reading. Underdots mark uncertain letters in apechometha, pollakis and emphaneie, with mixed script in emphainoith; the translation keeps them as read with hedged wording and leaves initial ar unrestored. Curly brackets around the final iota in emphaneie mark editorial handling of that letter; the translation follows the form without the bracketed iota. No question mark occurs in the supplied passage."
+  },
+  "ta": {
+   "text": "ஆர் எனப் படிக்கப்படும் தொடக்கத்துடன் நாங்கள் விலகி நிற்கிறோம் சிலவற்றைத் தீர்ப்பு செய்வதற்கும் மற்றவற்றைப் பற்றிக் கொள்வதற்கும் மேலும் உண்மையானவற்றைக் கூறுவது எங்களுக்கு வெளிப்படுவதற்கும் அது அடிக்கடி வெளிப்படக்கூடியது போலவே",
+   "kind": "model_draft",
+   "provenance": "muse-spark-1.3 draft; unreviewed",
+   "review_status": "Unreviewed model draft; not a scholarly reading. Underdots mark uncertain letters in apechometha, pollakis and emphaneie, with mixed script in emphainoith; the translation keeps them as read with hedged wording and leaves initial ar unrestored. Curly brackets around the final iota in emphaneie mark editorial handling of that letter; the translation follows the form without the bracketed iota. No question mark occurs in the supplied passage."
+  }
+ },
+ "translation_input": "ὰρ ἀπ̣εχόμ̣ε̣θ̣α̣ τὰ\nμὲν κρίνειν, τὰ δὲ\nκατέχειν καὶ ἐμφαί\nνoιθ’ ἡμῖν ἀληθῆ λέ-\nγειν ὥϲπερ πολλά̣κιϲ\nἂν ἐ̣μφανε̣ίη̣{ι}."
+}

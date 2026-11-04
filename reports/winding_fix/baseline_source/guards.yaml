@@ -1,0 +1,5 @@
+# Jump-guard thresholds (design C2). Tier C: advisory-only.
+winding_reversal_deg: 5.0
+spacing_frac: 0.30
+spacing_window: 10
+kink_deg: 60.0

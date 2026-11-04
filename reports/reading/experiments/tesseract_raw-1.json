@@ -1,0 +1,155 @@
+{
+  "prediction": {
+    "schema_version": 1,
+    "model": "Tesseract grc tessdata_best",
+    "engine": "tesseract 5.5.3\n leptonica-1.87.0 (Apr  6 2026, 06:47:44) [MSC v.1944 LIB Release x64]\n  libgif 5.2.2 : libjpeg 8d (libjpeg-turbo 3.1.2) : libpng 1.6.59 : libtiff 4.7.2 : zlib 1.3.2 : libwebp 1.6.0 : libopenjp2 2.5.4",
+    "model_sha256": "dfc9bda286cd9d8755b1832e5731a5425d1cf0803393a5fa6dee078466178cf1",
+    "kind": "image_prediction",
+    "image_sha256": "22088b39a60a13cc1aca9d14a2377f0f3fbd66e62d9199ce7f934c13f2d6c672",
+    "seconds": 0.34898810001323,
+    "preprocessing": "tesseract_raw",
+    "reference_sent": false,
+    "local_gpu_required": false,
+    "lines": [
+      {
+        "id": "l10",
+        "request_id": "r1",
+        "bbox": [
+          25,
+          747,
+          905,
+          842
+        ],
+        "crop_sha256": "cf6cfcad33eb1471972f3f46d6c663f905198b4cc1beb827654b99766b47ee66",
+        "crop_size": [
+          1808,
+          238
+        ],
+        "text": ""
+      },
+      {
+        "id": "l11",
+        "request_id": "r2",
+        "bbox": [
+          25,
+          843,
+          905,
+          937
+        ],
+        "crop_sha256": "28bbc293976ab6c451da9cb42ef435b624ed323914d08effd1a8279240baea78",
+        "crop_size": [
+          1808,
+          236
+        ],
+        "text": ""
+      },
+      {
+        "id": "l12",
+        "request_id": "r3",
+        "bbox": [
+          25,
+          938,
+          905,
+          1030
+        ],
+        "crop_sha256": "cd9bd17761705c7505d56060fb98d869d80290192ef68c4064f2eee35168308c",
+        "crop_size": [
+          1808,
+          232
+        ],
+        "text": ""
+      },
+      {
+        "id": "l13",
+        "request_id": "r4",
+        "bbox": [
+          25,
+          1031,
+          905,
+          1125
+        ],
+        "crop_sha256": "0b6fa77f8307376ea226c7130623559f24f423e30c1c1082b0505dfcfc561e30",
+        "crop_size": [
+          1808,
+          236
+        ],
+        "text": ""
+      },
+      {
+        "id": "l14",
+        "request_id": "r5",
+        "bbox": [
+          25,
+          1126,
+          570,
+          1213
+        ],
+        "crop_sha256": "3d5e52bce93f569f024edac24661bccebeb0f6a79f90613add21926a4289efc5",
+        "crop_size": [
+          1138,
+          222
+        ],
+        "text": ""
+      }
+    ],
+    "run_id": "34ba7ab3e94a999e186800035d1d9fbd30d481d75460c316bc3913fe720e9a08"
+  },
+  "evaluation": {
+    "lines": [
+      {
+        "id": "l10",
+        "reference": "ἐ̣π̣ὶ τῶν βρω̣μ̣άτ̣ων",
+        "prediction": "",
+        "strict_edits": 21,
+        "strict_characters": 21,
+        "letter_edits": 14,
+        "reference_letters": 14,
+        "normalized_exact": false
+      },
+      {
+        "id": "l11",
+        "reference": "ο̣ὐ̣κ ἤδ̣η τὰ ϲπάνια",
+        "prediction": "",
+        "strict_edits": 20,
+        "strict_characters": 20,
+        "letter_edits": 14,
+        "reference_letters": 14,
+        "normalized_exact": false
+      },
+      {
+        "id": "l12",
+        "reference": "πάντωϲ̣ καὶ ἡδ̣ίω",
+        "prediction": "",
+        "strict_edits": 17,
+        "strict_characters": 17,
+        "letter_edits": 13,
+        "reference_letters": 13,
+        "normalized_exact": false
+      },
+      {
+        "id": "l13",
+        "reference": "τῶν δ̣αψιλῶν̣ ε̣ἶναι̣",
+        "prediction": "",
+        "strict_edits": 21,
+        "strict_characters": 21,
+        "letter_edits": 15,
+        "reference_letters": 15,
+        "normalized_exact": false
+      },
+      {
+        "id": "l14",
+        "reference": "νομίζ̣ο̣με̣ν·",
+        "prediction": "",
+        "strict_edits": 13,
+        "strict_characters": 13,
+        "letter_edits": 9,
+        "reference_letters": 9,
+        "normalized_exact": false
+      }
+    ],
+    "strict_cer": 1.0,
+    "normalized_cer": 1.0,
+    "normalized_exact_lines": 0,
+    "limitations": "Five manually located lines from one public image; not a held-out test. Model memorization cannot be excluded. Strict CER includes editorial marks; normalized CER removes diacritics, spaces and punctuation and folds sigma forms. No uncertainty-detection or scholarly accuracy claim."
+  }
+}

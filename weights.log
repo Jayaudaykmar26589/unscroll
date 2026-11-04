@@ -1,0 +1,35 @@
+﻿.\.venv\Scripts\python : httpx2.HTTPStatusError: Client error '403 Forbidden' for url 
+'https://huggingface.co/facebook/sam3.1/resolve/main/sam3.1_multiplex.pt'
+At line:1 char:65
++ ... .hf-cache'; .\.venv\Scripts\python -c "from huggingface_hub import hf ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (httpx2.HTTPStat...1_multiplex.pt':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "D:\Meta\unscroll\.venv\Lib\site-packages\huggingface_hub\utils\_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\Meta\unscroll\.venv\Lib\site-packages\huggingface_hub\utils\_http.py", line 276, in _inner
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\Meta\unscroll\.venv\Lib\site-packages\huggingface_hub\file_download.py", line 1026, in hf_hub_download
+    return _hf_hub_download_to_local_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Meta\unscroll\.venv\Lib\site-packages\huggingface_hub\file_download.py", line 1421, in 
+_hf_hub_download_to_local_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "D:\Meta\unscroll\.venv\Lib\site-packages\huggingface_hub\file_download.py", line 1953, in 
+_raise_on_head_call_error
+    raise head_call_error
+huggingface_hub.errors.GatedRepoError: 403 Client Error. (Request ID: 
+Root=1-6ae0bb51-7847ef0067adba1c6b336915;ae3c83d7-aed3-4e56-8a4e-0912eabcde4d)
+
+Cannot access gated repo for url https://huggingface.co/facebook/sam3.1/resolve/main/sam3.1_multiplex.pt.
+Access to model facebook/sam3.1 is restricted and you are not in the authorized list. Visit 
+https://huggingface.co/facebook/sam3.1 to ask for access.

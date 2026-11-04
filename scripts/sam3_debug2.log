@@ -1,0 +1,29 @@
+session: 15793fd5-8de0-4fc7-983a-08d73dd0044e
+text add_prompt ok: 0 <class 'dict'>
+  tout out_obj_ids <class 'numpy.ndarray'> (0,)
+  tout out_probs <class 'numpy.ndarray'> (0,)
+  tout out_boxes_xywh <class 'numpy.ndarray'> (0, 4)
+  tout out_binary_masks <class 'numpy.ndarray'> (0, 1024, 1024)
+  tout frame_stats <class 'dict'> ['num_obj_tracked', 'num_obj_dropped']
+point add_prompt ok: 0 <class 'dict'>
+  point outs keys: ['out_obj_ids', 'out_probs', 'out_boxes_xywh', 'out_binary_masks', 'frame_stats']
+prev_stages: ['_THIS_FRAME_HAS_OUTPUTS_', None, None, None, None, None, None, None]
+prop frame: 0 <class 'dict'>
+  pout out_obj_ids <class 'numpy.ndarray'> (1,)
+  pout out_probs <class 'numpy.ndarray'> (1,)
+  pout out_boxes_xywh <class 'numpy.ndarray'> (1, 4)
+  pout out_binary_masks <class 'numpy.ndarray'> (1, 1024, 1024)
+  pout frame_stats <class 'NoneType'> 
+prop frame: 1 <class 'dict'>
+  pout out_obj_ids <class 'numpy.ndarray'> (0,)
+  pout out_probs <class 'numpy.ndarray'> (0,)
+  pout out_boxes_xywh <class 'numpy.ndarray'> (0, 4)
+  pout out_binary_masks <class 'numpy.ndarray'> (0, 1024, 1024)
+  pout frame_stats <class 'NoneType'> 
+prop frame: 2 <class 'dict'>
+  pout out_obj_ids <class 'numpy.ndarray'> (0,)
+  pout out_probs <class 'numpy.ndarray'> (0,)
+  pout out_boxes_xywh <class 'numpy.ndarray'> (0, 4)
+  pout out_binary_masks <class 'numpy.ndarray'> (0, 1024, 1024)
+  pout frame_stats <class 'NoneType'> 
+propagate OK

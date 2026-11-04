@@ -1,0 +1,86 @@
+seed out_binary_masks: (0, 1024, 1024) probs: []
+prop frame: 0
+  pout out_obj_ids <class 'numpy.ndarray'> (1,)
+  pout out_probs <class 'numpy.ndarray'> (1,)
+  pout out_boxes_xywh <class 'numpy.ndarray'> (1, 4)
+  pout out_binary_masks <class 'numpy.ndarray'> (1, 1024, 1024)
+  pout frame_stats <class 'NoneType'> 
+Traceback (most recent call last):
+  File "\\?\D:\Meta\unscroll\scripts\sam3_debug3.py", line 29, in <module>
+    for resp in predictor.handle_stream_request(dict(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\.venv\Lib\site-packages\torch\utils\_contextlib.py", line 57, in generator_context
+    response = gen.send(request)
+               ^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\sam3_base_predictor.py", line 119, in handle_stream_request
+    yield from self.propagate_in_video(
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\sam3_base_predictor.py", line 357, in propagate_in_video
+    for frame_idx, outputs in self.model.propagate_in_video(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\.venv\Lib\site-packages\torch\utils\_contextlib.py", line 57, in generator_context
+    response = gen.send(request)
+               ^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\sam3_multiplex_tracking.py", line 2376, in propagate_in_video
+    self._propogate_tracker_one_frame_local_gpu(
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\sam3_multiplex_base.py", line 1755, in _propogate_tracker_one_frame_local_gpu
+    for out in self.tracker.propagate_in_video(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\.venv\Lib\site-packages\torch\utils\_contextlib.py", line 36, in generator_context
+    response = gen.send(None)
+               ^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\video_tracking_multiplex_demo.py", line 3451, in propagate_in_video
+    current_out, pred_masks = self._run_single_frame_inference(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\video_tracking_multiplex_demo.py", line 2796, in _run_single_frame_inference
+    current_out = self.track_step(
+                  ^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\video_tracking_multiplex.py", line 3464, in track_step
+    current_out, aux_out = self._track_step_aux(
+                           ^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\video_tracking_multiplex.py", line 2099, in _track_step_aux
+    pix_feat_with_mem = self._prepare_memory_conditioned_features(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\video_tracking_multiplex.py", line 1618, in _prepare_memory_conditioned_features
+    encoder_out = self.transformer.encoder(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\decoder.py", line 1408, in forward
+    image, output = activation_ckpt_wrapper(layer)(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\act_ckpt_utils.py", line 88, in act_ckpt_wrapper
+    ret = module(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\decoder.py", line 1304, in forward
+    return self.forward_pre(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\decoder.py", line 1283, in forward_pre
+    tgt = self._forward_sa(tgt, query_pos)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\decoder.py", line 1219, in _forward_sa
+    out = self.self_attention_rope(q, k, v)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\decoder.py", line 1131, in forward
+    out = functional_attention(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "\\?\D:\Meta\unscroll\external\sam3\sam3\model\decoder.py", line 1066, in functional_attention
+    out = torchF.scaled_dot_product_attention(q, k, v, dropout_p=dropout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: No available kernel. Aborting execution.
+propagate FAILED

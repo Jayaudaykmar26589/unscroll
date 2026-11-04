@@ -1,0 +1,20 @@
+seed out_binary_masks: (0, 1024, 1024) probs: []
+prop frame: 0
+  pout out_obj_ids <class 'numpy.ndarray'> (1,)
+  pout out_probs <class 'numpy.ndarray'> (1,)
+  pout out_boxes_xywh <class 'numpy.ndarray'> (1, 4)
+  pout out_binary_masks <class 'numpy.ndarray'> (1, 1024, 1024)
+  pout frame_stats <class 'NoneType'> 
+prop frame: 1
+  pout out_obj_ids <class 'numpy.ndarray'> (0,)
+  pout out_probs <class 'numpy.ndarray'> (0,)
+  pout out_boxes_xywh <class 'numpy.ndarray'> (0, 4)
+  pout out_binary_masks <class 'numpy.ndarray'> (0, 1024, 1024)
+  pout frame_stats <class 'NoneType'> 
+prop frame: 2
+  pout out_obj_ids <class 'numpy.ndarray'> (0,)
+  pout out_probs <class 'numpy.ndarray'> (0,)
+  pout out_boxes_xywh <class 'numpy.ndarray'> (0, 4)
+  pout out_binary_masks <class 'numpy.ndarray'> (0, 1024, 1024)
+  pout frame_stats <class 'NoneType'> 
+propagate OK

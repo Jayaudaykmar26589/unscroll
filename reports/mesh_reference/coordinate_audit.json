@@ -1,0 +1,59 @@
+{
+  "original_reference": "20230518181521",
+  "volume_id": "20230205180739",
+  "mesh_to_volume": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "mesh_bounds_xyz": [
+    [
+      2090.4,
+      5195.41,
+      5652.57
+    ],
+    [
+      3938.28,
+      5805.5,
+      6725.39
+    ]
+  ],
+  "click_xyz": [
+    4820,
+    3403,
+    6100
+  ],
+  "click_distance_to_original_mesh": 2329.7754164081994,
+  "ct_diagnostic_not_accuracy": {
+    "documented_xyz": {
+      "mean_ct": 41246.90201005025,
+      "median_ct": 42039.0
+    },
+    "incorrect_xy_swap": {
+      "mean_ct": 32726.17688442211,
+      "median_ct": 32338.5
+    }
+  },
+  "finding": "The reference shares the volume frame but occupies a different XY region. Z overlap alone was incorrectly treated as ground-truth coverage. No coordinate offset is warranted."
+}

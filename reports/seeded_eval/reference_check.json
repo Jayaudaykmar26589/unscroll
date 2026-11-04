@@ -1,0 +1,117 @@
+{
+  "segment": "20231210121321",
+  "reference_2026": "20260604223808-20231210121321_v8, on volume 20230205180739 (7.91 um)",
+  "old_reference_vs_2026": {
+    "within2": 0.0855,
+    "within5": 0.2495,
+    "median_vx": 8.802,
+    "points": 44654
+  },
+  "traces": [
+    {
+      "trace": "dev",
+      "vs_2023_reference": {
+        "within2": 0.5664,
+        "within5": 0.9032,
+        "median_vx": 1.726,
+        "points": 5653
+      },
+      "vs_2026_reference": {
+        "within2": 0.0058,
+        "within5": 0.0221,
+        "median_vx": 17.464,
+        "points": 5653
+      }
+    },
+    {
+      "trace": "heldout",
+      "vs_2023_reference": {
+        "within2": 0.2252,
+        "within5": 0.517,
+        "median_vx": 4.722,
+        "points": 12941
+      },
+      "vs_2026_reference": {
+        "within2": 0.0598,
+        "within5": 0.1979,
+        "median_vx": 9.421,
+        "points": 12941
+      }
+    },
+    {
+      "trace": "large_0",
+      "vs_2023_reference": {
+        "within2": 0.1461,
+        "within5": 0.3498,
+        "median_vx": 7.851,
+        "points": 11085
+      },
+      "vs_2026_reference": {
+        "within2": 0.0188,
+        "within5": 0.0474,
+        "median_vx": 31.634,
+        "points": 11085
+      }
+    },
+    {
+      "trace": "large_1",
+      "vs_2023_reference": {
+        "within2": 0.3185,
+        "within5": 0.6822,
+        "median_vx": 3.299,
+        "points": 14143
+      },
+      "vs_2026_reference": {
+        "within2": 0.0,
+        "within5": 0.0087,
+        "median_vx": 18.15,
+        "points": 14143
+      }
+    },
+    {
+      "trace": "large_2",
+      "vs_2023_reference": {
+        "within2": 0.4084,
+        "within5": 0.7164,
+        "median_vx": 2.693,
+        "points": 6912
+      },
+      "vs_2026_reference": {
+        "within2": 0.0394,
+        "within5": 0.1071,
+        "median_vx": 17.762,
+        "points": 6912
+      }
+    },
+    {
+      "trace": "large_3",
+      "vs_2023_reference": {
+        "within2": 0.3299,
+        "within5": 0.7497,
+        "median_vx": 3.113,
+        "points": 8964
+      },
+      "vs_2026_reference": {
+        "within2": 0.0411,
+        "within5": 0.1007,
+        "median_vx": 18.79,
+        "points": 8964
+      }
+    },
+    {
+      "trace": "w100_verified",
+      "vs_2023_reference": {
+        "within2": 0.5615,
+        "within5": 0.861,
+        "median_vx": 1.717,
+        "points": 17280
+      },
+      "vs_2026_reference": {
+        "within2": 0.0019,
+        "within5": 0.0072,
+        "median_vx": 17.265,
+        "points": 17280
+      }
+    }
+  ]
+}

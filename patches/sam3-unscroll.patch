@@ -1,0 +1,164 @@
+diff --git a/sam3/model/decoder.py b/sam3/model/decoder.py
+index dfd1cae..c59c18e 100644
+--- a/sam3/model/decoder.py
++++ b/sam3/model/decoder.py
+@@ -17,6 +17,48 @@ from sam3.sam.rope import apply_rotary_enc, apply_rotary_enc_real, compute_axial
+ from sam3.sam.transformer import RoPEAttention
+ from torch import nn, Tensor
+ from torch.nn.attention import sdpa_kernel, SDPBackend
++
++
++# UNSCROLL: flash SDPA is not compiled into torch cu121/Windows builds, and
++# upstream forces SDPBackend.FLASH_ATTENTION exclusively. Probe once, then use
++# flash when available, else math/efficient fallback.
++_UNSCROLL_FLASH_OK = None
++
++
++def _unscroll_sdpa_fallback():
++    global _UNSCROLL_FLASH_OK
++    if _UNSCROLL_FLASH_OK is None:
++        try:
++            if torch.cuda.is_available():
++                _q = torch.zeros(1, 1, 2, 8, device="cuda", dtype=torch.float16)
++                with sdpa_kernel(SDPBackend.FLASH_ATTENTION):
++                    torchF.scaled_dot_product_attention(_q, _q, _q)
++                _UNSCROLL_FLASH_OK = True
++            else:
++                _UNSCROLL_FLASH_OK = False
++        except RuntimeError:
++            _UNSCROLL_FLASH_OK = False
++    if _UNSCROLL_FLASH_OK:
++        return sdpa_kernel(SDPBackend.FLASH_ATTENTION)
++    return sdpa_kernel([SDPBackend.MATH, SDPBackend.EFFICIENT_ATTENTION])
++
++
++# UNSCROLL: without flash, the math backend materializes the full attention
++# matrix; memory attention over several past frames then needs ~5 GB in one
++# allocation (OOM on a 16 GB T4, system-RAM spill on an 8 GB laptop). Each
++# output row depends only on its query row, so attending in query chunks is
++# exact and bounds the score matrix to ~_UNSCROLL_ATTN_BYTES.
++_UNSCROLL_ATTN_BYTES = 512 * 2 ** 20
++
++
++def _unscroll_sdpa(q, k, v, dropout_p=0.0):
++    b, h, n, _ = q.shape
++    row_bytes = b * h * k.shape[-2] * 4  # float32 softmax workspace per query row
++    rows = max(1, _UNSCROLL_ATTN_BYTES // max(row_bytes, 1))
++    if _UNSCROLL_FLASH_OK or rows >= n:
++        return torchF.scaled_dot_product_attention(q, k, v, dropout_p=dropout_p)
++    return torch.cat([torchF.scaled_dot_product_attention(q[:, :, i:i + rows], k, v, dropout_p=dropout_p)
++                      for i in range(0, n, rows)], dim=2)
+ from torchvision.ops.roi_align import RoIAlign
+ 
+ from .act_ckpt_utils import activation_ckpt_wrapper
+@@ -1062,8 +1104,8 @@ def functional_attention(
+         assert dropout == 0.0
+         out = flash_attn_func(q.transpose(1, 2), k.transpose(1, 2), v.transpose(1, 2))
+     else:
+-        with sdpa_kernel(SDPBackend.FLASH_ATTENTION):
+-            out = torchF.scaled_dot_product_attention(q, k, v, dropout_p=dropout)
++        with _unscroll_sdpa_fallback():  # UNSCROLL: was forced FLASH_ATTENTION
++            out = _unscroll_sdpa(q, k, v, dropout_p=dropout)  # UNSCROLL: query-chunked
+         out = out.transpose(1, 2)  #  B * n * n_heads * (cv // num_heads)
+ 
+     out = out.reshape(b, n, cv)
+diff --git a/sam3/model/edt.py b/sam3/model/edt.py
+index 498f28f..07ac2d0 100644
+--- a/sam3/model/edt.py
++++ b/sam3/model/edt.py
+@@ -5,8 +5,26 @@
+ """Triton kernel for euclidean distance transform (EDT)"""
+ 
+ import torch
+-import triton
+-import triton.language as tl
++
++try:
++    import triton
++    import triton.language as tl
++
++    _HAS_TRITON = True
++except ImportError:
++    _HAS_TRITON = False  # Windows: CPU fallback (VENDORED PATCH)
++
++    class _TritonStub:
++        def __getattr__(self, name):
++            if name == 'jit':
++                return lambda fn: fn
++            raise RuntimeError('triton unavailable on Windows')
++
++    class _TlStub:
++        def __getattr__(self, name):
++            return object
++
++    triton, tl = _TritonStub(), _TlStub()
+ 
+ """
+ Disclaimer: This implementation is not meant to be extremely efficient. A CUDA kernel would likely be more efficient.
+@@ -128,6 +146,8 @@ def edt_triton(data: torch.Tensor):
+         It should be equivalent to a batched version of cv2.distanceTransform(input, cv2.DIST_L2, 0)
+     """
+     assert data.dim() == 3
++    if not _HAS_TRITON:
++        return _edt_cv2(data)
+     assert data.is_cuda
+     B, H, W = data.shape
+     data = data.contiguous()
+@@ -173,3 +193,16 @@ def edt_triton(data: torch.Tensor):
+     )
+     # don't forget to take sqrt at the end
+     return output.sqrt()
++
++
++def _edt_cv2(data):
++    """Exact CPU fallback (VENDORED PATCH)."""
++    import cv2
++    import numpy as np
++    outs = []
++    for b in range(data.shape[0]):
++        src = (data[b].detach().cpu().numpy() > 0).astype(np.uint8)
++        outs.append(cv2.distanceTransform(src, cv2.DIST_L2, 0))
++    import torch
++    return torch.from_numpy(np.stack(outs)).to(
++        data.device, torch.float32)
+diff --git a/sam3/model/sam3_base_predictor.py b/sam3/model/sam3_base_predictor.py
+index 33ccf8c..5754493 100644
+--- a/sam3/model/sam3_base_predictor.py
++++ b/sam3/model/sam3_base_predictor.py
+@@ -154,6 +154,21 @@ class Sam3BasePredictor:
+             init_kwargs["async_loading_frames"] = self.async_loading_frames
+         if hasattr(self, "video_loader_type"):
+             init_kwargs["video_loader_type"] = self.video_loader_type
++        # UNSCROLL: filter to model-accepted kwargs (multiplex demo init_state
++        # lacks offload_state_to_cpu/video_loader_type in upstream main).
++        try:
++            import inspect as _inspect
++
++            _sig = _inspect.signature(self.model.init_state)
++            _params = _sig.parameters
++            if not any(
++                p.kind == _inspect.Parameter.VAR_KEYWORD for p in _params.values()
++            ):
++                init_kwargs = {
++                    k: v for k, v in init_kwargs.items() if k in _params
++                }
++        except Exception:
++            pass
+         inference_state = self.model.init_state(**init_kwargs)
+ 
+         if not session_id:
+diff --git a/sam3/model/sam3_multiplex_base.py b/sam3/model/sam3_multiplex_base.py
+index 0d6c690..e702187 100644
+--- a/sam3/model/sam3_multiplex_base.py
++++ b/sam3/model/sam3_multiplex_base.py
+@@ -542,7 +542,9 @@ class Sam3MultiplexBase(Sam3VideoBase):
+             pos_pred_mask = pos_pred_mask.squeeze(0)
+             det_out = {k: det_out[k][0] for k in det_out}
+             # Move detections we'll actually keep at the top for future logic
+-            pos_pred_mask_idx = pos_pred_mask.argsort(descending=True)
++            pos_pred_mask_idx = pos_pred_mask.to(torch.int32).argsort(  # UNSCROLL: bool sort unsupported on torch cu121/CUDA
++                descending=True
++            )
+             pos_pred_mask = torch.index_select(
+                 pos_pred_mask, dim=0, index=pos_pred_mask_idx
+             )

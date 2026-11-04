@@ -1,0 +1,23 @@
+﻿RE-AUDIT VERDICT: FAIL â€” chunk continuity, go/no-go difficulty, guard formulas, skeletonize bound, metrics, rollback, weights, and dataflow feedback are now specified, but scope (training load), VRAM arithmetic, data IDs, schedule Day-1 gap, and credit mapping remain deferred to Day-0/5 probes rather than decided in the doc.
+
+- CB1 scope over 8 days: Partial â€” battery cut (`unscroll.md:90-92`, `134`), Wonder/Voice/Image cut to mentions (`200-205`), fallback as stub-only (`178-180`), Tier C qualitative (`65-66`) are fixed; but fix demanded inference-only ink, doc still trains 4-level 3D U-Net 50 epochs (`191-195`).
+- CB2 go/no-go wrong tier: Fixed â€” Tier B touching layer, 50 slices, >=45/50 within 2 voxels, fixed z-window (`113-117`).
+- CB3 chunk continuity: Fixed â€” 32-slice chunks, 8-slice overlap, last-8-frame handoff, winding on stitched curve (`166-169`).
+- CB4 VRAM arithmetic: Partial â€” 6.5GB usable reserve (`237`), bytes formula (`239-241`), per-load caps + shrink rule (`245-246`) added; but no SAM param count, no frame HxWxC, actuals still "probed Day 0" (`169`, `240-241`).
+- CB5 overflow floor: Fixed â€” min 16-slice window / 32^3 tile, below = FAILED (`249-250`); overflow cuts only pre-freeze, disclosed (`249`, `303-307`).
+- CB6 data IDs + split: Partial â€” region schema (fragment ID + bbox), 80/20 seed 0, overlap coordinate check, `recipe.lock` schema (`103-112`, `143-151`) fixed; exact fragment/segment/crop IDs still deferred to Day 0 (`103-108`, `143`), not pinned now as requested.
+- CB7 metric formulas: Fixed â€” G1 sampling 1pt/voxel every slice + per-slice pass rate + p95 (`56-61`); G2 after-only + Tier C manual log, no ID oracle (`62-66`); G3 charset/segmentation/CER/exclusions/n (`67-72`).
+- CB9 schedule: Partial â€” freeze moved to Day-6 AM after first eval (`206-208`, `303-304`), Day-5 cut to Spark-only (`200-208`); Day 1 still unassigned (Day 0 â†’ Days 2-3, `141`, `157`), and freeze lands mid-eval (Days 6-7, `210-213`).
+- Skeletonize-vs-2-voxel: Fixed â€” Zhang-Suen + spur prune <3 voxels, error bound <1 voxel explicitly preserves G1 tolerance (`160-163`).
+- Dataflow feedback: Fixed â€” re-prompt loop max 3/10-slice region (`170-177`, `224`), suspect path to `suspect_shortlist.json` (`176-177`, `225`), Spark/offline branch (`232`), cache invalidation on lock-hash change (`153-155`, `221`) all drawn (`219-235`); battery branch correctly absent per cut.
+- Live-vs-canned + $150: Partial â€” live vs cached vs pre-rendered disclosed (`126-132`, `308-310`), caps (<=200 frames/run, `164-165`) and offline stubs + API-free golden (`80`, `206-208`) fixed; credit mapping deferred to "record actual Day 5" (`311-312`), no calls-per-run Ã— cost math now.
+- Rollback fewer-slices: Fixed â€” rollback to golden, never forward-fix live; post-freeze slice reduction banned unless reports re-issued (`303-307`).
+- Weights NC posture: Fixed â€” research-only, disclosed, no relicense in Q2 and NFR, no volume bytes in repo (`110-112`, `294-298`).
+- VRAM swap + viewer: Partial â€” one-resident swap + unload/log (`246-248`), viewer CPU-only zero-VRAM + >=10fps target (`247`) fixed; Day 4-6 time math still "sized in probe" (`249`), no hours.
+
+NEW BREAKS from resolve edits:
+
+- Overview vs Non-Goals incoherence: `14-15` + `26-27` still promise two domains / battery scan while `90-92`, `134`, `281-288` cut battery â€” reader cannot tell if battery data work remains.
+- G2 "cut to <=2/100 after-only" with ablation dropped (`62-64`): no baseline, so "cut" is absolute threshold without comparison procedure.
+- Freeze-after-eval still self-collides: freeze Day-6 AM "after first Tier A/B eval" (`206-208`) while eval runs Days 6-7 (`210-213`) â€” what the Day-7 Tier C / final numbers can still change post-freeze is undefined.
+

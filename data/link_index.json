@@ -1,0 +1,74 @@
+{
+ "https://scrollprize.org/data": {
+  "bytes": 33005,
+  "links": [
+   "https://github.com/ScrollPrize",
+   "https://github.com/ScrollPrize/open-data/blob/main/examples/get-to-know-a-dataset.ipynb",
+   "https://github.com/scrollprize/villa",
+   "https://huggingface.co/scrollprize",
+   "https://scrollprize.org/data",
+   "https://scrollprize.substack.com",
+   "https://x.com/scrollprize"
+  ]
+ },
+ "https://scrollprize.org/data_datasets": {
+  "bytes": 31158,
+  "links": [
+   "/data/datasets/ink-labels-README.md",
+   "/data/datasets/surface-labels-README.md",
+   "https://dl.ash2txt.org/datasets/fiber-skeletons/README.txt",
+   "https://dl.ash2txt.org/datasets/fiber-skeletons/fiber-skeletons.zip",
+   "https://dl.ash2txt.org/datasets/grand-prize-banner-region/README.txt",
+   "https://dl.ash2txt.org/datasets/grand-prize-banner-region/gp_meshes.7z",
+   "https://dl.ash2txt.org/datasets/grand-prize-banner-region/predictions/gp_legendary-medial-cubes-softmax.7z",
+   "https://dl.ash2txt.org/datasets/grand-prize-banner-region/predictions/gp_legendary-medial-cubes.7z",
+   "https://dl.ash2txt.org/datasets/grand-prize-banner-region/volumes/gp_tifstack.7z",
+   "https://dl.ash2txt.org/datasets/grand-prize-banner-region/volumes/gp_volume.zarr",
+   "https://dl.ash2txt.org/datasets/spiral_datasets/PHercParis4/",
+   "https://dl.ash2txt.org/full-scrolls/Scroll1/PHercParis4.volpkg/volumetric-instance-labels/README.txt",
+   "https://dl.ash2txt.org/full-scrolls/Scroll1/PHercParis4.volpkg/volumetric-instance-labels/instance-labels-harmonized.zip",
+   "https://dl.ash2txt.org/ml-models/",
+   "https://github.com/ScrollPrize",
+   "https://huggingface.co/buckets/scrollprize/datasets/tree/ink",
+   "https://huggingface.co/buckets/scrollprize/datasets/tree/surfaces",
+   "https://huggingface.co/scrollprize",
+   "https://scrollprize.org/data_datasets",
+   "https://scrollprize.substack.com",
+   "https://x.com/scrollprize"
+  ]
+ },
+ "https://scrollprize.org/tutorial3": {
+  "bytes": 79587,
+  "links": [
+   "/segmentation",
+   "https://github.com/JamesDarby345/VesuviusDataDownload",
+   "https://github.com/KhartesViewer/khartes",
+   "https://github.com/ScrollPrize",
+   "https://github.com/ScrollPrize/villa/blob/main/SCROLL_ANATOMY.md",
+   "https://github.com/educelab/volume-cartographer",
+   "https://github.com/educelab/volume-cartographer/blob/develop/README.md",
+   "https://github.com/spacegaier/volume-cartographer",
+   "https://huggingface.co/scrollprize",
+   "https://scrollprize.org/tutorial3",
+   "https://scrollprize.substack.com",
+   "https://x.com/scrollprize"
+  ]
+ },
+ "https://scrollprize.org/tutorial5": {
+  "bytes": 133508,
+  "links": [
+   "/img/tutorials/ink-iterative-labeling.webp",
+   "/img/tutorials/ink-labels-overlay-w00.webp",
+   "https://github.com/ScrollPrize",
+   "https://github.com/ScrollPrize/villa",
+   "https://github.com/ScrollPrize/villa/blob/main/SCROLL_ANATOMY.md",
+   "https://huggingface.co/buckets/scrollprize/datasets/tree/ink",
+   "https://huggingface.co/buckets/scrollprize/datasets/tree/ink_9um",
+   "https://huggingface.co/scrollprize",
+   "https://huggingface.co/scrollprize/ink_9um",
+   "https://scrollprize.org/tutorial5",
+   "https://scrollprize.substack.com",
+   "https://x.com/scrollprize"
+  ]
+ }
+}

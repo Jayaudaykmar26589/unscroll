@@ -1,0 +1,152 @@
+[
+ {
+  "mode": "dp",
+  "id": "20230518181521",
+  "image": null
+ },
+ {
+  "mode": "dp",
+  "id": "20230606105130",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20230606105130.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20230613204956",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20230613204956.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20230619113941",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20230619113941.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20230627170800",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20230627170800.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20230629215956",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20230629215956.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20230701020044",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20230701020044.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20230701115953",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20230701115953.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20230702182347",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20230702182347.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20230702185753",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20230702185753.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20230929220926",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20230929220926.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20231031143852",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20231031143852.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20231106155351",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20231106155351.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20231210121321",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20231210121321.png"
+ },
+ {
+  "mode": "dp",
+  "id": "20231221180251",
+  "image": "reports\\spark_review\\images_tiles\\dp\\20231221180251.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20230518181521",
+  "image": null
+ },
+ {
+  "mode": "walk",
+  "id": "20230606105130",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20230606105130.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20230613204956",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20230613204956.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20230619113941",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20230619113941.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20230627170800",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20230627170800.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20230629215956",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20230629215956.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20230701020044",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20230701020044.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20230701115953",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20230701115953.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20230702182347",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20230702182347.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20230702185753",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20230702185753.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20230929220926",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20230929220926.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20231031143852",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20231031143852.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20231106155351",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20231106155351.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20231210121321",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20231210121321.png"
+ },
+ {
+  "mode": "walk",
+  "id": "20231221180251",
+  "image": "reports\\spark_review\\images_tiles\\walk\\20231221180251.png"
+ }
+]

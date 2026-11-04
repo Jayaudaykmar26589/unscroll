@@ -1,0 +1,44 @@
+﻿VERDICT: The architecture bets an 8-day solo build on unproven SAM-as-video tracking with placeholder numbers throughout, then silently degrades quality on any resource pressure â€” the trace/flatten/ink chain cannot meet its own G1â€“G3 metrics on one 8 GB laptop as specified.
+
+Blocker â€” C2 tracking has no chunk-continuity plan (unscroll.md:144): 32-slice z-chunks plus a memory bank "capped to last 8 frames" discards the long-range spiral context that winding checks need, and no inter-chunk overlap/blending is specified. Long layers will seam every 32 slices. Must specify overlap, state handoff, and how winding is computed across boundaries.
+
+Blocker â€” Jump guards are untestable as written (unscroll.md:146): "monotonic within tolerance," "30% of local median," "curvature spike = kink" give no numeric thresholds, no window sizes, and winding monotonicity is false for crushed Tier C folds. Must specify exact formulas, tolerances, and separate Tier A/B vs. C parameters, or G2 (unscroll.md:58) cannot be measured.
+
+Blocker â€” Skeletonize-then-measure breaks G1 (unscroll.md:141): per-frame SAM mask â†’ 1-voxel skeletonization introduces junction spurs and quantization error that directly consumes the 2-voxel tolerance in G1 (unscroll.md:55). Must specify sub-voxel curve extraction or widen/redefine the tolerance with justification.
+
+Blocker â€” Day-2 go/no-go tests the wrong difficulty (unscroll.md:97): "hold a touch-free layer for 50 consecutive slices" validates Tier A only, but the lead SAM bet must survive Tier B touching layers and Tier C crush. A pass here falsely greenlights Days 3â€“7. Must specify go/no-go on Tier B touching layers, with the named classical fallback fully specified (currently just "ridge tracker," unscroll.md:151).
+
+Blocker â€” VRAM table is arithmetic-free fiction (unscroll.md:202): "SAM weights + 8-frame bank <= 5GB" states no SAM 3.1 parameter count, no frame resolution, no bytes/frame math, and "probe actuals Day 0" means the entire budget is unverified at design time. Must show bytes = params + frames Ã— H Ã— W Ã— C Ã— 2 (fp16) for a stated tile size, plus OS/viewer reserve â€” an 8 GB laptop GPU typically yields ~6â€“7 GB usable, not 8.
+
+Blocker â€” "Never with SAM resident" serializes without a schedule (unscroll.md:205): swapping SAM and Ink CNN in/out of VRAM per run adds load/unload latency and forbids joint trace+ink debugging, with zero time budgeted on a single GPU that must also train, infer, track, and render. Must specify residency protocol, swap cost, and Day 4â€“6 time math proving one GPU fits.
+
+Blocker â€” Overflow rule silently invalidates metrics (unscroll.md:207): "any OOM â†’ halve tile/window, record, continue" degrades tracking context and ink receptive field without a quality floor, so G1â€“G3 numbers become incomparable across runs/tiles. Must specify minimum window/tile below which the run is marked failed, not silently worse.
+
+Blocker â€” C1 split definition is empty (unscroll.md:130): "split by physical region â€” never by slice" never defines a region (fragment? sub-block? coordinates?), so leakage prevention is unenforceable and G1/G3 train/val separation cannot be audited. Must specify region IDs, split file schema, and how Scroll 1 crop eval avoids fragment overlap.
+
+Blocker â€” C3 de-drift anchor accumulates error (unscroll.md:156): cross-slice template-match origin alignment is sequential, so per-slice shift error integrates along z; the "shear metric (letter-aspect drift)" has no formula and the "fall back to mesh parameterization" is a second unscheduled system inside Day 4. Must specify global alignment objective, shear formula, drift-failure threshold, and which parameterizer is primary.
+
+Blocker â€” Ink CNN underspecified against its own budget (unscroll.md:161): "small 3D patch model (proposed 64^3 patches, fp16, grad accumulation)" names no architecture, channel count, loss, or accumulation steps, so the "<= 5GB" claim (unscroll.md:205) cannot be checked and faint carbon-ink fp16 underflow risk is unaddressed. Must specify arch/params, loss, effective batch, and normalization (per-volume stats from streaming crops are ill-defined, unscroll.md:136).
+
+Major â€” G1 metric hides failures (unscroll.md:55): ">= 90% within 2 voxels, averaged over surface points" states no point sampling density, no per-slice worst case, and averaging lets total breakage on 10% of slices pass. Must add per-slice pass rate and a tail metric (e.g., p95 distance) alongside the mean.
+
+Major â€” G2 is unmeasurable where it matters (unscroll.md:58): jumps defined via "different segment-surface ID for >= 3 slices" require dense segment IDs that don't exist for the Tier C streamed crop â€” the tier where jumps are most likely. Must define the ID-free jump oracle for Tier C or restrict G2 to A/B explicitly with a separate C breakage log.
+
+Major â€” G3 has no recognition protocol (unscroll.md:62): ">= 70% exact-glyph match on Tier A flat sheets" states no charset/segmentation rule, no CER vs. glyph-accuracy definition, no handling of damaged/illegible glyphs, and no baseline. Must specify scoring (segmentation + edit distance procedure), exclusion criteria, and n (sheets/glyphs).
+
+Major â€” Dataflow omits all feedback paths (unscroll.md:184): the linear diagram shows no re-prompt loop (unscroll.md:148), no suspect-flag â†’ Spark review path, no battery branch, and no cache invalidation when recipe.lock changes. Must draw control flow for max-3 re-prompts, capped Spark reviews, and region definitions.
+
+Major â€” "Battery is nearly free" is false (unscroll.md:242): jellyroll electrodes differ in contrast, thickness, and defect morphology from papyrus, so C2 thresholds and C3 Â±N normal sampling (unscroll.md:160, N unspecified) both need retuning; CUJ 2 "localization numbers" (unscroll.md:119) have no metric. Must specify battery N, retune budget, and defect-localization scoring or cut it per Non-Goals (unscroll.md:80).
+
+Major â€” Schedule has no slack and a missing day (unscroll.md:127): C1 Day 0, C2 Days 2â€“3, C3 Day 4, C4 Day 5, C5 Days 6â€“7 leaves Day 1 unassigned, stacks four agent integrations into Day 5 solo (unscroll.md:167), and freezes golden Day 5 (unscroll.md:257) before eval Days 6â€“7 â€” the frozen demo may be unevaluated. Must replan freeze-after-eval or define what "golden" means unevaluated.
+
+Major â€” API story contradicts itself (unscroll.md:142): "API SAM for live demo + capped hard-case checks" plus per-run Spark/Wonder calls depend on unconfirmed quota (unscroll.md:89), while G6 claims an API-free golden demo (unscroll.md:69) â€” i.e., the live click-to-unroll may be a canned replay. Must cap calls/run, map $150 credits to slice counts, and state what is live vs. precomputed in the demo.
+
+Major â€” NFR rollback rolls back to possibly-broken (unscroll.md:257): "any post-freeze breakage rolls back to golden artifacts, never forward-fixed live" plus "cut to fewer slices" benchmarking (unscroll.md:255) lets the team demo fewer slices than G1â€“G4 claim. Must forbid slice-count reduction post-freeze without re-issuing tier reports.
+
+Nit â€” Inconsistent caps: "no artifact over 10GB" (unscroll.md:75) vs. "total under 100GB" (unscroll.md:135) with no per-tier size table; a 1cm Scroll 1 crop size is never estimated, so Day-0 feasibility probing (unscroll.md:92) has no pass/fail numbers. Must list estimated bytes per pinned artifact.
+
+Nit â€” NC-compliance gap acknowledged but unresolved (unscroll.md:94): Q2 flags trained-weights-from-NC-data posture, but NFR (unscroll.md:250) only covers volume bytes, not weight distribution. Must state the release posture for weights before Day 7.
+
+Nit â€” Viewer VRAM uncounted (unscroll.md:180): two live views plus slice+trace overlays need GPU memory absent from the budget table (unscroll.md:200). Must add a viewer row or state CPU-only rendering with a frame-rate target.
+

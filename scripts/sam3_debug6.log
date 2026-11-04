@@ -1,0 +1,4 @@
+seed masks: (0, 1024, 1024) fill: None
+f0 masks: (1, 1024, 1024) fill: [1048270] ids: [0] probs: [1.]
+f0 bbox x: 0 1023 y: 0 1023
+saved f0_rawmask.png

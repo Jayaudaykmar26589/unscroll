@@ -1,0 +1,3 @@
+scroll slice 06000.tif: 200 127.722864 MB
+100-slice window ~ 12.7722864 GB
+frag1 volumes/: ['.vckeep', '20230205142449/', '20230213100222/']

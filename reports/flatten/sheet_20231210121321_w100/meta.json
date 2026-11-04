@@ -1,0 +1,43 @@
+{
+  "curves": "reports\\flatten\\curves_20231210121321_kaggle",
+  "click": [
+    3493.0,
+    2426.0
+  ],
+  "rows": 100,
+  "rows_traced": 59,
+  "columns": 320,
+  "anchor_column": 218,
+  "normal_offsets_vx": [
+    -6,
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "layers_in_flat_layers_png": [
+    -6,
+    -3,
+    0,
+    3,
+    6
+  ],
+  "z_range": [
+    6100,
+    6199
+  ],
+  "z_range_traced": [
+    6100,
+    6159
+  ],
+  "image_rows": 60,
+  "voxel_um": 7.91
+}

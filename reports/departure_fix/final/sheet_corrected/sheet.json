@@ -1,0 +1,311 @@
+{
+ "sheet_shape": [
+  50,
+  512,
+  2
+ ],
+ "shifts": [
+  {
+   "z": 0,
+   "source_z": 6100,
+   "source_file": "06100.tif",
+   "shift": 0
+  },
+  {
+   "z": 1,
+   "source_z": 6101,
+   "source_file": "06101.tif",
+   "shift": -1
+  },
+  {
+   "z": 2,
+   "source_z": 6102,
+   "source_file": "06102.tif",
+   "shift": -2
+  },
+  {
+   "z": 3,
+   "source_z": 6103,
+   "source_file": "06103.tif",
+   "shift": -3
+  },
+  {
+   "z": 4,
+   "source_z": 6104,
+   "source_file": "06104.tif",
+   "shift": -4
+  },
+  {
+   "z": 5,
+   "source_z": 6105,
+   "source_file": "06105.tif",
+   "shift": -5
+  },
+  {
+   "z": 6,
+   "source_z": 6106,
+   "source_file": "06106.tif",
+   "shift": -6
+  },
+  {
+   "z": 7,
+   "source_z": 6107,
+   "source_file": "06107.tif",
+   "shift": -7
+  },
+  {
+   "z": 8,
+   "source_z": 6108,
+   "source_file": "06108.tif",
+   "shift": -8
+  },
+  {
+   "z": 9,
+   "source_z": 6109,
+   "source_file": "06109.tif",
+   "shift": -9
+  },
+  {
+   "z": 10,
+   "source_z": 6110,
+   "source_file": "06110.tif",
+   "shift": -10
+  },
+  {
+   "z": 11,
+   "source_z": 6111,
+   "source_file": "06111.tif",
+   "shift": -12
+  },
+  {
+   "z": 12,
+   "source_z": 6112,
+   "source_file": "06112.tif",
+   "shift": -14
+  },
+  {
+   "z": 13,
+   "source_z": 6113,
+   "source_file": "06113.tif",
+   "shift": -15
+  },
+  {
+   "z": 14,
+   "source_z": 6114,
+   "source_file": "06114.tif",
+   "shift": -16
+  },
+  {
+   "z": 15,
+   "source_z": 6115,
+   "source_file": "06115.tif",
+   "shift": -17
+  },
+  {
+   "z": 16,
+   "source_z": 6116,
+   "source_file": "06116.tif",
+   "shift": -19
+  },
+  {
+   "z": 17,
+   "source_z": 6117,
+   "source_file": "06117.tif",
+   "shift": -20
+  },
+  {
+   "z": 18,
+   "source_z": 6118,
+   "source_file": "06118.tif",
+   "shift": -22
+  },
+  {
+   "z": 19,
+   "source_z": 6119,
+   "source_file": "06119.tif",
+   "shift": -23
+  },
+  {
+   "z": 20,
+   "source_z": 6120,
+   "source_file": "06120.tif",
+   "shift": -23
+  },
+  {
+   "z": 21,
+   "source_z": 6121,
+   "source_file": "06121.tif",
+   "shift": -24
+  },
+  {
+   "z": 22,
+   "source_z": 6122,
+   "source_file": "06122.tif",
+   "shift": -25
+  },
+  {
+   "z": 23,
+   "source_z": 6123,
+   "source_file": "06123.tif",
+   "shift": -26
+  },
+  {
+   "z": 24,
+   "source_z": 6124,
+   "source_file": "06124.tif",
+   "shift": -27
+  },
+  {
+   "z": 25,
+   "source_z": 6125,
+   "source_file": "06125.tif",
+   "shift": -28
+  },
+  {
+   "z": 26,
+   "source_z": 6126,
+   "source_file": "06126.tif",
+   "shift": -29
+  },
+  {
+   "z": 27,
+   "source_z": 6127,
+   "source_file": "06127.tif",
+   "shift": -30
+  },
+  {
+   "z": 28,
+   "source_z": 6128,
+   "source_file": "06128.tif",
+   "shift": -31
+  },
+  {
+   "z": 29,
+   "source_z": 6129,
+   "source_file": "06129.tif",
+   "shift": -32
+  },
+  {
+   "z": 30,
+   "source_z": 6130,
+   "source_file": "06130.tif",
+   "shift": -33
+  },
+  {
+   "z": 31,
+   "source_z": 6131,
+   "source_file": "06131.tif",
+   "shift": -34
+  },
+  {
+   "z": 32,
+   "source_z": 6132,
+   "source_file": "06132.tif",
+   "shift": -35
+  },
+  {
+   "z": 33,
+   "source_z": 6133,
+   "source_file": "06133.tif",
+   "shift": -35
+  },
+  {
+   "z": 34,
+   "source_z": 6134,
+   "source_file": "06134.tif",
+   "shift": -35
+  },
+  {
+   "z": 35,
+   "source_z": 6135,
+   "source_file": "06135.tif",
+   "shift": -35
+  },
+  {
+   "z": 36,
+   "source_z": 6136,
+   "source_file": "06136.tif",
+   "shift": -34
+  },
+  {
+   "z": 37,
+   "source_z": 6137,
+   "source_file": "06137.tif",
+   "shift": -33
+  },
+  {
+   "z": 38,
+   "source_z": 6138,
+   "source_file": "06138.tif",
+   "shift": -33
+  },
+  {
+   "z": 39,
+   "source_z": 6139,
+   "source_file": "06139.tif",
+   "shift": -33
+  },
+  {
+   "z": 40,
+   "source_z": 6140,
+   "source_file": "06140.tif",
+   "shift": -33
+  },
+  {
+   "z": 41,
+   "source_z": 6141,
+   "source_file": "06141.tif",
+   "shift": -33
+  },
+  {
+   "z": 42,
+   "source_z": 6142,
+   "source_file": "06142.tif",
+   "shift": -33
+  },
+  {
+   "z": 43,
+   "source_z": 6143,
+   "source_file": "06143.tif",
+   "shift": -33
+  },
+  {
+   "z": 44,
+   "source_z": 6144,
+   "source_file": "06144.tif",
+   "shift": -33
+  },
+  {
+   "z": 45,
+   "source_z": 6145,
+   "source_file": "06145.tif",
+   "shift": -33
+  },
+  {
+   "z": 46,
+   "source_z": 6146,
+   "source_file": "06146.tif",
+   "shift": -34
+  },
+  {
+   "z": 47,
+   "source_z": 6147,
+   "source_file": "06147.tif",
+   "shift": -34
+  },
+  {
+   "z": 48,
+   "source_z": 6148,
+   "source_file": "06148.tif",
+   "shift": -35
+  },
+  {
+   "z": 49,
+   "source_z": 6149,
+   "source_file": "06149.tif",
+   "shift": -36
+  }
+ ],
+ "missing_z": [],
+ "note": "sheet[row, i] = (x, y) full-res coords; shifts[row] identifies the source slice. Missing slices are omitted, not interpolated; rows need not be adjacent z."
+}

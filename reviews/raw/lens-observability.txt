@@ -1,0 +1,25 @@
+﻿Verdict: As written the pipeline is undebuggable â€” the 5 metrics are names without formulas, stage failures are indistinguishable, and a silent overnight trace failure on Day 6 would surface only as a bad number with no trail back to the guilty slice or stage.
+
+Blocker:
+
+- Evidence / "Share of layer area traced correctly": no exact formula. No distance threshold (within N voxels of true surface?), no denominator (whole layer vs. traced extent?), no aggregation (mean over slices vs. over surface points?). Two implementations could report 94% vs. 60% on the same trace.
+- Evidence / "Layer jumps per 100 slices": jump-detection ground truth undefined. Generator (Part 1) outputs "true surface" but brief never defines what counts as a jump event (excursion >X voxels for >Y consecutive slices? touching a different ground-truth layer ID?). "Before and after the checks" is therefore uncountable.
+- Part 3 / "Flattening for free": not verifiable per-slice. Position-along-curve + slice number as flat coordinates assumes consistent arc-length parameterization across slices; any per-slice origin drift or stretching shears letters. Brief defines no distortion/shear metric, no per-slice parameterization log, so sheared Greek text is indistinguishable from ink-model failure.
+- Part 4 + web viewer / metrics panel: cannot distinguish SAM failures from jump-check failures from ink-model failures. The only example report ("Layer 7: 94% traced, 2 jumps fixed, 31 letters recovered") conflates all three stages into end-to-end counts, and the "metrics panel" (Part 4, viewer line) has no specified per-stage breakdown, slice index of each fix, or re-prompt audit.
+- 8-day plan Day 6 / silent 3 AM failure: no notice-and-diagnose path. "Full benchmark across crushing levels" is an overnight batch with no specified logging, checkpointing, trace/run IDs, per-slice pass/fail log, or alerting threshold â€” a silently diverged SAM track (Part 2) would just poison downstream flattening and ink numbers by morning with nothing to bisect.
+
+Major:
+
+- Evidence / "Letter recovery rate": undefined matching rule. Exact glyph match vs. edit distance vs. confidence-thresholded Spark suggestions (Part 4)? Without the rule and the confidence cutoff, the headline wow-moment metric (Part 3â†’Part 4 handoff) is unreproducible.
+- Evidence / "Human clicks per cmÂ²": denominator and baseline undefined. cmÂ² of what (flat sheet? layer surface?), and what "dense manual work traditional tools need" number is being beaten? Unmeasurable as stated.
+- Evidence / "Battery mode â€¦ how precisely they're located": no localization formula (centroid distance? IoU on defect mask?). Same formula gap as the scroll metrics, so cross-domain claim (Concept) is unverifiable.
+- Part 2 / jump checks (winding, spacing, smoothness): no thresholds, no logged verdicts. "Angle must keep increasing steadily" and "gap must stay consistent" need numeric tolerances plus a per-slice check log; otherwise a 3 AM jump has no record of which check fired or missed.
+- Part 2 / "Suspect regions get re-prompted automatically, and Muse Spark vision reviews the remaining hard cases": no decision audit. Which regions, what re-prompt, what Spark verdict and why â€” none specified as logged artifacts, so the trickiest failures leave no trail.
+- Part 4 / Wonder orchestrator ("chooses where to click next â€¦ writes the report"): autonomous clicks with no audit trail. If Wonder's click choice causes a downstream jump, the report's own author is the suspect with no record of its reasoning.
+
+Nit:
+
+- Evidence table: 5 metrics vs. 6 rows (optional real scroll unnumbered) â€” state explicitly the scored set is the first five.
+- Part 4 / Spark "quality check of trace images": undefined â€” which images, what score, where displayed in the viewer?
+- Risks / "Report where it breaks": contradicts the missing per-slice logging above â€” the honest-limits story needs the very slice-indexed breakage log the brief never specifies.
+

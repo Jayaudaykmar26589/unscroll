@@ -1,0 +1,132 @@
+validated z=6100 step=2.52 kinks=0 winding=40
+validated z=6101 step=2.56 kinks=0 winding=40
+validated z=6102 step=2.62 kinks=0 winding=36
+validated z=6103 step=2.90 kinks=0 winding=39
+validated z=6104 step=2.77 kinks=0 winding=39
+validated z=6105 step=2.83 kinks=0 winding=51
+validated z=6106 step=2.76 kinks=0 winding=33
+validated z=6107 step=2.77 kinks=0 winding=40
+validated z=6108 step=2.75 kinks=0 winding=39
+validated z=6109 step=2.50 kinks=0 winding=35
+validated z=6110 step=2.66 kinks=0 winding=33
+validated z=6111 step=2.58 kinks=0 winding=41
+validated z=6112 step=2.62 kinks=0 winding=37
+validated z=6113 step=2.78 kinks=0 winding=43
+validated z=6114 step=2.51 kinks=0 winding=36
+validated z=6115 step=2.56 kinks=0 winding=35
+validated z=6116 step=2.78 kinks=0 winding=45
+validated z=6117 step=2.83 kinks=0 winding=49
+validated z=6118 step=2.83 kinks=0 winding=65
+validated z=6119 step=2.46 kinks=0 winding=40
+validated z=6120 step=2.50 kinks=0 winding=49
+validated z=6121 step=2.51 kinks=0 winding=49
+validated z=6122 step=2.71 kinks=0 winding=40
+validated z=6123 step=2.38 kinks=0 winding=50
+validated z=6124 step=2.69 kinks=0 winding=48
+validated z=6125 step=2.69 kinks=0 winding=53
+validated z=6126 step=2.68 kinks=0 winding=57
+validated z=6127 step=2.61 kinks=0 winding=56
+validated z=6128 step=2.50 kinks=0 winding=51
+validated z=6129 step=2.66 kinks=0 winding=45
+validated z=6130 step=2.61 kinks=0 winding=42
+validated z=6131 step=2.51 kinks=0 winding=50
+validated z=6132 step=2.48 kinks=0 winding=50
+validated z=6133 step=2.64 kinks=0 winding=47
+validated z=6134 step=2.62 kinks=0 winding=45
+validated z=6135 step=2.53 kinks=0 winding=45
+validated z=6136 step=2.69 kinks=0 winding=42
+validated z=6137 step=2.50 kinks=0 winding=50
+validated z=6138 step=2.55 kinks=0 winding=43
+validated z=6139 step=2.69 kinks=0 winding=50
+validated z=6140 step=2.59 kinks=0 winding=42
+validated z=6141 step=2.64 kinks=0 winding=40
+validated z=6142 step=2.53 kinks=0 winding=36
+validated z=6143 step=2.75 kinks=0 winding=41
+validated z=6144 step=2.55 kinks=0 winding=32
+validated z=6145 step=2.76 kinks=0 winding=35
+validated z=6146 step=2.69 kinks=0 winding=32
+validated z=6147 step=2.61 kinks=0 winding=33
+validated z=6148 step=2.56 kinks=0 winding=32
+validated z=6149 step=2.55 kinks=0 winding=30
+sheet: (50, 512, 2) reports\ridge_fix\sheet_baseline\sheet.json
+surface: (50, 512, 9) float32
+sheet: (50, 512, 2) reports\ridge_fix\sheet_corrected\sheet.json
+surface: (50, 512, 9) float32
+{
+  "method": "Identical cached masks/JPEG frames; live postprocess_mask function. No GPU rerun.",
+  "limitations": "Unchanged guard formulas, including direction-sensitive winding. Ridge coincidence and geometric consistency do not establish layer identity.",
+  "guard_config": {
+    "winding_reversal_deg": 5.0,
+    "spacing_frac": 0.3,
+    "spacing_window": 10,
+    "kink_deg": 60.0
+  },
+  "baseline": "reports\\curve_fix\\curves_corrected",
+  "corrected": "reports\\ridge_fix\\curves_corrected",
+  "summary": {
+    "baseline": {
+      "slices": 50,
+      "points": 8782,
+      "edges": 8732,
+      "steps_gt20": 1062,
+      "steps_gt_sqrt2": 8158,
+      "turns_gt60": 5052,
+      "max_step": 43.92095172010717,
+      "mean_arc_length": 1439.373291250173,
+      "winding_violations": 3932,
+      "kink_violations": 5064,
+      "suspect_slices": 50,
+      "ok_slices": 0,
+      "failed_slices": 0,
+      "winding_failed_slices": 50,
+      "kink_failed_slices": 50,
+      "mean_ridge_frac2": 0.7815058122049066,
+      "ridge_slices_ge_0_5": 50
+    },
+    "corrected": {
+      "slices": 50,
+      "points": 8782,
+      "edges": 8732,
+      "steps_gt20": 0,
+      "steps_gt_sqrt2": 8655,
+      "turns_gt60": 0,
+      "max_step": 2.9000000000002633,
+      "mean_arc_length": 358.73876718240143,
+      "winding_violations": 2131,
+      "kink_violations": 0,
+      "suspect_slices": 50,
+      "ok_slices": 0,
+      "failed_slices": 0,
+      "winding_failed_slices": 50,
+      "kink_failed_slices": 0,
+      "mean_ridge_frac2": 0.660537632842519,
+      "ridge_slices_ge_0_5": 49
+    }
+  },
+  "flattening": {
+    "baseline": {
+      "shape": [
+        50,
+        512,
+        2
+      ],
+      "along_step_p95": 3.5603346255654937,
+      "along_step_max": 3.8176755990934805,
+      "cross_slice_distance_median": 15.985631738638329,
+      "cross_slice_distance_p95": 41.375874265778,
+      "duplicate_edge_fraction": 0.06313111545988258
+    },
+    "corrected": {
+      "shape": [
+        50,
+        512,
+        2
+      ],
+      "along_step_p95": 0.8176063638754085,
+      "along_step_max": 0.837426476571303,
+      "cross_slice_distance_median": 4.846176591684232,
+      "cross_slice_distance_p95": 23.651109207083945,
+      "duplicate_edge_fraction": 0.058003913894324854
+    }
+  }
+}

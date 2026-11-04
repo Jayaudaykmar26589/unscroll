@@ -1,0 +1,7 @@
+volumes/: ['.vckeep', '20230205180739/', '20230206171837/']
+volumes/meta.json FAILED: HTTP Error 404: Not Found
+--- config.json (61 bytes)
+{"materialthickness":150.0,"name":"PHercParis4","version":7}
+
+--- paths/20230518181521/meta.json (112 bytes)
+{"name":"20230518181521","type":"seg","uuid":"20230518181521","vcps":"pointset.vcps","volume":"20230205180739"}
