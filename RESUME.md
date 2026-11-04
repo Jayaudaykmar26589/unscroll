@@ -19,6 +19,9 @@ Current self-rating: ~7.3/10 now, ~7.8 with a strong video. Biggest gap: "Unscro
   the sheet-switch test + 74-click doubling; Read/Predict/Tamil below the fold; form text rewritten.
   REMOVED the claim "Challenge says no tracing benchmark exists" (page does not say it; test guards).
   All pushed; Pages live. 150 passed, 1 skipped.
+- 2026-11-04 later still: viewer/how.html, a 9-scene animated walkthrough drawn live from the data
+  (play/scrub/chips, ?bare=1&t=SEC for stills, ?autoplay=1), linked from every nav; rendered to
+  demo/video/unscroll-how-it-works.mp4 (2:28, silent) by scripts/make_how_video.py. Pushed, live.
 - LEFT (user): watch video with sound / optionally re-record voice-over; upload video; Vesuvius
   permission screenshot into docs/; make Kaggle notebooks public; submit form: field-by-field
   answers in docs/submission-form.md (agent may fill, never submits unless told);
