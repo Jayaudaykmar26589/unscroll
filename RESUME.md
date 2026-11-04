@@ -14,8 +14,14 @@ Current self-rating: ~7.3/10 now, ~7.8 with a strong video. Biggest gap: "Unscro
   optical flow stated; triage claim gives set size (30 traces, 15 wrong); 4.8 GB labelled an
   estimate; tests/test_attention_patch.py proves chunked attention bit-identical on CPU fp32.
   .gitignore no longer drops reports/*.json. Suite: 149 passed, 1 skipped.
-- LEFT: video (step 3, script rewrite), Vesuvius permission screenshot into docs/ (user has it),
-  submission form, then rotate tokens; ask about _archive/.
+- 2026-11-04 later: demo video built (demo/video/unscroll-demo.mp4, 2:55, Windows voice Mark,
+  captions; builder scripts/make_demo_video.py, run with Anaconda python). README/Home lead with
+  the sheet-switch test + 74-click doubling; Read/Predict/Tamil below the fold; form text rewritten.
+  REMOVED the claim "Challenge says no tracing benchmark exists" (page does not say it; test guards).
+  All pushed; Pages live. 150 passed, 1 skipped.
+- LEFT (user): watch video with sound / optionally re-record voice-over; upload video; Vesuvius
+  permission screenshot into docs/; make Kaggle notebooks public; submit form (docs/submission.md);
+  then rotate tokens; ask about _archive/.
 
 ## Standing rules (from the user; keep)
 - Heavy compute on Kaggle GPU ("Work on the Kaggle. Avoid downloading"); token in ~/.kaggle/access_token.
