@@ -142,6 +142,16 @@ def test_readme_and_home_lead_with_the_benchmark_and_keep_side_pages_below():
     assert len(one) <= 140, len(one)
 
 
+def test_how_page_is_an_animated_explainer_on_real_data_and_is_linked():
+    how = (ROOT / "viewer/how.html").read_text(encoding="utf-8")
+    for needle in ("data.js", "eval-data.js", "UNSCROLL_DATA", "UNSCROLL_EVAL", "reference_segments", "new_clicks",
+                   "has not read any new text", "bare", "autoplay"):
+        assert needle in how, needle
+    assert how.count("scene({id:") == 9
+    for page in ("home.html", "story.html", "evaluate.html", "index.html", "read.html", "predict.html"):
+        assert 'href="how.html"' in (ROOT / "viewer" / page).read_text(encoding="utf-8"), page
+
+
 def test_story_page_uses_real_data_and_is_linked():
     story = (ROOT / "viewer/story.html").read_text(encoding="utf-8")
     for needle in ("data.js", "eval-data.js", "UNSCROLL_DATA", "UNSCROLL_EVAL", "per_slice", "E.shift", "new_clicks",

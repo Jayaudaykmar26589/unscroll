@@ -10,6 +10,7 @@ Portal: https://cerebralvalley.ai/e/meta-ai-developer-hackathon/hackathon/submit
 - Repository: https://github.com/Jayaudaykmar26589/unscroll
 - Interactive Story (no install): https://jayaudaykmar26589.github.io/unscroll/viewer/story.html
 - App pages: https://jayaudaykmar26589.github.io/unscroll/viewer/home.html
+- Animated walkthrough (2 min, no install): https://jayaudaykmar26589.github.io/unscroll/viewer/how.html
 
 ## Name
 
@@ -155,6 +156,7 @@ Kaggle via `scripts/kaggle_run.py` (see README "Compute").
 | Smoothing raises ink agreement on our trace 0.21 → 0.73 (plateau at σ 12–16; official 0.83; broad strokes, no letters) | `reports/letters/assisted_smooth/summary.json`, `reports/letters/assisted_smooth_s1216/summary.json` |
 | Cost of reading, same sheet with 1 / 5 / 10 clicks: 19% / 29% / 32% of the trace on the sheet, covering 362 / 165 / 278 of 400 slices; best agreement 0.48 / 0.62 / 0.73 over what each covered (not a ranking; no letters) | `reports/letters/{unassisted_smooth_one,assisted80_smooth_a80,assisted_smooth_s1216}/summary.json`, Evaluation page "cost of reading" |
 | Story page: 5-chapter interactive explainer on real data (scrub 50 slices, drift slider, 74-dot test) | `viewer/story.html` |
+| How-it-works page: 9-scene animated walkthrough drawn live from the data files; also rendered to video | `viewer/how.html`, `scripts/make_how_video.py`, `demo/video/unscroll-how-it-works.mp4` |
 | 2.4 µm probe: 32/32 runs, fixed tracer median 27 µm from the 2026 layer | `reports/probe24/summary.json`, `scripts/probe24_kaggle.py` |
 | tifxyz export for VC3D | `scripts/export_tifxyz.py`, `exports/tifxyz/` |
 | Tests | `pytest tests`: 149 passed, 1 skipped (Node not installed) |

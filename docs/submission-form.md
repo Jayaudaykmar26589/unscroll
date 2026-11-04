@@ -49,6 +49,8 @@ A Muse Wonder agent extends traces by itself: it inspects a trace, re-seeds wher
 
 What stands between a trace and readable text is also measured. Wobble from slice to slice, not distance, destroys the ink. Smoothing Unscroll's own trace on a sheet with known Greek text raises agreement with the official ink map from 0.21 to 0.73, against 0.83 for the official surface: broad strokes, not letters. A cost-of-reading test does this for one, five and ten scholar clicks. Unscroll has not read any new text; it measures exactly how far from reading a trace is.
 
+Animated two-minute walkthrough of the whole pipeline, drawn live from the data: https://jayaudaykmar26589.github.io/unscroll/viewer/how.html
+
 Everything in the repository was built during the hackathon (Oct 27 to Nov 4). Used, not built, and credited: SAM 3.1 and the Muse models (Meta), the 2023 Vesuvius Grand Prize ink model (MIT), and the Scroll 1 CT and human-traced layers (EduceLab-Scrolls / Vesuvius Challenge, CC BY-NC 4.0, used with the team's permission). Tests: 150 passed. Interactive Story page, no install: https://jayaudaykmar26589.github.io/unscroll/viewer/story.html
 ```
 

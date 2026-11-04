@@ -35,6 +35,10 @@ trace that stays on the right sheet, steadily, for 300+ slices. The
 cost-of-reading test measures how far one, five and ten scholar clicks get
 towards that, and where they still fall short.
 
+**Watch it in two minutes:** [How it works](https://jayaudaykmar26589.github.io/unscroll/viewer/how.html) is an animated walkthrough of what
+Unscroll is, how a run happens and how each step works, drawn live from the project's
+own data (also as a video: `demo/video/unscroll-how-it-works.mp4`).
+
 **Try it in the browser:** [the interactive Story](https://jayaudaykmar26589.github.io/unscroll/viewer/story.html) explains the project
 in five chapters on real data, written for someone who has never seen a CT scan.
 [The app's other pages](https://jayaudaykmar26589.github.io/unscroll/viewer/home.html) are hosted alongside (voice review and the Muse
@@ -64,8 +68,8 @@ All Unscroll code in this repository was written during the hackathon, starting
   the Muse Spark reviewer, number-checked QA notes and review triage.
 - Unrolling of traced sheets (`scripts/flatten_trace.py`, `scripts/unroll3d.py`),
   the ink drift experiment and every Kaggle runner (`scripts/*kaggle*.py`).
-- The web app: the Story, Evaluation and surface workbench (with voice review)
-  pages, the local server, and the side pages Read & Translate and Predict
+- The web app: the Story, the animated How-it-works, Evaluation and surface workbench
+  (with voice review) pages, the local server, and the side pages Read & Translate and Predict
   (`viewer/`, `scripts/workbench.py`).
 
 **Used, not built here (credited)**
@@ -301,7 +305,8 @@ Double-click `Launch Unscroll.cmd`, or run:
 
 It opens `http://127.0.0.1:8765/home.html` and works offline. Pages: **Home**,
 **Story** (an interactive explainer: crush a scroll, follow one sheet through 50 real
-slices, push a trace off the ink, run the 74-click test), **Evaluation** (results,
+slices, push a trace off the ink, run the 74-click test), **How it works** (a two-minute
+animated walkthrough of the pipeline, with play, scrub and per-scene detail), **Evaluation** (results,
 held-out check, before/after animations, every seed, Spark QA notes, reading
 letters, unrolled surface, Spark reviewer), **Surface workbench** (slice-by-slice
 review of a trace, with voice commands). Side pages: **Read & Translate** and

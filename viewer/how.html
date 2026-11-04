@@ -1,0 +1,304 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unscroll · How it works, animated</title><link rel="stylesheet" href="style.css">
+<style>
+.hm-nav{display:flex;gap:22px;font-size:13px;flex-wrap:wrap}.hm-nav a{text-decoration:none;color:var(--muted)}.hm-nav a.active{color:var(--teal)}
+.hw-hero{padding:34px 0 16px;max-width:900px}.hw-hero h1{font-size:clamp(28px,3.4vw,46px);margin:0 0 8px}.hw-hero p{color:var(--muted);font-size:14px;max-width:720px;margin:0}
+.stage{position:relative;background:#0b1213;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:16/9;max-width:1280px}
+.stage canvas{width:100%;height:100%;display:block}
+.stage .big{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,18,19,.55);cursor:pointer;border:0;color:var(--text);font:500 18px 'Segoe UI',sans-serif}
+.stage .big span{display:inline-block;background:var(--teal);color:#0b1213;border-radius:999px;padding:14px 26px}
+.bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--muted);max-width:1280px}
+.bar button{font:inherit;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer}
+.bar button[aria-pressed=true]{color:var(--teal);border-color:var(--teal)}
+.bar input[type=range]{flex:1;min-width:160px;accent-color:var(--teal)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;max-width:1280px}
+.chips button{font:12px 'Segoe UI',sans-serif;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.chips button[aria-current=true]{color:var(--teal);border-color:var(--teal);background:#15282a}
+.detail{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;margin:26px 0 50px;max-width:1280px}
+.detail h2{font-size:22px;font-weight:400;margin:0 0 10px}.detail p{color:var(--muted);font-size:14px;line-height:1.75;margin:0 0 10px}.detail p strong{color:var(--text);font-weight:500}
+.detail .side{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;font-size:13px;color:var(--muted);line-height:1.7}
+.detail .side b{color:var(--text);font-weight:500}.detail .side a{color:var(--teal)}
+.detail .side .k{font-size:11px;letter-spacing:2px;color:var(--teal);margin-bottom:6px}
+@media (max-width:900px){.detail{grid-template-columns:minmax(0,1fr)}}
+body.bare{margin:0;background:#0b1213}body.bare header,body.bare .hw-hero,body.bare .bar,body.bare .chips,body.bare .detail,body.bare .big{display:none!important}body.bare main{padding:0;max-width:none}body.bare .stage{border:0;border-radius:0;max-width:none;width:100vw;height:100vh;aspect-ratio:auto}
+</style></head><body>
+<header><a class="brand" href="home.html">◉ <strong>unscroll</strong><span>HOW IT WORKS</span></a><nav class="hm-nav"><a href="home.html">Home</a><a href="story.html">Story</a><a class="active" href="how.html" aria-current="page">How it works</a><a href="evaluate.html">Evaluation</a><a href="index.html">Surface workbench</a><a href="read.html">Read &amp; Translate</a><a href="predict.html">Predict</a></nav><div class="local">● 2 MINUTES <span>drawn on real Scroll 1 CT and real results</span></div></header>
+<main>
+<section class="hw-hero"><p class="eyebrow">WHAT UNSCROLL IS, HOW A RUN HAPPENS, AND HOW EACH STEP WORKS</p>
+<h1>One click becomes a trace. Then every step is checked.</h1>
+<p>An animated walk through the whole pipeline: the scroll and its CT, the click, SAM 3.1 tracking slice by slice, the measurement against sheets people traced by hand, the first-slice fix, the 74-click test, the agent that checks its own work, and how far all of that is from readable ink. Press play, or pick a scene. The text under the animation explains each scene in more detail.</p></section>
+
+<div class="stage" id="stage"><canvas id="cv" width="1280" height="720" aria-label="Animated explainer of the Unscroll pipeline"></canvas><button class="big" id="bigplay"><span>▶ Play the explainer</span></button></div>
+<div class="bar"><button id="play" aria-pressed="false">▶ Play</button><button id="prev">◀ Scene</button><button id="next">Scene ▶</button><input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Timeline"><output id="clock">0:00 / 0:00</output></div>
+<div class="chips" id="chips" role="tablist"></div>
+
+<section class="detail"><div><h2 id="dtitle"></h2><div id="dtext"></div></div><aside class="side" id="dside"></aside></section>
+</main>
+<script src="data.js"></script><script src="eval-data.js"></script>
+<script>
+(function(){
+  var D = window.UNSCROLL_DATA, E = window.UNSCROLL_EVAL || {};
+  var C = {bg:'#0b1213', panel:'#172224', line:'#304043', text:'#ecede7', muted:'#a9b8b8', teal:'#7de0c2', orange:'#efad69', pink:'#f697c6', red:'#e06c6c', dim:'#3b4b4d'};
+  var cv = document.getElementById('cv'), ctx = cv.getContext('2d'), W = 1280, H = 720;
+  var dpr = Math.min(2, window.devicePixelRatio || 1); cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  var $ = function(id){ return document.getElementById(id); };
+  var ease = function(t){ t = Math.max(0, Math.min(1, t)); return t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2; };
+  var span = function(t, a, b){ return ease((t - a) / (b - a)); };                 // 0..1 between seconds a and b
+  var lerp = function(a, b, p){ return a + (b - a) * p; };
+  var UM = 7.91;
+
+  // ---------- real data ----------
+  var frames = D ? D.frames : [], R = D ? D.report : null, x0 = R ? R.roi_xyz[0][0] : 0, y0 = R ? R.roi_xyz[0][1] : 0;
+  var per = R ? R.per_slice : [];
+  var N = E.compare && E.compare.groups.new_clicks, S = E.shift, M = E.smooth;
+  var T = N ? {better: N.vs_after.before.after_better, worse: N.vs_after.before.after_worse, ties: N.vs_after.before.ties,
+               before: N.methods.before.median, after: N.methods.after.median,
+               fb: N.vs_after.flow.after_better, fw: N.vs_after.flow.after_worse, ft: N.vs_after.flow.ties, fgain: N.vs_after.flow.mean_gain}
+             : {better: 50, worse: 19, ties: 5, before: .25, after: .50, fb: 44, fw: 13, ft: 17, fgain: .0448};
+  var steady5 = S ? S.constant.filter(function(c){ return Math.abs(c.offset_vx) === 5; }).reduce(function(s, c, i, a){ return s + c.corr_with_official_ink / a.length; }, 0) : .79;
+  var wob5 = S ? S.wobble.filter(function(w){ return w.median_offset_vx === 5; })[0].corr_with_official_ink : .01;
+  var smooth = M ? {a: M.rows[0].ink_corr_with_official_all_matched, b: M.rows[M.rows.length - 1].ink_corr_with_official_all_matched, c: M.control} : {a: .21, b: .73, c: .83};
+  var AG = {dist: 181.4, ratio: 4.42, conf: 0.82, kept: 58, total: 97, excluded: 3};   // reports/agent/…T180912.jsonl
+
+  var imgs = {}, load = function(k, src){ var im = new Image(); im.src = src; imgs[k] = im; };
+  frames.forEach(function(f, i){ load('f' + i, f.image); });
+  load('ba', 'eval/20231210121321_z6110.png'); load('inkOff', M ? M.official : 'eval/smooth_official_ink.png');
+  load('inkOurs', M && M.images['16'] ? M.images['16'] : 'eval/smooth_ours3d_sigma16_ink.png');
+
+  // ---------- drawing helpers ----------
+  function txt(s, x, y, size, color, align, weight, italic){
+    ctx.font = (italic ? 'italic ' : '') + (weight || 400) + ' ' + size + "px 'Segoe UI', Arial, sans-serif"; ctx.fillStyle = color || C.text; ctx.textAlign = align || 'left'; ctx.textBaseline = 'alphabetic'; ctx.fillText(s, x, y);
+  }
+  function wrap(s, x, y, size, color, maxW, lh, align){
+    ctx.font = 400 + ' ' + size + "px 'Segoe UI', Arial, sans-serif"; var words = s.split(' '), line = '', lines = [];
+    words.forEach(function(w){ var t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t; });
+    lines.push(line); lines.forEach(function(l, i){ txt(l, x, y + i * lh, size, color, align); }); return lines.length;
+  }
+  function rect(x, y, w, h, fill, stroke, r){
+    r = r || 0; ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); } if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+  }
+  function slice(i, x, y, w, h, alpha){ var im = imgs['f' + i]; if (!im || !im.complete || !im.naturalWidth) { rect(x, y, w, h, '#101818'); return; } ctx.globalAlpha = alpha == null ? 1 : alpha; ctx.drawImage(im, x, y, w, h); ctx.globalAlpha = 1; }
+  function poly(pts, x, y, w, h, color, lw, frac, dash){
+    if (!pts || pts.length < 2) return; var n = Math.max(2, Math.round(pts.length * (frac == null ? 1 : frac))); var sx = w / 250, sy = h / 500;
+    ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.setLineDash(dash || []); ctx.beginPath();
+    for (var i = 0; i < n; i++) { var px = x + (pts[i][0] - x0) * sx, py = y + (pts[i][1] - y0) * sy; i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }
+    ctx.stroke(); ctx.setLineDash([]);
+  }
+  function refs(i, x, y, w, h, color, lw){ var ps = per[i]; if (!ps) return; ps.reference_segments.forEach(function(s){ poly(s, x, y, w, h, color || C.pink, lw || 3); }); }
+  function pt(pts, frac, x, y, w, h){ var i = Math.min(pts.length - 1, Math.floor(pts.length * frac)); return [x + (pts[i][0] - x0) * w / 250, y + (pts[i][1] - y0) * h / 500]; }
+  function med(i, k){ var ps = per[i]; return ps && ps[k] && ps[k].assessed ? ps[k].median_voxels * UM : null; }
+  function meter(x, y, w, label, um, color){
+    txt(label, x, y - 8, 12, C.muted); rect(x, y, w, 10, '#0a1011', C.line, 5);
+    if (um != null) { rect(x, y, Math.min(w, w * um / 160), 10, color || (um <= 40 ? C.teal : um <= 80 ? C.orange : C.red), null, 5); txt(Math.round(um) + ' µm', x + w + 10, y + 10, 13, C.text); }
+    var m40 = x + w * 40 / 160; ctx.strokeStyle = C.text; ctx.setLineDash([2, 3]); ctx.beginPath(); ctx.moveTo(m40, y - 3); ctx.lineTo(m40, y + 13); ctx.stroke(); ctx.setLineDash([]); txt('40 µm', m40, y + 26, 10, C.muted, 'center');
+  }
+  function pill(s, x, y, color, size){ size = size || 13; ctx.font = "500 " + size + "px 'Segoe UI', Arial, sans-serif"; var w = ctx.measureText(s).width + 20; rect(x - w / 2, y - size - 4, w, size + 12, 'rgba(11,18,19,.92)', color, 6); txt(s, x, y, size, color, 'center', 500); }
+  function arrow(x1, y1, x2, y2, color, lw){ ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 2; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); var a = Math.atan2(y2 - y1, x2 - x1); ctx.beginPath(); ctx.moveTo(x2, y2); ctx.lineTo(x2 - 9 * Math.cos(a - .4), y2 - 9 * Math.sin(a - .4)); ctx.lineTo(x2 - 9 * Math.cos(a + .4), y2 - 9 * Math.sin(a + .4)); ctx.closePath(); ctx.fill(); }
+  function node(x, y, w, h, label, sub, on, color){ rect(x, y, w, h, on ? '#15282a' : C.panel, on ? (color || C.teal) : C.line, 8); txt(label, x + w / 2, y + h / 2 - (sub ? 2 : -5), 14, on ? C.text : C.muted, 'center', on ? 500 : 400); if (sub) txt(sub, x + w / 2, y + h / 2 + 16, 11, on ? (color || C.teal) : C.dim, 'center'); }
+  function caption(eyebrow, main){
+    var g = ctx.createLinearGradient(0, H - 150, 0, H); g.addColorStop(0, 'rgba(11,18,19,0)'); g.addColorStop(.45, 'rgba(11,18,19,.92)'); ctx.fillStyle = g; ctx.fillRect(0, H - 150, W, 150);
+    txt(eyebrow, 40, H - 74, 11, C.teal); ctx.font = "400 22px 'Segoe UI', Arial, sans-serif"; wrap(main, 40, H - 44, 22, C.text, W - 80, 28);
+  }
+  function spiral(cx, cy, r, crush, turns, color){
+    ctx.strokeStyle = color || '#d9c9a0'; ctx.lineWidth = 2.2; ctx.beginPath();
+    for (var a = 0; a <= turns * Math.PI * 2; a += .03) {
+      var rr = 10 + (r - 10) * a / (turns * Math.PI * 2), k = 1 + crush * (0.35 * Math.sin(a * 2.3 + 1.1) + 0.25 * Math.sin(a * 5.1) + 0.18 * Math.sin(a * 11.7 + .5));
+      var x = cx + rr * k * Math.cos(a) * (1 - .25 * crush), y = cy + rr * k * Math.sin(a) * (1 + .1 * crush); a ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.stroke();
+  }
+
+  // ---------- scenes ----------
+  var SC = [];
+  function scene(o){ o.start = SC.length ? SC[SC.length - 1].start + SC[SC.length - 1].dur : 0; SC.push(o); }
+
+  scene({id: 'what', title: '1 · What it is', dur: 16, draw: function(t){
+    var crush = span(t, 3, 7), show = span(t, 8, 10);
+    if (show < 1) { ctx.globalAlpha = 1 - show; spiral(400, 330, 230, crush, 9); ctx.globalAlpha = 1;
+      txt(crush < .5 ? 'one long sheet of papyrus, rolled up' : 'buried by Vesuvius, carbonized, crushed', 400, 600, 14, C.muted, 'center'); }
+    if (show > 0) { ctx.globalAlpha = show; slice(0, 300, 110, 200, 400); ctx.globalAlpha = 1; txt('a real CT slice (Scroll 1, 7.91 µm voxels)', 400, 540, 13, C.muted, 'center'); }
+    // right: text column
+    txt('UNSCROLL', 760, 170, 12, C.teal); txt('Click one layer of a 2,000-year-old scroll.', 760, 212, 26, C.text, 'left', 500); txt('Know whether the AI stayed on it.', 760, 246, 26, C.teal, 'left', 500);
+    var lines = ['The scrolls cannot be opened. They are read from CT scans.', 'Every bright curve in a slice is one layer of papyrus.', 'To read a page you must follow one layer through thousands of slices.', 'Neighbouring layers are crushed together: a trace that slips one layer reads the wrong page.'];
+    lines.forEach(function(l, i){ var p = span(t, 1 + i * 2.6, 2 + i * 2.6); if (p > 0) { ctx.globalAlpha = p; txt('—', 760, 300 + i * 52, 14, C.teal); wrap(l, 790, 300 + i * 52, 15, i === 3 ? C.text : C.muted, 440, 20); ctx.globalAlpha = 1; } });
+    if (t > 11) { var p = span(t, 11, 12.5); var y = 110 + 400 * .42; ctx.globalAlpha = p; arrow(300 + 200 * .35, y + 40, 300 + 200 * .52, y + 8, C.orange, 3); pill('a slip to the next layer', 300 + 200 * .55 + 70, y + 2, C.orange, 12); ctx.globalAlpha = 1; }
+    caption('WHAT UNSCROLL IS', t < 8 ? 'A Herculaneum scroll is one sheet, rolled and then crushed. Unscroll follows one layer of it through CT slices and measures whether the AI stayed on that layer.'
+      : 'This is a real slice. Each bright curve is a layer. The whole project is about following one of them without slipping onto its neighbour, and knowing when you did.');
+  }, detail: 'A papyrus scroll is one long sheet rolled into a tube. The Herculaneum scrolls were carbonized when Vesuvius erupted in 79 AD, so they cannot be unrolled: opening one turns it to dust. Instead they are scanned with X-ray CT, which gives thousands of cross-section images, called slices. In a slice every layer of the rolled sheet shows as a bright curve, and because the scroll was crushed the layers sit tightly against each other. To read a page you have to follow the same layer through slice after slice. <strong>If a trace slips onto the neighbouring layer, everything after that point reads the wrong page, and nothing tells you.</strong> Unscroll is a tool for making that trace from one click, measuring whether it stayed on the clicked layer, and fixing the place where it goes wrong.',
+    side: '<div class="k">DATA</div>Scroll 1 (PHerc. Paris. 4), the 7.91 µm volume from EduceLab-Scrolls / Vesuvius Challenge, CC BY-NC 4.0, used with the team’s permission. The slices in this animation are a 250 × 500 voxel window of slices 6100–6149.'});
+
+  scene({id: 'click', title: '2 · How a run starts: one click', dur: 14, draw: function(t){
+    var X = 120, Y = 90, Wd = 260, Hd = 520; slice(0, X, Y, Wd, Hd);
+    var c = per[0] && frames[0].corrected ? frames[0].corrected : null; var start = c ? pt(c, 0.5, X, Y, Wd, Hd) : [X + 130, Y + 260];
+    var p1 = span(t, 1, 2.2);                                                     // the click
+    if (p1 > 0) { ctx.strokeStyle = C.orange; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(start[0], start[1], 6 + 26 * (1 - p1), 0, 7); ctx.globalAlpha = 1 - p1 * .5; ctx.stroke(); ctx.globalAlpha = 1; ctx.fillStyle = C.orange; ctx.beginPath(); ctx.arc(start[0], start[1], 5, 0, 7); ctx.fill(); }
+    var p2 = span(t, 3, 5.5);                                                     // SAM mask: a broad band along the sheet
+    if (p2 > 0 && c) { ctx.globalAlpha = .35 * p2; poly(c, X, Y, Wd, Hd, C.teal, 26, p2); ctx.globalAlpha = 1; }
+    var p3 = span(t, 6, 9.5);                                                     // ridge refinement: the thin trace
+    if (p3 > 0 && c) poly(c, X, Y, Wd, Hd, C.teal, 2.5, p3);
+    // explanation column
+    var steps = [['1 · CLICK', 'A scholar clicks one layer on one slice.', 'That click is the only human input a trace needs.'],
+                 ['2 · SAM 3.1', 'SAM 3.1 is a video segmentation model. Unscroll hands it the slice stack as if it were a video and the click as the prompt; it returns a mask around the layer.', 'The mask is broad: it covers the layer and some of its neighbours.'],
+                 ['3 · CT RIDGE', 'Unscroll thins the mask to the bright ridge of the papyrus itself, slice by slice.', 'The result is a line of points along the layer: the trace.']];
+    steps.forEach(function(s, i){ var p = span(t, [1, 3, 6][i], [2, 4, 7][i]); if (p <= 0) return; ctx.globalAlpha = p; var y = 150 + i * 160; txt(s[0], 480, y, 12, i === 0 ? C.orange : C.teal); wrap(s[1], 480, y + 28, 16, C.text, 700, 22); wrap(s[2], 480, y + 28 + 22 * (s[1].length > 95 ? 3 : s[1].length > 48 ? 2 : 1), 13, C.muted, 700, 18); ctx.globalAlpha = 1; });
+    caption('HOW A RUN STARTS', t < 6 ? 'One click on one slice. SAM 3.1 treats the slice stack as a video and the click as its prompt, and returns a broad mask around the layer.'
+      : 'Unscroll thins that mask to the bright ridge of the papyrus. The thin teal line is the trace for this slice.');
+  }, detail: 'A run begins with a single click: a scholar points at one layer on one CT slice. Unscroll gives SAM 3.1, Meta’s segmentation model, the slice stack as if it were a video, with the click as the prompt. SAM 3.1 returns a mask on each slice: a broad band that covers the clicked layer and usually parts of its neighbours. <strong>Unscroll’s CT-ridge step thins that band to the brightest line of papyrus inside it,</strong> producing a trace: an ordered list of points along the layer on that slice. The same happens on every following slice, which is the next scene. SAM 3.1 runs on a Kaggle T4 GPU or a laptop; Unscroll ships four fixes to its code, including a chunked attention path that stops it running out of memory on a 16 GB GPU.',
+    side: '<div class="k">CODE</div><b>src/trace/</b> (prompting, ridge refinement, first-slice walk) · <b>patches/sam3-unscroll.patch</b> (the SAM 3.1 fixes) · <b>scripts/kaggle_run.py</b> (GPU batches). Muse Image is deliberately not used anywhere: generated scroll imagery would mislead.'});
+
+  scene({id: 'track', title: '3 · Tracking through the slices', dur: 16, draw: function(t){
+    var n = frames.length || 50, k = Math.min(n - 1, Math.floor(span(t, 1, 12) * n));
+    var X = 120, Y = 90, Wd = 260, Hd = 520; slice(k, X, Y, Wd, Hd);
+    if (frames[k]) { poly(frames[k].baseline, X, Y, Wd, Hd, C.orange, 2.5); poly(frames[k].corrected, X, Y, Wd, Hd, C.teal, 2.5); }
+    txt('slice ' + (frames[k] ? frames[k].z : 6100 + k), X, Y - 14, 14, C.text); txt((k + 1) + ' / ' + n, X + Wd, Y - 14, 12, C.muted, 'right');
+    // the stack on the right: one bar per slice, filling as the trace advances
+    var sx = 480, sy = 120, bw = 560, bh = 6;
+    txt('THE SLICE STACK', sx, sy - 18, 12, C.teal);
+    for (var i = 0; i < n; i++) { var on = i <= k; rect(sx, sy + i * (bh + 2), bw, bh, on ? '#1b3a3a' : '#111b1c'); if (on) { rect(sx, sy + i * (bh + 2), bw * .62, bh, C.teal); } }
+    txt('each bar is one slice; the trace walks down the stack, one slice at a time', sx, sy + n * (bh + 2) + 22, 12, C.muted);
+    var legend = [[C.teal, 'Unscroll trace (SAM 3.1 + ridge)'], [C.orange, 'an earlier attempt from day two, kept so you can see slipping']];
+    legend.forEach(function(l, i){ rect(sx, 566 + i * 22, 18, 3, l[0]); txt(l[1], sx + 28, 572 + i * 22, 13, C.muted); });
+    caption('HOW IT RUNS', t < 7 ? 'SAM 3.1 tracks the layer forward through the stack. Every slice gets a mask, then a thinned trace, so the trace grows one slice at a time.'
+      : 'The orange trace is an early attempt: watch how it drifts away from the layer the teal one is on. That drift is the failure the rest of the pipeline exists to catch.');
+  }, detail: 'Tracking is what SAM 3.1 is for. It was built to follow an object through video frames; here the frames are consecutive CT slices and the object is a layer of papyrus. From the clicked slice it propagates the mask forward, slice by slice, and Unscroll thins each mask to the ridge. The trace that comes out is a surface: one line per slice, stacked. <strong>When SAM 3.1 loses the layer it stops,</strong> which is better than carrying on along the wrong one, and it is what the agent in scene 7 is for. The orange trace here is a real early attempt from day two of the hackathon, kept on the page because it shows what slipping looks like: it starts near the teal one and ends a hair’s width away.',
+    side: '<div class="k">NUMBERS</div>The window: 50 slices (6100–6149), 250 × 500 voxels. The teal trace stays a median ' + Math.round(R ? R.summary.corrected.median_voxels * UM : 89) + ' µm from the hand-traced layer over the window; the orange one ' + Math.round(R ? R.summary.baseline.median_voxels * UM : 127) + ' µm. Both are from before the first-slice fix (scene 5).'});
+
+  scene({id: 'measure', title: '4 · Measuring against people', dur: 16, draw: function(t){
+    var k = 24, X = 120, Y = 90, Wd = 260, Hd = 520; slice(k, X, Y, Wd, Hd);
+    var pr = span(t, 1, 2.5); if (pr > 0) { ctx.globalAlpha = pr; refs(k, X, Y, Wd, Hd); ctx.globalAlpha = 1; }
+    if (frames[k]) { poly(frames[k].baseline, X, Y, Wd, Hd, C.orange, 2.5); poly(frames[k].corrected, X, Y, Wd, Hd, C.teal, 2.5); }
+    // distance ticks from sampled trace points to the nearest reference point (illustration)
+    var pt2 = span(t, 3.5, 7); if (pt2 > 0 && per[k] && frames[k]) {
+      var refpts = []; per[k].reference_segments.forEach(function(s){ s.forEach(function(p){ refpts.push(p); }); });
+      [['corrected', C.teal], ['baseline', C.orange]].forEach(function(m){ var pts = frames[k][m[0]]; if (!pts) return; var n = Math.floor(8 * pt2);
+        for (var i = 0; i < n; i++) { var p = pts[Math.floor((i + .5) / 8 * pts.length)], best = null, bd = 1e9; refpts.forEach(function(q){ var d = (q[0] - p[0]) * (q[0] - p[0]) + (q[1] - p[1]) * (q[1] - p[1]); if (d < bd) { bd = d; best = q; } });
+          if (best) { ctx.strokeStyle = m[1]; ctx.lineWidth = 1; ctx.setLineDash([2, 2]); ctx.beginPath(); ctx.moveTo(X + (p[0] - x0) * Wd / 250, Y + (p[1] - y0) * Hd / 500); ctx.lineTo(X + (best[0] - x0) * Wd / 250, Y + (best[1] - y0) * Hd / 500); ctx.stroke(); ctx.setLineDash([]); } } });
+    }
+    txt('slice ' + (frames[k] ? frames[k].z : 6124), X, Y - 14, 14, C.text);
+    var sx = 480; txt('THE MEASUREMENT', sx, 130, 12, C.teal);
+    wrap('Pink: the same layer, traced by hand by Vesuvius Challenge volunteers and released as a mesh. Unscroll never uses it to trace, only to score.', sx, 160, 15, C.text, 720, 22);
+    var p3 = span(t, 3.5, 5); if (p3 > 0) { ctx.globalAlpha = p3; wrap('Every point of a trace is measured to the nearest triangle of that mesh, in voxels. One voxel is 7.91 µm.', sx, 230, 15, C.muted, 720, 22); ctx.globalAlpha = 1; }
+    var p4 = span(t, 7, 9); if (p4 > 0) { ctx.globalAlpha = p4; meter(sx, 320, 420, 'Unscroll trace, median distance on this slice', med(k, 'corrected') * p4, C.teal); meter(sx, 390, 420, 'early attempt, median distance on this slice', med(k, 'baseline') * p4, C.orange); ctx.globalAlpha = 1; }
+    var p5 = span(t, 10, 11.5); if (p5 > 0) { ctx.globalAlpha = p5; rect(sx, 450, 720, 110, C.panel, C.line, 8); txt('THE RULE: 40 µm', sx + 18, 478, 12, C.teal); wrap('A trace point within 40 µm (5 voxels) counts as on the layer. Ink sits on the surface of the papyrus and the ink model needs the trace within about 2 voxels, so 40 µm is a generous, honest line: half a human hair.', sx + 18, 504, 14, C.text, 684, 20); ctx.globalAlpha = 1; }
+    caption('HOW IT IS MEASURED', t < 7 ? 'The pink line is the same layer traced by hand by Vesuvius Challenge volunteers. Each point of a trace is measured to the nearest triangle of that hand-made mesh.'
+      : 'The score of a trace is the share of its points within 40 µm of the hand-traced layer. Nothing here is a judgement call: it is a distance, in voxels, on every point.');
+  }, detail: 'Every claim in Unscroll rests on this step. The Vesuvius Challenge community has traced some layers of Scroll 1 by hand and released them as meshes. Unscroll places its clicks on those layers, traces from the click without ever looking at the mesh, and then measures the distance from every trace point to the nearest triangle of the mesh, exactly, in voxels. <strong>The headline score is the share of each trace within 40 µm (5 voxels) of the hand-traced layer,</strong> and the median distance comes with it. The dotted ticks in the animation are an illustration (nearest reference point); the real metric uses point-to-triangle distance on the full mesh. Because the measurement needs no human judgement, it can be run on hundreds of clicks and on held-out clicks nobody looked at while building the fix.',
+    side: '<div class="k">CODE</div><b>src/eval/</b> (point-to-triangle distance, slice segments) · <b>scripts/seeded_eval.py</b> (clicks on hand-traced layers, scoring) · <b>scripts/reference_check.py</b> (is the reference itself right? The 2026 re-trace of the same layer lies a median 8.8 voxels from the 2023 one.)'});
+
+  scene({id: 'fix', title: '5 · Where it goes wrong, and the fix', dur: 18, draw: function(t){
+    var im = imgs.ba, bw = 1130, bh = 594, bx = 75, by = 50, half = bw / 2;
+    if (im && im.complete && im.naturalWidth) {
+      var reveal = span(t, 6, 8.5);                                                 // wipe from BEFORE to show AFTER
+      ctx.save(); ctx.beginPath(); ctx.rect(bx, by, half, bh); ctx.clip(); ctx.drawImage(im, 0, 0, im.naturalWidth / 2, im.naturalHeight, bx, by, half, bh); ctx.restore();
+      ctx.save(); ctx.beginPath(); ctx.rect(bx + half, by, half * reveal, bh); ctx.clip(); ctx.drawImage(im, im.naturalWidth / 2, 0, im.naturalWidth / 2, im.naturalHeight, bx + half, by, half, bh); ctx.restore();
+      if (reveal < 1) rect(bx + half + half * reveal, by, half * (1 - reveal), bh, '#0f1819');
+      rect(bx, by, half, 34, C.bg); rect(bx + half, by, half, 34, C.bg);
+      rect(bx, by + bh - 32, bw, 32, C.bg);   // covers the image's own footer line
+      txt('BEFORE · first slice picks the brightest path through the mask', bx + 14, by + 23, 13, C.orange); if (reveal > .3) txt('AFTER · first slice walks outward from the click', bx + half + 14, by + 23, 13, C.teal);
+    }
+    var p1 = span(t, 1.5, 3); if (p1 > 0) { ctx.globalAlpha = p1; var cx = bx + half * .5, cy = by + bh * .47; ctx.strokeStyle = C.orange; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(cx, cy, 44, 0, 7); ctx.stroke(); pill('the trace jumps to the brighter neighbour', cx, cy + 76, C.orange); ctx.globalAlpha = 1; }
+    var p2 = span(t, 9.5, 11); if (p2 > 0) { ctx.globalAlpha = p2; var cx2 = bx + half * 1.5, cy2 = by + bh * .47; ctx.strokeStyle = C.teal; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(cx2, cy2, 44, 0, 7); ctx.stroke(); pill('one voxel sideways per step, never across a dark gap', cx2, cy2 + 76, C.teal); ctx.globalAlpha = 1; }
+    var p3 = span(t, 12, 13.5); if (p3 > 0) { ctx.globalAlpha = p3; rect(bx, by + bh - 70, bw, 70, 'rgba(11,18,19,.9)'); txt('green = hand-traced layer · red = Unscroll · yellow = the click · this click: median 23 voxels off before, 1.9 after · over 20 slices: 22% → 90% within 40 µm', bx + bw / 2, by + bh - 28, 13, C.text, 'center'); ctx.globalAlpha = 1; }
+    caption('HOW IT GOES WRONG, AND THE FIX', t < 6 ? 'The measurement pointed at one place: the first slice. There, the old code took the brightest path through SAM’s mask, and a bright neighbour across a dark gap could win.'
+      : t < 12 ? 'The fix walks outward from the click instead, one voxel sideways at most per step, so it can never cross a gap to another layer. Same model, same slices, same GPU.'
+      : 'On this click the first slice went from 23 voxels off to under 2. Whether that holds on clicks nobody tuned on is the next scene.');
+  }, detail: 'With a measurement on every slice, the failures lined up at one place: the first slice. The original code chose the brightest path through SAM 3.1’s mask on that slice, and when a neighbouring layer across a dark gap was brighter, the trace started on the wrong layer and SAM 3.1 then tracked that wrong layer faithfully. <strong>The fix is a local walk: from the click, step along the ridge one voxel sideways at most per step, never across a gap.</strong> It changes only the first slice; the model, the slices and the GPU setup stay the same. On the 15 development clicks the share within 40 µm rose from 36.7% to 55.1%, and the number of traces starting on the clicked layer from 6 to 10. The animation shows the real before-and-after images from the Evaluation page for one of those clicks.',
+    side: '<div class="k">WHERE</div>Evaluation page, “Watch a trace slip, and the fix” (20-slice animations for four clicks, including the one development click that got worse, shown deliberately). Numbers: <b>reports/seeded_eval/score.json</b> and <b>score_walk.json</b>.'});
+
+  scene({id: 'test', title: '6 · Does it hold up? The 74-click test', dur: 16, draw: function(t){
+    var n = 74, cols = 19, cell = 34, gx = 100, gy = 140, order = [];
+    for (var i = 0; i < n; i++) order.push(i);
+    var p = span(t, 1.5, 7), lit = Math.floor(p * n);
+    txt('74 CLICKS NEVER USED WHILE BUILDING THE FIX', gx, 110, 12, C.teal);
+    for (var j = 0; j < n; j++) { var col = C.dim; if (j < lit) col = j < T.better ? C.teal : j < T.better + T.worse ? C.orange : '#6b7f80'; var x = gx + (j % cols) * cell, y = gy + Math.floor(j / cols) * cell; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x + 12, y + 12, 11, 0, 7); ctx.fill(); }
+    var ty = gy + 4 * cell + 30; [[C.teal, 'better after the fix: ' + T.better], [C.orange, 'worse: ' + T.worse], ['#6b7f80', 'same: ' + T.ties]].forEach(function(l, i){ var show = span(t, 7 + i * .6, 7.6 + i * .6); if (show <= 0) return; ctx.globalAlpha = show; ctx.fillStyle = l[0]; ctx.beginPath(); ctx.arc(gx + 12 + i * 220, ty, 8, 0, 7); ctx.fill(); txt(l[1], gx + 30 + i * 220, ty + 5, 14, C.text); ctx.globalAlpha = 1; });
+    var sx = 800; var p2 = span(t, 3, 8); if (p2 > 0) { txt('SHARE OF EACH TRACE ON THE LAYER (MEDIAN)', sx, 110, 12, C.teal); ctx.globalAlpha = 1;
+      var bars = [[C.orange, 'before the fix', T.before], [C.teal, 'after the fix', T.after]]; bars.forEach(function(b, i){ var y = 150 + i * 70; txt(b[1], sx, y, 13, C.muted); rect(sx, y + 10, 380, 22, '#0a1011', C.line, 4); rect(sx, y + 10, 380 * b[2] * p2, 22, b[0], null, 4); txt(Math.round(b[2] * 100 * p2) + '%', sx + 380 * b[2] * p2 + 10, y + 27, 15, C.text); }); }
+    var p3 = span(t, 9.5, 11); if (p3 > 0) { ctx.globalAlpha = p3; rect(sx, 310, 400, 96, C.panel, C.line, 8); txt('P = 0.0002', sx + 16, 338, 12, C.teal); wrap('A result this one-sided by luck would happen about twice in ten thousand tries (paired sign test).', sx + 16, 362, 13, C.text, 370, 18); ctx.globalAlpha = 1; }
+    var p4 = span(t, 11.5, 13); if (p4 > 0) { ctx.globalAlpha = p4; rect(sx, 420, 400, 150, C.panel, C.line, 8); txt('THE CONTROL', sx + 16, 448, 12, C.orange); wrap('Is it just that any tracker would do this? A classic optical-flow tracer from the same first slice scores ' + (T.fgain * 100).toFixed(1) + ' points lower (better on ' + T.fb + ' clicks, worse on ' + T.fw + '). On the 15 development clicks that comparison is a tie, and the README says so.', sx + 16, 472, 13, C.text, 370, 18); ctx.globalAlpha = 1; }
+    caption('DOES IT HOLD UP', t < 9 ? 'The fix was tuned on 15 clicks. Then it was run on 74 clicks it had never seen. Each dot is one click: teal if the fix helped, orange if it hurt.'
+      : 'The share of each trace on the layer doubled, from 25% to 50%, with a control against a classic tracer and the tie on the development set reported alongside.');
+  }, detail: 'A fix tuned on 15 clicks proves nothing on its own. So the same pipeline, before and after the fix, was run on 74 more clicks placed on hand-traced layers and never used while building it. <strong>The share of each trace within 40 µm doubled, from a median of 25% to 50%: better on ' + T.better + ' clicks, worse on ' + T.worse + ', the same on ' + T.ties + ' (p = 0.0002).</strong> Two classic optical-flow tracers started from the same first slice act as controls; SAM 3.1 with the fix beats the better one by ' + (T.fgain * 100).toFixed(1) + ' points, and on the 15 development clicks that comparison is a tie. Unscroll reports both. All comparisons are paired, click by click, and a missing trace counts as zero rather than being dropped.',
+    side: '<div class="k">CODE</div><b>scripts/compare_methods.py</b> (paired statistics) · <b>scripts/baseline_flow.py</b> (the classic tracers) · <b>reports/seeded_eval/compare.json</b> (every number on this scene). Story page, chapter 4, lets you run this test yourself.'});
+
+  scene({id: 'agent', title: '7 · The agent that checks its own work', dur: 20, draw: function(t){
+    var nodes = [['INSPECT', 'where did tracking stop?'], ['RE-SEED', 'click again on the last good slice'], ['RUN', 'a GPU trace on Kaggle'], ['SCORE', 'distance to the hand-traced layer'], ['SEAM CHECK', 'numbers + a Muse Spark look'], ['KEEP / EXCLUDE', 'with the reason written down']];
+    var nx = 60, ny = 150, nw = 180, nh = 70, gap = 18, step = Math.floor(span(t, 1, 9) * 6);
+    nodes.forEach(function(n, i){ var x = nx + i * (nw + gap); node(x, ny, nw, nh, n[0], n[1], i < step, i === 4 ? C.orange : C.teal); if (i < 5) arrow(x + nw + 2, ny + nh / 2, x + nw + gap - 3, ny + nh / 2, i < step - 1 ? C.teal : C.line, 2); });
+    txt('MUSE WONDER, GIVEN SIX TOOLS AND A BUDGET OF GPU RUNS', nx, 130, 12, C.teal);
+    var p2 = span(t, 9.5, 11); if (p2 > 0) { ctx.globalAlpha = p2; txt('WHAT HAPPENED ON THE 100-SLICE TRACE', nx, 290, 12, C.teal);
+      var rows = [['run 1', 'traced 58 of 100 slices, then stopped', C.teal], ['re-seed at 6159', 'the agent clicked again and ran it', C.muted], ['re-seed at 6162', 'and again', C.muted], ['re-seed at 6181', 'and again: 97 of 100 slices', C.muted]];
+      rows.forEach(function(r, i){ var y = 322 + i * 30; txt(r[0], nx, y, 14, C.text, 'left', 500); txt(r[1], nx + 170, y, 14, r[2]); }); ctx.globalAlpha = 1; }
+    var p3 = span(t, 12, 14); if (p3 > 0) { ctx.globalAlpha = p3; rect(nx + 560, 300, 620, 150, C.panel, C.orange, 8); txt('SEAM CHECK ON THE FIRST RE-SEED', nx + 578, 328, 12, C.orange);
+      wrap('Median distance between the old and new trace at the seam: ' + AG.dist + ' voxels. Curve length jumped ×' + AG.ratio + '. Muse Spark, shown the two slices: same sheet = false, confidence ' + AG.conf + '. “The red trace follows the brighter band below the green sheet.”', nx + 578, 352, 14, C.text, 586, 20); ctx.globalAlpha = 1; }
+    var p4 = span(t, 15, 16.5); if (p4 > 0) { ctx.globalAlpha = p4; [1, 2, 3].forEach(function(i){ var y = 322 + i * 30 - 5; ctx.strokeStyle = C.red; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(nx - 4, y); ctx.lineTo(nx + 480, y); ctx.stroke(); });
+      txt('all three re-seeds excluded: the second and third continued the first. Kept: the ' + AG.kept + ' verified slices.', nx, 470, 15, C.text); ctx.globalAlpha = 1; }
+    var p5 = span(t, 17, 18); if (p5 > 0) { ctx.globalAlpha = p5; wrap('Every tool call, number and verdict is in reports/agent/. The agent did not make the trace longer. It made the kept part trustworthy, and said why.', nx, 520, 14, C.muted, 1100, 20); ctx.globalAlpha = 1; }
+    caption('THE AGENT', t < 9.5 ? 'When tracking stops, a Muse Wonder agent takes over. It has six tools: inspect, re-seed, run a GPU trace, score, check a seam, keep or exclude a run.'
+      : t < 15 ? 'It extended a 100-slice trace from 58 to 97 slices. Then it checked each seam: continuity numbers, plus Muse Spark looking at the two slices.'
+      : 'The first re-seed had jumped to another layer, and the next two had followed it. The agent threw out all three, kept the 58 verified slices, and logged the reasons.');
+  }, detail: 'SAM 3.1 stops when it loses the layer, so long traces need re-seeding: a new click on the last good slice. A Muse Wonder agent does this by tool calling. It inspects the patch, proposes a re-seed point on the last good curve, launches a GPU trace on Kaggle, scores the result against the hand-traced layer, and, in its second version, reviews each seam between runs with continuity numbers plus a Muse Spark visual verdict. <strong>On the 100-slice trace it extended coverage from 58 to 97 slices, then found that its own first re-seed had jumped to another layer (' + AG.dist + ' voxels away at the seam, curve length ×' + AG.ratio + ', Muse Spark “same sheet: false” at ' + AG.conf + ') and excluded that run and the two built on it.</strong> What it kept, the verified 58 slices, scores 87.3% within 40 µm where a reference exists. Every call is logged, which is what makes the result checkable.',
+    side: '<div class="k">CODE AND LOGS</div><b>scripts/grow_agent.py</b> (tools, budget, seam check) · <b>reports/agent/*.jsonl</b> (three sessions; the self-correction is in the 31 Oct log) · <b>reports/agent/seam_*.png</b> (what Muse Spark was shown). Muse Spark also reviews traces on its own: it never accepted a wrong-layer trace (0 of 26) but flags most good ones, so it is a safe second opinion, not a workload saving.'});
+
+  scene({id: 'ink', title: '8 · How far from reading', dur: 20, draw: function(t){
+    // unrolling: stack the per-slice lines into rows of a flat image
+    var p1 = span(t, 1, 5), X = 80, Y = 100, Wd = 180, Hd = 360; slice(24, X, Y, Wd, Hd); if (frames[24]) poly(frames[24].corrected, X, Y, Wd, Hd, C.teal, 2.5);
+    var fx = 320, fy = 120, fw = 300, rows = 50, rh = 5.4; txt('UNROLL: one row per slice', fx, fy - 14, 12, C.teal);
+    for (var i = 0; i < rows * p1; i++) { rect(fx, fy + i * rh, fw * (0.55 + 0.4 * Math.abs(Math.sin(i * .37))), rh - 1, '#2a4a48'); }
+    if (p1 > 0 && p1 < 1) arrow(X + Wd + 8, Y + 180, fx - 8, fy + rows * rh * p1, C.teal, 2);
+    if (p1 >= 1) wrap('The trace is a surface: one curve per slice. Lay the curves side by side and you get a flat strip of the papyrus, the way a scholar would want to look at it.', fx, fy + rows * rh + 30, 13, C.muted, 300, 18);
+    // ink maps
+    var p2 = span(t, 6, 8), ix = 680, iy = 110, iw = 540, ih = 150;
+    if (p2 > 0) { ctx.globalAlpha = p2; txt('INK ON THE OFFICIAL SURFACE (2023 Grand Prize model, not ours) · agreement ' + smooth.c.toFixed(2), ix, iy - 12, 12, C.pink); var a = imgs.inkOff; if (a && a.complete && a.naturalWidth) { ctx.filter = 'invert(1)'; ctx.drawImage(a, ix, iy, iw, ih); ctx.filter = 'none'; } else rect(ix, iy, iw, ih, '#222'); ctx.globalAlpha = 1; }
+    var p3 = span(t, 9, 11); if (p3 > 0) { ctx.globalAlpha = p3; txt('SAME MODEL ON UNSCROLL’S OWN TRACE, SMOOTHED · agreement ' + smooth.b.toFixed(2) + ' (was ' + smooth.a.toFixed(2) + ')', ix, iy + ih + 36, 12, C.teal); var b = imgs.inkOurs; if (b && b.complete && b.naturalWidth) { ctx.filter = 'invert(1)'; ctx.drawImage(b, ix, iy + ih + 48, iw, ih); ctx.filter = 'none'; } else rect(ix, iy + ih + 48, iw, ih, '#222'); ctx.globalAlpha = 1; }
+    var p4 = span(t, 12, 13.5); if (p4 > 0) { ctx.globalAlpha = p4; rect(ix, iy + 2 * ih + 70, iw, 120, C.panel, C.line, 8); txt('WHY WOBBLE MATTERS', ix + 16, iy + 2 * ih + 98, 12, C.orange); wrap('A perfect surface moved a steady 40 µm off the layer keeps the letters: agreement ' + steady5.toFixed(2) + '. The same surface wobbling 40 µm from slice to slice loses them: ' + Math.max(0, wob5).toFixed(2) + '. So Unscroll smooths across slices, and that is what lifted ' + smooth.a.toFixed(2) + ' to ' + smooth.b.toFixed(2) + '.', ix + 16, iy + 2 * ih + 122, 13, C.text, iw - 32, 18); ctx.globalAlpha = 1; }
+    var p5 = span(t, 15, 16.5); if (p5 > 0) { ctx.globalAlpha = p5; rect(80, 530, 540, 56, '#2a1d1d', C.red, 8); txt('Unscroll has not read any new text. The lower map shows broad strokes, not letters.', 100, 564, 15, C.text); ctx.globalAlpha = 1; }
+    caption('HOW FAR FROM READING', t < 6 ? 'A trace is a surface. Unscroll unrolls it into a flat strip, the view a scholar wants, and hands it to the 2023 Grand Prize ink model, which is not ours.'
+      : t < 12 ? 'On a sheet with known Greek text the official surface scores 0.83 against the known ink. Unscroll’s own trace, smoothed across slices, reaches 0.73.'
+      : 'Wobble from slice to slice, not distance, is what destroys ink. Smoothing fixes the wobble, but the maps still show strokes, not letters. That gap is measured, and it is the frontier.');
+  }, detail: 'The point of tracing is reading, so Unscroll measures how far its traces are from that. A trace is unrolled into a flat strip (one row per slice, using the surface’s own 3D normals) and the 2023 Vesuvius Grand Prize ink model, which is MIT-licensed and not Unscroll’s work, looks for ink on it. On a sheet with known Greek text the official surface gives agreement ' + smooth.c.toFixed(2) + ' with the known ink map. <strong>Unscroll’s own ten-click trace gave ' + smooth.a.toFixed(2) + '; after smoothing across slices it gives ' + smooth.b.toFixed(2) + '.</strong> The drift test explains why smoothing helps: a steady offset of 40 µm keeps the letters (' + steady5.toFixed(2) + ') while a 40 µm wobble from slice to slice destroys them (' + Math.max(0, wob5).toFixed(2) + '). The cost-of-reading test repeats this for one, five and ten scholar clicks; each covers a different stretch of the sheet, so those scores are not a ranking. The maps show broad strokes, not letters. No new text has been read, and the project says so wherever the ink maps appear.',
+    side: '<div class="k">CODE</div><b>scripts/unroll3d.py</b> (unrolling) · <b>scripts/letters_kaggle.py</b> (drift test, smoothing, cost of reading, on Kaggle) · <b>reports/letters/</b> (every map and number). Evaluation page: “Removing the wobble” and “The cost of reading”.'});
+
+  scene({id: 'end', title: '9 · In one breath', dur: 12, draw: function(t){
+    var items = [['CLICK', 'one layer, one slice'], ['TRACE', 'SAM 3.1 + CT ridge'], ['MEASURE', 'against hand-traced layers'], ['FIX', 'the first slice'], ['TEST', '74 unseen clicks: 25% → 50%'], ['CHECK', 'an agent that audits itself'], ['HOW FAR', 'from reading: measured, not claimed']];
+    txt('UNSCROLL', 640, 120, 12, C.teal, 'center'); txt('Click a layer. Know whether the AI stayed on it. See how far it is from reading.', 640, 160, 24, C.text, 'center', 500);
+    items.forEach(function(it, i){ var p = span(t, 1 + i * .7, 1.6 + i * .7); if (p <= 0) return; ctx.globalAlpha = p; var x = 100 + i * 158; node(x, 240 + (1 - p) * 20, 146, 84, it[0], null, true); wrap(it[1], x + 73, 350, 12, C.muted, 140, 16, 'center'); if (i < 6) arrow(x + 148, 282, x + 156, 282, C.teal, 2); ctx.globalAlpha = 1; });
+    var p2 = span(t, 7, 8.5); if (p2 > 0) { ctx.globalAlpha = p2; wrap('Built during the Meta Global AI Developer Hackathon, 27 October to 4 November 2026. Used, not built: SAM 3.1 and the Muse models (Meta), the 2023 Grand Prize ink model (MIT), Scroll 1 CT and hand-traced layers (EduceLab-Scrolls / Vesuvius Challenge, CC BY-NC 4.0).', 640, 440, 14, C.muted, 900, 20, 'center'); txt('github.com/Jayaudaykmar26589/unscroll', 640, 520, 16, C.teal, 'center'); ctx.globalAlpha = 1; }
+    caption('IN ONE BREATH', 'Click, trace, measure, fix, test, check, and say honestly how far from reading it is. Every number in this animation comes from the files in the repository.');
+  }, detail: 'That is the whole of Unscroll: a measuring instrument for scroll tracing, built on SAM 3.1 and Meta’s Muse models, with the first-slice fix the measurement made possible, a self-auditing agent, and an honest account of the distance still to go before a trace from one click yields readable text. <strong>Nothing in it is a demo image: every slice, trace, dot and number is drawn live from the project’s own data files.</strong>',
+    side: '<div class="k">GO DEEPER</div><a href="story.html">The Story</a> (interactive, for newcomers) · <a href="evaluate.html">Evaluation</a> (every number, with table views) · <a href="index.html">Surface workbench</a> (inspect a trace slice by slice) · <a href="https://github.com/Jayaudaykmar26589/unscroll">the repository</a>.'});
+
+  var TOTAL = SC[SC.length - 1].start + SC[SC.length - 1].dur;
+
+  // ---------- player ----------
+  var time = 0, playing = false, last = null, cur = -1;
+  function sceneAt(tm){ for (var i = SC.length - 1; i >= 0; i--) if (tm >= SC[i].start) return i; return 0; }
+  function fmt(s){ s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); }
+  function render(){
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+    var i = sceneAt(time), s = SC[i], lt = time - s.start;
+    // scene fade at edges
+    s.draw(lt);
+    var fade = Math.min(1, lt / .5, (s.dur - lt) / .5); if (fade < 1) { ctx.fillStyle = 'rgba(11,18,19,' + (1 - Math.max(0, fade)) + ')'; ctx.fillRect(0, 0, W, H); }
+    // progress and title
+    rect(0, 0, W, 3, '#15282a'); rect(0, 0, W * time / TOTAL, 3, C.teal);
+    txt(s.title.toUpperCase(), W - 40, 30, 11, C.muted, 'right');
+    if (i !== cur) { cur = i; $('dtitle').textContent = s.title; $('dtext').innerHTML = '<p>' + s.detail + '</p>'; $('dside').innerHTML = s.side; [].forEach.call($('chips').children, function(c, j){ c.setAttribute('aria-current', j === i ? 'true' : 'false'); }); }
+    $('scrub').value = Math.round(1000 * time / TOTAL); $('clock').textContent = fmt(time) + ' / ' + fmt(TOTAL);
+  }
+  function tick(now){ if (last != null && playing) { time += Math.min(.1, (now - last) / 1000); if (time >= TOTAL) { time = TOTAL - .01; setPlaying(false); } } last = now; render(); requestAnimationFrame(tick); }
+  function setPlaying(v){ playing = v; $('play').textContent = v ? '❚❚ Pause' : '▶ Play'; $('play').setAttribute('aria-pressed', v ? 'true' : 'false'); $('bigplay').style.display = v ? 'none' : 'flex'; if (v && time >= TOTAL - .05) time = 0; }
+  $('play').addEventListener('click', function(){ setPlaying(!playing); });
+  $('bigplay').addEventListener('click', function(){ setPlaying(true); });
+  $('prev').addEventListener('click', function(){ var i = sceneAt(time); time = (time - SC[i].start > 1.5 || i === 0) ? SC[i].start : SC[i - 1].start; });
+  $('next').addEventListener('click', function(){ var i = sceneAt(time); if (i < SC.length - 1) time = SC[i + 1].start; });
+  $('scrub').addEventListener('input', function(){ time = this.value / 1000 * TOTAL; });
+  SC.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = s.title; b.setAttribute('role', 'tab'); b.addEventListener('click', function(){ time = s.start; }); $('chips').appendChild(b); });
+  document.addEventListener('keydown', function(e){ if (e.target.tagName === 'INPUT') return; if (e.key === ' ') { e.preventDefault(); setPlaying(!playing); } if (e.key === 'ArrowRight') $('next').click(); if (e.key === 'ArrowLeft') $('prev').click(); });
+  var q = new URLSearchParams(location.search); if (q.get('bare') === '1') document.body.classList.add('bare'); if (q.has('t')) time = Math.min(TOTAL - .01, +q.get('t'));
+  if (q.get('autoplay') === '1' && !matchMedia('(prefers-reduced-motion: reduce)').matches) setPlaying(true);
+  window.UNSCROLL_HOW = {scenes: SC, total: TOTAL, seek: function(s){ time = s; }, play: setPlaying};
+  requestAnimationFrame(tick);
+})();
+</script>
+</body></html>
