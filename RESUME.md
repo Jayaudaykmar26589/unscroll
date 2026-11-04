@@ -20,7 +20,8 @@ Current self-rating: ~7.3/10 now, ~7.8 with a strong video. Biggest gap: "Unscro
   REMOVED the claim "Challenge says no tracing benchmark exists" (page does not say it; test guards).
   All pushed; Pages live. 150 passed, 1 skipped.
 - LEFT (user): watch video with sound / optionally re-record voice-over; upload video; Vesuvius
-  permission screenshot into docs/; make Kaggle notebooks public; submit form (docs/submission.md);
+  permission screenshot into docs/; make Kaggle notebooks public; submit form: field-by-field
+  answers in docs/submission-form.md (agent may fill, never submits unless told);
   then rotate tokens; ask about _archive/.
 
 ## Standing rules (from the user; keep)
