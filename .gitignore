@@ -55,3 +55,6 @@ reports/overlays/
 
 # SAM 3.1 checkout (own git repo; Meta, SAM License). Unscroll ships its fixes as patches/sam3-unscroll.patch
 external/sam3/
+
+# demo video work files (frames, per-shot clips); the script rebuilds them
+demo/video/build/

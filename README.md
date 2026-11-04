@@ -1,23 +1,48 @@
 # Unscroll
 
-**Click one layer of a 2,000-year-old scroll. Know whether the AI stayed on it.**
+**The Vesuvius Challenge says no method yet traces a complete, correct surface
+through a scroll automatically, and that a trace switching to a neighbouring sheet
+is one of the failures it sees most. Unscroll measures that failure against sheets
+people traced by hand, on real Scroll 1 CT, and used the measurement to double how
+often a SAM 3.1 trace stays on the sheet you clicked.**
+
+![Before and after the first-slice fix on Scroll 1, slice 6110: green is the sheet people traced by hand, red is Unscroll's SAM 3.1 trace, yellow is the click. Before, the trace jumps to the neighbouring sheet (median 23 voxels off); after, it stays (1.9 voxels).](viewer/eval/20231210121321_z6110.png)
+
+*One click, before and after. Green: the sheet people traced by hand. Red: the
+SAM 3.1 trace. Yellow: the click. Before the fix the trace jumps to the
+neighbouring sheet; after it, it stays. ([the 20-slice animation](https://jayaudaykmar26589.github.io/unscroll/viewer/evaluate.html#watchsection))*
 
 The Herculaneum scrolls were carbonized by Vesuvius in 79 AD and can only be
-read from CT scans, by tracing each papyrus sheet through thousands of slices
-where neighbouring sheets are crushed together. Unscroll turns one click into a
-SAM 3.1 trace on real Scroll 1 CT, then measures whether that trace stayed on
-the clicked sheet, against layers people traced by hand.
+read from CT scans, by following one papyrus sheet through thousands of slices
+where neighbouring sheets are crushed together. A trace that slips one sheet
+reads the wrong page, and nothing warns you. Unscroll turns one click into a
+SAM 3.1 trace, measures it against layers people traced by hand, and fixes the
+slice where traces go wrong.
+
+**The results in one paragraph.** On 74 clicks never used while building the
+fix, the share of each trace within 40 µm of the hand-traced sheet doubled, from
+25% to 50% (better on 50 clicks, worse on 19, p = 0.0002). As a control, a
+classic optical-flow tracer from the same start scores 4.5 points lower (on the
+15 development clicks that comparison is a tie). A Muse Wonder agent that
+re-seeds stalled traces caught its own first re-seed jumping to another sheet
+and threw out three runs with reasons. On a sheet with known text, smoothing
+Unscroll's own trace raises ink agreement from 0.21 to 0.73, against 0.83 for
+the official surface, in broad strokes, not letters. Every number is in
+`reports/` and on the [Evaluation page](https://jayaudaykmar26589.github.io/unscroll/viewer/evaluate.html).
 
 **What it does not do: Unscroll has not read any new text.** Reading needs a
-trace that stays on the right sheet, steadily, for 300+ slices. Unscroll
-measures how far a SAM 3.1 trace gets towards that, closes part of the gap, and
-shows where it still falls short (see "Results on real data").
+trace that stays on the right sheet, steadily, for 300+ slices. The
+cost-of-reading test measures how far one, five and ten scholar clicks get
+towards that, and where they still fall short.
 
-**Try it in the browser:** [the interactive Story](https://jayaudaykmar26589.github.io/unscroll/viewer/story.html) explains the project in five
-chapters on real data; [the app's other pages](https://jayaudaykmar26589.github.io/unscroll/viewer/home.html) are hosted alongside (voice review and
-the Muse model calls need the local server).
+**Try it in the browser:** [the interactive Story](https://jayaudaykmar26589.github.io/unscroll/viewer/story.html) explains the project
+in five chapters on real data, written for someone who has never seen a CT scan.
+[The app's other pages](https://jayaudaykmar26589.github.io/unscroll/viewer/home.html) are hosted alongside (voice review and the Muse
+model calls need the local server).
 
-Built for the **Meta Global AI Developer Hackathon**, Indie / Push the Frontier.
+Built for the **Meta Global AI Developer Hackathon**, Indie track, theme *Push the
+Frontier*: a problem from the Vesuvius Challenge's own 2026 open-problems list,
+on real data, with the frontier marked in numbers.
 
 ## What was built during the hackathon
 
@@ -39,8 +64,9 @@ All Unscroll code in this repository was written during the hackathon, starting
   the Muse Spark reviewer, number-checked QA notes and review triage.
 - Unrolling of traced sheets (`scripts/flatten_trace.py`, `scripts/unroll3d.py`),
   the ink drift experiment and every Kaggle runner (`scripts/*kaggle*.py`).
-- The web app: surface workbench with voice review, Evaluation, Read & Translate
-  and Predict pages, and the local server (`viewer/`, `scripts/workbench.py`).
+- The web app: the Story, Evaluation and surface workbench (with voice review)
+  pages, the local server, and the side pages Read & Translate and Predict
+  (`viewer/`, `scripts/workbench.py`).
 
 **Used, not built here (credited)**
 - SAM 3.1 model and code: Meta, SAM License. Not included in this repository;
@@ -71,21 +97,22 @@ Unscroll works on the 7.91 µm Scroll 1 volume.
 | [#5 Label quality](https://scrollprize.org/2026_open_problems) | Human meshes drift and jump layers; active learning should ask people to fix only uncertain regions. | Reference-free triage ranks traces riskiest-first; on held-out clicks, reviewing 73% catches every wrong-layer trace. |
 | [#6 Ink detection](https://scrollprize.org/2026_open_problems) | Better diagnostics are needed; "no ink" is hard to tell from "ink not yet recovered". | The drift test: a steady surface error under 5 voxels keeps the letters, slice-to-slice wobble of 2–5 voxels destroys them. |
 
-The Challenge also notes that no standalone benchmark for tracing exists; the
-paired evaluation here (`scripts/seeded_eval.py`, `scripts/compare_methods.py`)
-is a small one for Scroll 1.
+The Challenge says no method yet traces a complete, correct surface through a
+scroll automatically; the paired evaluation here (`scripts/seeded_eval.py`,
+`scripts/compare_methods.py`) is a small test of one failure mode, on Scroll 1.
 
 ## Results on real data
 
 **Headline (74 clicks never used while building the fix):** the share of each
-trace within 40 µm (5 voxels) of the sheet people traced by hand rose from 25%
-to 50% (median; better on 50 clicks, worse on 19, p = 0.0002), and SAM 3.1 with
-the fix beats a classic optical-flow tracer from the same start by +4.5 points.
-On the 15 development clicks the same comparison is a tie: +2.1 points on
-average, with an interval that includes zero (−1.3 to 7.1), and worse on 9
-clicks, better on 4. Wobble from slice to slice, not distance, is what destroys the letters, and
-smoothing Unscroll's own trace raises ink agreement from 0.21 to 0.73 (0.83 is the
-best possible here), in broad strokes, not readable letters.
+trace within 40 µm (5 voxels) of the sheet people traced by hand doubled, from
+25% to 50% (median; better on 50 clicks, worse on 19, p = 0.0002). As a control,
+a classic optical-flow tracer started from the same first slice scores 4.5
+points below SAM 3.1 with the fix (better on 44 clicks, worse on 13); on the 15
+development clicks that comparison is a tie (+2.1 points, interval −1.3 to 7.1,
+worse on 9, better on 4). Wobble from slice to slice, not distance, is what
+destroys the letters, and smoothing Unscroll's own trace raises ink agreement
+from 0.21 to 0.73 (0.83 is the best possible here), in broad strokes, not
+readable letters.
 
 **Development clicks.** 15 clicks, each placed exactly on a sheet released by the
 Vesuvius Challenge community, traced through 20 slices of Scroll 1 (PHercParis4)
@@ -197,6 +224,19 @@ trades some coverage for accuracy.
   that its first re-seed had jumped to another sheet (181 voxels apart, length
   ×4.4), excluded it and the two runs built on it, and kept the verified 58
   slices. Every decision is logged in `reports/agent/`.
+Details: `reports/seeded_eval/RESULTS.md`, `reports/spark_review/RESULTS.md`,
+`docs/ink-research.md`, `reports/agent/`.
+
+## Also built: reading, translating and predicting
+
+These pages use the same scroll but are side work next to the tracing benchmark.
+They are measured like everything else, and none of them reads new text.
+
+- **Read & Translate:** a published Greek passage from Scroll 1 (the Vesuvius
+  Challenge transcription, not text recovered by Unscroll's traces); Muse Spark
+  drafts readings and English and Tamil translations, and a person accepts or
+  corrects every line, with an audit trail. Muse Spark reading the column images
+  alone scores 79% character error, 0 of 33 lines exact, and is reported as such.
 - **Predict (complete a sentence from a fragment):** type any part of a Greek
   sentence (beginning, middle or end; accents optional; Latin letters accepted;
   edge words may be cut) and get the whole sentence with its reference from
@@ -215,8 +255,6 @@ trades some coverage for accuracy.
   (`scripts/unroll3d.py`) reproduces the letters on the official surface (0.82),
   so the remaining gap is trace accuracy, not unrolling.
 
-Details: `reports/seeded_eval/RESULTS.md`, `reports/spark_review/RESULTS.md`,
-`docs/ink-research.md`, `reports/agent/`.
 
 ## Set up SAM 3.1
 
@@ -263,10 +301,11 @@ Double-click `Launch Unscroll.cmd`, or run:
 
 It opens `http://127.0.0.1:8765/home.html` and works offline. Pages: **Home**,
 **Story** (an interactive explainer: crush a scroll, follow one sheet through 50 real
-slices, push a trace off the ink, run the 74-click test), **Evaluation** (results, held-out check, before/after animations,
-every seed, Spark QA notes, reading letters, unrolled surface, Spark reviewer),
-**Surface workbench** (slice-by-slice review of a historical trace),
-**Read & Translate**.
+slices, push a trace off the ink, run the 74-click test), **Evaluation** (results,
+held-out check, before/after animations, every seed, Spark QA notes, reading
+letters, unrolled surface, Spark reviewer), **Surface workbench** (slice-by-slice
+review of a trace, with voice commands). Side pages: **Read & Translate** and
+**Predict**.
 
 ## Reproduce
 

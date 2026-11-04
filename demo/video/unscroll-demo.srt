@@ -1,0 +1,155 @@
+1
+00:00:00,350 --> 00:00:06,065
+In 79 AD, Vesuvius carbonized a library. The scrolls can't be opened, only scanned.
+
+2
+00:00:06,115 --> 00:00:11,483
+To read one, you follow a single papyrus sheet through thousands of CT slices,
+
+3
+00:00:11,533 --> 00:00:15,094
+where every sheet is crushed against its neighbours.
+
+4
+00:00:16,245 --> 00:00:19,829
+Everything in this video was built during the hackathon,
+
+5
+00:00:19,879 --> 00:00:25,410
+except SAM 3.1, the Muse models, the 2023 Grand Prize ink model and the Vesuvius data,
+
+6
+00:00:25,460 --> 00:00:30,991
+which I'll name when they appear. And to be clear: Unscroll has not read any new text.
+
+7
+00:00:31,041 --> 00:00:34,690
+It measures how close an AI trace gets to being readable.
+
+8
+00:00:35,840 --> 00:00:41,429
+I click one sheet, and SAM 3.1 follows it through the slices like an object in a video.
+
+9
+00:00:41,479 --> 00:00:46,809
+Pink is the sheet a person traced by hand. These are two early traces from day two:
+
+10
+00:00:46,859 --> 00:00:51,476
+orange slides further and further off, and teal is closer but still off.
+
+11
+00:00:51,526 --> 00:00:55,560
+The meter turns teal only within 40 microns, about half a hair.
+
+12
+00:00:56,710 --> 00:01:01,644
+The cause was the first slice: it took the brightest path through SAM's mask,
+
+13
+00:01:01,694 --> 00:01:04,297
+which can jump to the neighbouring sheet.
+
+14
+00:01:04,347 --> 00:01:08,634
+Unscroll's fix walks outward from the click instead. On this click:
+
+15
+00:01:08,684 --> 00:01:10,965
+23 voxels off before, under 2 after.
+
+16
+00:01:12,115 --> 00:01:16,377
+We tested it on 74 clicks we never used while building the fix.
+
+17
+00:01:16,427 --> 00:01:21,442
+The share of the trace within 40 microns of the hand-traced sheet doubles,
+
+18
+00:01:21,492 --> 00:01:25,276
+from 25 to 50 percent: better on 50 clicks, worse on 19.
+
+19
+00:01:25,326 --> 00:01:29,315
+Against a classic optical-flow tracer, the gain is smaller,
+
+20
+00:01:29,365 --> 00:01:35,065
+four and a half points, and on our 15 development clicks it's a tie. We report both.
+
+21
+00:01:36,215 --> 00:01:39,326
+When a trace stops, a Muse Wonder agent takes over.
+
+22
+00:01:39,376 --> 00:01:42,487
+It calls tools to re-seed from the last good slice,
+
+23
+00:01:42,537 --> 00:01:47,260
+launch GPU runs on Kaggle and score the result. Then it checks its own seams:
+
+24
+00:01:47,310 --> 00:01:50,794
+continuity numbers, plus Muse Spark looking at the image.
+
+25
+00:01:50,844 --> 00:01:54,389
+Here it caught its first re-seed jumping to another sheet,
+
+26
+00:01:54,439 --> 00:01:58,295
+threw out that run and the two built on it, and wrote down why.
+
+27
+00:01:59,445 --> 00:02:04,524
+Why does staying on the sheet matter? Ink here is invisible to the eye;
+
+28
+00:02:04,574 --> 00:02:07,992
+the Grand Prize model finds it from the surface.
+
+29
+00:02:08,042 --> 00:02:13,773
+If the surface is off by a steady five voxels, the ink survives: agreement 0.79.
+
+30
+00:02:13,823 --> 00:02:18,541
+If it wobbles by five voxels from slice to slice, it's gone: 0.01.
+
+31
+00:02:18,591 --> 00:02:21,215
+So the enemy is wobble, not distance.
+
+32
+00:02:22,365 --> 00:02:27,190
+So we smooth our own trace across slices. On a sheet with known text,
+
+33
+00:02:27,240 --> 00:02:31,429
+agreement with the official ink map rises from 0.21 to 0.73,
+
+34
+00:02:31,479 --> 00:02:34,538
+close to the 0.83 the official surface gets.
+
+35
+00:02:34,588 --> 00:02:41,251
+But the maps show broad strokes, not letters, and fewer scholar clicks cover less of the sheet.
+
+36
+00:02:41,301 --> 00:02:43,795
+That's the measured gap that's left.
+
+37
+00:02:44,945 --> 00:02:45,478
+Unscroll:
+
+38
+00:02:45,528 --> 00:02:50,858
+click a sheet, see whether the AI stayed on it, and see how far it is from reading.
+
+39
+00:02:50,908 --> 00:02:53,905
+The code, the data and every number are public.

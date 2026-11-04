@@ -127,6 +127,21 @@ def test_click_every_80_run_is_shorter_so_its_score_is_not_a_ranking():
     assert "Slices covered" in page and "not a ranking" in page
 
 
+def test_readme_and_home_lead_with_the_benchmark_and_keep_side_pages_below():
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    head = readme[:3000]
+    assert "stays on the sheet you clicked" in head and "has not read any new text" in head
+    assert "no benchmark" not in readme.lower()                           # the Challenge page does not say that
+    assert head.index("74 clicks") < head.index("optical-flow")            # strongest number first, the control after
+    assert readme.index("## Results on real data") < readme.index("## Also built") < readme.index("## Set up SAM 3.1")
+    assert "Predict" not in head and "Tamil" not in head                  # side pages are below the fold
+    home = (ROOT / "viewer/home.html").read_text(encoding="utf-8")
+    assert home.index('href="story.html"><h3>') < home.index('ALSO BUILT') < home.index('href="read.html"><h3>')
+    sub = (ROOT / "docs/submission.md").read_text(encoding="utf-8")
+    one = sub.split("## One line", 1)[1].split("\n\n", 1)[1].split("\n", 1)[0]
+    assert len(one) <= 140, len(one)
+
+
 def test_story_page_uses_real_data_and_is_linked():
     story = (ROOT / "viewer/story.html").read_text(encoding="utf-8")
     for needle in ("data.js", "eval-data.js", "UNSCROLL_DATA", "UNSCROLL_EVAL", "per_slice", "E.shift", "new_clicks",

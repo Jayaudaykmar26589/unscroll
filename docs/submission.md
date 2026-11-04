@@ -17,23 +17,30 @@ Unscroll
 
 ## One line (≤140 characters)
 
-Click one layer of a 2,000-year-old Herculaneum scroll in CT; SAM 3.1 traces it and Unscroll measures whether the AI stayed on it.
+A paired test for Herculaneum scroll tracing in CT, built here and used to double how often SAM 3.1 stays on the sheet you clicked.
 
 ## Short description (~100 words)
 
-Unscroll has not read new text. Reading needs a trace that stays on the right
-sheet, steadily, for 300+ slices; Unscroll measures how far SAM 3.1 gets and
-closes part of that gap. The Herculaneum scrolls, carbonized by Vesuvius in 79 AD, can only be read from
-CT scans by tracing each crushed papyrus sheet through thousands of slices.
-Unscroll turns one click into a SAM 3.1 trace on real Scroll 1 data and measures,
-against layers people traced by hand, whether it stayed on the right sheet. A
-diagnosed first-slice fix lifts accuracy from 36% to 55% within 40 µm (49% on
-held-out clicks). A Muse Wonder agent re-seeds traces by itself, Muse Spark
-reviews traces and writes number-checked QA notes, and the 2023 Grand Prize ink
-model reads letters through Unscroll's pipeline. Everything is measured,
-including where it fails.
+The Vesuvius Challenge's 2026 open-problems list says no method yet traces a
+complete, correct surface through a scroll automatically, and that traces
+switching to a neighbouring sheet are among the failures it sees most. Unscroll
+measures that failure on real Scroll 1 CT:
+one click becomes a SAM 3.1 trace, scored against sheets people traced by hand.
+It found the slice where traces go wrong and fixed it: on 74 clicks never used
+while building the fix, the share of each trace on the right sheet doubled, 25%
+to 50%. A Muse Wonder agent re-seeds stalled traces and caught its own wrong
+re-seed, excluding three runs with reasons. Unscroll has not read new text; it
+measures exactly how far from reading a trace is.
 
 ## Long description
+
+**Push the Frontier, literally.** The frontier here is a real open problem from
+a real scientific challenge: the Vesuvius Challenge's 2026 list says no method
+yet traces a complete, correct surface automatically, and names sheet switches
+among the failures it sees most. Unscroll built a paired test for that failure
+on real Scroll 1 CT during the hackathon, used it
+to find and fix the slice where SAM 3.1 traces go wrong, and marked in numbers
+how far a trace still is from readable text.
 
 **Problem.** Reading the Herculaneum scrolls means following one papyrus sheet
 through a stack of CT slices where neighbouring sheets are crushed together. A
@@ -41,24 +48,32 @@ tracer that slips one layer produces the wrong surface, and nobody can tell
 without slow manual review.
 
 **What Unscroll does.**
-1. Click a sheet on one CT slice; SAM 3.1 tracks it through the slices as video.
-2. A CT-ridge step refines the trace; on the first slice a local walk keeps it on
-   the clicked sheet instead of jumping to a brighter neighbour.
-3. Every trace is measured against human-traced layers released for Scroll 1,
-   with exact point-to-triangle distances.
+1. Click a sheet on one CT slice; SAM 3.1 tracks it through the slices as video,
+   and a CT-ridge step refines the trace.
+2. Every trace is measured against human-traced layers released for Scroll 1,
+   with exact point-to-triangle distances: the test.
+3. The test showed the first slice was where traces jumped to a brighter
+   neighbour; a local walk from the click fixes it.
 4. A Muse Wonder agent (tool calling) inspects a trace, re-seeds where tracking
-   stops, launches Kaggle GPU runs, scores and unrolls the result.
-5. Muse Spark reviews traces from images and writes plain-language QA notes for
-   scholars; every number in a note is checked automatically against the data.
-6. Traced sheets are unrolled into flat images; the 2023 Grand Prize ink model
-   (MIT) looks for ink; Muse Spark reads and translates a published passage
-   with human correction and an audit trail.
+   stops, launches Kaggle GPU runs, scores the result, and checks each seam with
+   continuity numbers plus a Muse Spark visual verdict. It caught its own first
+   re-seed jumping to another sheet and excluded three runs, with reasons logged.
+5. Muse Spark reviews traces from images and writes plain-language QA notes;
+   every number in a note is checked automatically against the data.
+6. The cost of reading: traced sheets are unrolled, the 2023 Grand Prize ink
+   model (MIT) looks for ink, and the result is scored against the known text
+   for one, five and ten scholar clicks. Side pages (Read & Translate, Predict)
+   use Muse Spark on a published passage and an attested Greek corpus.
 
-**Results on real Scroll 1 CT** (15 clicks on human-traced layers, 20 slices):
-- Within 5 voxels (40 µm) of the human layer, median: 36.7% → **55.1%**;
-  seeds on the clicked layer 6 → **10** of 15.
-- Held-out (15 new clicks, never used in development): 36.2% → **48.5%**; the
-  fix trades some coverage for accuracy (234 vs 285 of 300 slices traced).
+**Results on real Scroll 1 CT.**
+- **74 clicks never used while building the fix:** share of each trace within
+  40 µm of the human-traced sheet, median 25% → **50%** (better on 50, worse on
+  19, p = 0.0002). Control: a classic optical-flow tracer from the same start
+  scores 4.5 points lower (better on 44, worse on 13); on the 15 development
+  clicks that comparison is a tie (+2.1, interval −1.3 to 7.1).
+- Development clicks (15, 20 slices): 36.7% → **55.1%** within 40 µm; seeds on
+  the clicked layer 6 → **10** of 15. Held-out (15 more): 36.2% → **48.5%**,
+  trading some coverage for accuracy (234 vs 285 of 300 slices traced).
 - 100-slice trace: 87.3% within 5 voxels where a reference exists. The Wonder
   agent extended it from 58 to 97 slices, then its own seam check (numbers plus
   a Muse Spark verdict) found the first re-seed had jumped sheets; it excluded
@@ -72,9 +87,6 @@ without slow manual review.
   first. Held-out: reviewing 73% of traces catches every wrong-layer trace
   (Muse Spark reviewer: 90%); AUC 0.66. An earlier rule failed on held-out and
   is reported.
-- Against a classic optical-flow tracer from the same start: +4.5 points on 74
-  new clicks (better on 44, worse on 13), but a tie on the 15 development
-  clicks (+2.1, interval −1.3 to 7.1; worse on 9, better on 4).
 - Engineering: found and fixed a single multi-GB attention allocation (about
   4.8 GB by our estimate) that ran out of memory on a 16 GB T4; chunked
   attention, bit-identical to full attention on CPU in a test.
