@@ -88,6 +88,9 @@
     btn.title = 'Push to talk: Muse Voice Transcribe';
     const out = document.createElement('span'); out.id = 'voiceOut'; out.setAttribute('role', 'status');
     out.style.cssText = 'font-size:12px;color:var(--muted);max-width:360px';
+    if (location.protocol === 'file:' || !/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
+      btn.disabled = true; btn.title = 'Voice review needs the local server (Launch Unscroll.cmd)'; out.textContent = 'Voice: local server only. Keyboard: arrows, space.';
+    }
     btn.onclick = () => (rec ? stop(btn, out) : start(btn, out));
     header.insertBefore(out, header.querySelector('.local'));
     header.insertBefore(btn, out);

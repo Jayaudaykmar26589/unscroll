@@ -41,8 +41,9 @@ own data (also as a video: `demo/video/unscroll-how-it-works.mp4`).
 
 **Try it in the browser:** [the interactive Story](https://jayaudaykmar26589.github.io/unscroll/viewer/story.html) explains the project
 in five chapters on real data, written for someone who has never seen a CT scan.
-[The app's other pages](https://jayaudaykmar26589.github.io/unscroll/viewer/home.html) are hosted alongside (voice review and the Muse
-model calls need the local server).
+[The app's other pages](https://jayaudaykmar26589.github.io/unscroll/viewer/home.html) are hosted alongside. On the hosted
+copy, Predict's attested lookup runs in the browser; voice review, live recognition and the
+Muse model calls need the local server, and their buttons say so.
 
 Built for the **Meta Global AI Developer Hackathon**, Indie track, theme *Push the
 Frontier*: a problem from the Vesuvius Challenge's own 2026 open-problems list,
@@ -311,6 +312,19 @@ held-out check, before/after animations, every seed, Spark QA notes, reading
 letters, unrolled surface, Spark reviewer), **Surface workbench** (slice-by-slice
 review of a trace, with voice commands). Side pages: **Read & Translate** and
 **Predict**.
+
+## Check every page
+
+```powershell
+& "$env:USERPROFILEnaconda3\python.exe" scripts/integration_check.py                                   # local files
+& "$env:USERPROFILEnaconda3\python.exe" scripts/integration_check.py http://127.0.0.1:8765/            # the local server
+& "$env:USERPROFILEnaconda3\python.exe" scripts/integration_check.py https://jayaudaykmar26589.github.io/unscroll/viewer/
+```
+
+Headless Chrome loads each page, clicks every enabled button, drives Predict with real
+fragments, follows in-site links and anchors, and fails on any exception, console error or
+failed request. `scripts/check_lookup_port.py` confirms the browser-side Predict lookup
+gives the same answers as the Python one.
 
 ## Reproduce
 

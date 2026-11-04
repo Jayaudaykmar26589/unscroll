@@ -51,7 +51,7 @@
 
 <section class="pr-section"><p class="note">Corpus: Diogenes Laertius, <em>Lives of Eminent Philosophers</em> (Greek, Perseus Digital Library, CC BY-SA 4.0), including Epicurus' letters and Principal Doctrines, the school Philodemus wrote for, plus the published preliminary reading of PHerc. Paris. 4 col. −8. Attested results are only as good as that edition. Model conjectures are unreviewed suggestions, never readings of the scroll.</p></section>
 <p class="bgcredit">Background: Scroll 1 (PHerc. Paris. 4), CT slice 6100, EduceLab-Scrolls / Vesuvius Challenge, <a href="https://scrollprize.org/data" target="_blank" rel="noreferrer">CC BY-NC 4.0</a>. Teal: ten Unscroll SAM 3.1 traces from development clicks that stayed on the clicked layer.</p></main>
-<script src="predict-data.js"></script>
+<script src="predict-data.js"></script><script src="predict-corpus.js"></script><script src="predict-lookup.js"></script>
 <script>
 (function(){
   var $ = function(id){ return document.getElementById(id); };
@@ -102,16 +102,27 @@
     $('result').innerHTML = h;
   }
 
+  var STATIC = location.protocol === 'file:' || !/^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+  function localComplete(t){ var L = window.UNSCROLL_LOOKUP; if (!L || !L.ready()) throw new Error('The attested corpus did not load'); return L.complete(t); }
+  if (STATIC) {                                        // static hosting (GitHub Pages) or a local file: no server, so the lookup runs here
+    $('useModel').checked = false; $('useModel').disabled = true;
+    var lab = $('useModel').closest('label'); if (lab) { lab.title = 'Muse Spark conjecture needs the local server (Launch Unscroll.cmd)'; lab.appendChild(document.createTextNode(' (needs the local server)')); }
+    $('status').textContent = 'Attested lookup runs in your browser here; Muse Spark conjecture needs the local server.';
+  }
   var busy = false;
   function run(){
     var t = $('frag').value.trim();
     if (!t || busy) return;
     busy = true; $('go').disabled = true; $('status').textContent = 'Searching attested text…';
-    var slow = setTimeout(function(){ $('status').textContent = 'Not attested; asking Muse Spark (about 20 s)…'; }, 1200);
+    if (STATIC) {
+      setTimeout(function(){ try { render(localComplete(t)); $('status').textContent = ''; } catch (e) { $('status').textContent = e.message; } busy = false; $('go').disabled = false; }, 20);
+      return;
+    }
+    var slow = setTimeout(function(){ $('status').textContent = $('useModel').checked ? 'Still searching; if nothing is attested, Muse Spark is asked next (about 20 s)…' : 'Still searching the attested corpus…'; }, 1200);
     fetch('/api/predict/complete', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({text: t, model: $('useModel').checked, position: $('pos').value})})
       .then(function(r){ return r.json().then(function(j){ return [r, j]; }); })
       .then(function(x){ if (!x[0].ok) throw new Error(x[1].error || 'Request failed'); render(x[1]); $('status').textContent = ''; })
-      .catch(function(e){ $('status').textContent = e.message || 'Server unavailable: start Launch Unscroll.cmd'; })
+      .catch(function(e){ try { render(localComplete(t)); $('status').textContent = 'No server: answered from the attested corpus in the browser. Muse Spark conjecture needs Launch Unscroll.cmd.'; } catch (e2) { $('status').textContent = e.message || 'Server unavailable: start Launch Unscroll.cmd'; } })
       .then(function(){ clearTimeout(slow); busy = false; $('go').disabled = false; });
   }
 

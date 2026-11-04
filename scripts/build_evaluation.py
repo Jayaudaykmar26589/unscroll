@@ -179,6 +179,10 @@ def main():
               "seeds": seeds, "animations": animations, "spark": spark, "sheets": sheets, "qa": qa}
     (OUT / "eval-data.js").write_text(
         "window.UNSCROLL_EVAL=" + json.dumps(bundle, allow_nan=False) + ";\n", encoding="utf-8")
+    cj = ROOT / "data" / "predict" / "corpus.json"
+    if cj.exists():                                   # the Predict page's attested lookup runs in the browser on static hosting
+        (OUT / "predict-corpus.js").write_text(
+            "window.UNSCROLL_CORPUS=" + json.dumps(json.loads(cj.read_text(encoding="utf-8")), ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
     pe = ROOT / "reports" / "predict" / "eval.json"
     if pe.exists():
         ev = json.loads(pe.read_text(encoding="utf-8"))

@@ -66,5 +66,8 @@
   $('recognizeLive').onclick=()=>runRecognition(false);
   $('recognizeLocal').onclick=()=>runRecognition(true);
   $('exportReading').onclick=()=>{if(pending())return;const review=R.exportReview(b,state);review.exported_at=new Date().toISOString();const url=URL.createObjectURL(new Blob([JSON.stringify(review,null,2)],{type:'application/json;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='unscroll-reading-review.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+  var STATIC = location.protocol === 'file:' || !/^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+  if(STATIC){for(const id of ['recognizeLive','recognizeLocal','translateLive']){const b=$(id);if(!b)continue;b.disabled=true;b.title='Needs the local server (Launch Unscroll.cmd): this page is served as static files.';}
+    $('recognitionNotice').textContent='Live recognition needs the local server; the recorded results load here.';$('translationNotice').textContent='Live translation needs the local server; the recorded Spark draft loads here.';}
   render();if(state.recognition)$('recognitionNotice').textContent='Stored '+state.recognition.model+' image predictions restored. No new request made. Load recorded recognition or run again to display comparison metrics.';$('storageStatus').textContent='Local draft ready. No API request has been made by opening this page.';
 })();

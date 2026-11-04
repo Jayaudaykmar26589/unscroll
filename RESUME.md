@@ -22,6 +22,12 @@ Current self-rating: ~7.3/10 now, ~7.8 with a strong video. Biggest gap: "Unscro
 - 2026-11-04 later still: viewer/how.html, a 9-scene animated walkthrough drawn live from the data
   (play/scrub/chips, ?bare=1&t=SEC for stills, ?autoplay=1), linked from every nav; rendered to
   demo/video/unscroll-how-it-works.mp4 (2:28, silent) by scripts/make_how_video.py. Pushed, live.
+- 2026-11-04 evening: integration check (scripts/integration_check.py: headless Chrome clicks every
+  button on every page; local files / local server / hosted). Predict was broken on GitHub Pages
+  (posted to /api/...): attested lookup ported to the browser (viewer/predict-lookup.js +
+  predict-corpus.js from build_evaluation.py; scripts/check_lookup_port.py: 120/120 agree with
+  Python). Server-only buttons (live recognition/translation, voice) are disabled with a note on
+  static hosting. 7/7 pages clean in all three modes. 152 tests.
 - LEFT (user): watch video with sound / optionally re-record voice-over; upload video; Vesuvius
   permission screenshot into docs/; make Kaggle notebooks public; submit form: field-by-field
   answers in docs/submission-form.md (agent may fill, never submits unless told);

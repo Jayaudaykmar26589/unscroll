@@ -159,6 +159,7 @@ Kaggle via `scripts/kaggle_run.py` (see README "Compute").
 | How-it-works page: 9-scene animated walkthrough drawn live from the data files; also rendered to video | `viewer/how.html`, `scripts/make_how_video.py`, `demo/video/unscroll-how-it-works.mp4` |
 | 2.4 µm probe: 32/32 runs, fixed tracer median 27 µm from the 2026 layer | `reports/probe24/summary.json`, `scripts/probe24_kaggle.py` |
 | tifxyz export for VC3D | `scripts/export_tifxyz.py`, `exports/tifxyz/` |
+| Every page click-tested headless (local files, local server, hosted); Predict lookup ported to the browser and checked against the Python one | `scripts/integration_check.py`, `scripts/check_lookup_port.py`, `viewer/predict-lookup.js` |
 | Tests | `pytest tests`: 149 passed, 1 skipped (Node not installed) |
 
 ## Data, licences, permissions

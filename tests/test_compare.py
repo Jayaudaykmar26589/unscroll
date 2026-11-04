@@ -152,6 +152,20 @@ def test_how_page_is_an_animated_explainer_on_real_data_and_is_linked():
         assert 'href="how.html"' in (ROOT / "viewer" / page).read_text(encoding="utf-8"), page
 
 
+def test_pages_work_as_static_files_without_the_server():
+    # GitHub Pages serves viewer/ as plain files: Predict must answer from the browser-side corpus,
+    # and buttons that need the local server must be disabled rather than fail.
+    v = ROOT / "viewer"
+    predict = (v / "predict.html").read_text(encoding="utf-8")
+    assert 'src="predict-corpus.js"' in predict and 'src="predict-lookup.js"' in predict and "localComplete" in predict
+    assert (v / "predict-corpus.js").stat().st_size > 1_000_000 and "UNSCROLL_CORPUS" in (v / "predict-lookup.js").read_text(encoding="utf-8")
+    assert "predict-corpus.js" in (ROOT / "scripts/build_evaluation.py").read_text(encoding="utf-8")
+    for name, needle in (("reading.js", "recognizeLive"), ("voice.js", "local server only")):
+        s = (v / name).read_text(encoding="utf-8")
+        assert "location.hostname" in s and needle in s, name
+    assert (ROOT / "scripts/integration_check.py").exists() and (ROOT / "scripts/check_lookup_port.py").exists()
+
+
 def test_story_page_uses_real_data_and_is_linked():
     story = (ROOT / "viewer/story.html").read_text(encoding="utf-8")
     for needle in ("data.js", "eval-data.js", "UNSCROLL_DATA", "UNSCROLL_EVAL", "per_slice", "E.shift", "new_clicks",
