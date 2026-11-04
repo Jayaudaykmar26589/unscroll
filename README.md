@@ -35,6 +35,8 @@ trace that stays on the right sheet, steadily, for 300+ slices. The
 cost-of-reading test measures how far one, five and ten scholar clicks get
 towards that, and where they still fall short.
 
+**Demo video (3 min):** https://youtu.be/ydY7hmCKrHg
+
 **Watch it in two minutes:** [How it works](https://jayaudaykmar26589.github.io/unscroll/viewer/how.html) is an animated walkthrough of what
 Unscroll is, how a run happens and how each step works, drawn live from the project's
 own data (also as a video: `demo/video/unscroll-how-it-works.mp4`).

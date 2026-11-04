@@ -8,6 +8,7 @@ Portal: https://cerebralvalley.ai/e/meta-ai-developer-hackathon/hackathon/submit
 ## Links
 
 - Repository: https://github.com/Jayaudaykmar26589/unscroll
+- Demo video: https://youtu.be/ydY7hmCKrHg
 - Interactive Story (no install): https://jayaudaykmar26589.github.io/unscroll/viewer/story.html
 - App pages: https://jayaudaykmar26589.github.io/unscroll/viewer/home.html
 - Animated walkthrough (2 min, no install): https://jayaudaykmar26589.github.io/unscroll/viewer/how.html

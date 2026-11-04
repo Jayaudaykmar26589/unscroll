@@ -13,9 +13,7 @@ unless the user says so in that conversation.
 
 ## Before filling: two links still missing
 
-- [ ] **3-Minute Demo Video URL.** Upload `demo/video/unscroll-demo.mp4`
-      (YouTube unlisted or similar), check it plays signed out, paste the link
-      into field 7 below.
+- [x] **3-Minute Demo Video URL:** https://youtu.be/ydY7hmCKrHg (uploaded; reachable signed out, checked 2026-11-04).
 - [ ] Optional: X post link for the Most Viral Track (field 4). Leave blank if none.
 
 ## Fields
@@ -58,8 +56,7 @@ Everything in the repository was built during the hackathon (Oct 27 to Nov 4). U
 ANSWER: `https://github.com/Jayaudaykmar26589/unscroll`
 
 ### 8. 3-Minute Demo Video
-ANSWER: the uploaded video's URL (see "Before filling"). The file is
-`demo/video/unscroll-demo.mp4`, 2:55.
+ANSWER: `https://youtu.be/ydY7hmCKrHg`
 
 ### 9. Describe your use of Meta products to build the submitted project
 ANSWER (paste as one block):
