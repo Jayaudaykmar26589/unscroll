@@ -5,6 +5,12 @@ Deadline: Wed Nov 4, 9:00 PM ET (Thu Nov 5, 7:30 AM IST). Target: submit Tue Nov
 Portal: https://cerebralvalley.ai/e/meta-ai-developer-hackathon/hackathon/submit
 (field names below are generic; paste into whichever fields the form shows).
 
+## Links
+
+- Repository: https://github.com/Jayaudaykmar26589/unscroll
+- Interactive Story (no install): https://jayaudaykmar26589.github.io/unscroll/viewer/story.html
+- App pages: https://jayaudaykmar26589.github.io/unscroll/viewer/home.html
+
 ## Name
 
 Unscroll
@@ -15,7 +21,9 @@ Click one layer of a 2,000-year-old Herculaneum scroll in CT; SAM 3.1 traces it 
 
 ## Short description (~100 words)
 
-The Herculaneum scrolls, carbonized by Vesuvius in 79 AD, can only be read from
+Unscroll has not read new text. Reading needs a trace that stays on the right
+sheet, steadily, for 300+ slices; Unscroll measures how far SAM 3.1 gets and
+closes part of that gap. The Herculaneum scrolls, carbonized by Vesuvius in 79 AD, can only be read from
 CT scans by tracing each crushed papyrus sheet through thousands of slices.
 Unscroll turns one click into a SAM 3.1 trace on real Scroll 1 data and measures,
 against layers people traced by hand, whether it stayed on the right sheet. A
@@ -64,8 +72,12 @@ without slow manual review.
   first. Held-out: reviewing 73% of traces catches every wrong-layer trace
   (Muse Spark reviewer: 90%); AUC 0.66. An earlier rule failed on held-out and
   is reported.
-- Engineering: found and fixed a 4.8 GB attention allocation that crashed 16 GB
-  GPUs and stalled 8 GB laptops (exact chunked attention, bit-identical output).
+- Against a classic optical-flow tracer from the same start: +4.5 points on 74
+  new clicks (better on 44, worse on 13), but a tie on the 15 development
+  clicks (+2.1, interval −1.3 to 7.1; worse on 9, better on 4).
+- Engineering: found and fixed a single multi-GB attention allocation (about
+  4.8 GB by our estimate) that ran out of memory on a 16 GB T4; chunked
+  attention, bit-identical to full attention on CPU in a test.
 
 **What it is not.** It has not read new text, and its traces are not perfect.
 The Muse Spark reviewer is safe (never accepted a wrong-layer trace, 0 of 26) but
@@ -76,7 +88,7 @@ does not yet reduce review work (it flags 90%+ of traces).
 All Unscroll code was written during the hackathon, from 27 October 2026; nothing
 was carried over from an earlier project. Built here: the click-to-trace pipeline
 around SAM 3.1 and its first-slice fix; four fixes to SAM 3.1's code
-(including the 4.8 GB attention fix); the evaluation against human-traced layers,
+(including the chunked attention fix); the evaluation against human-traced layers,
 the classic baselines and statistics; the Muse Wonder agent, Muse Spark reviewer,
 QA notes and triage; unrolling, the ink drift experiment and the Kaggle runners;
 the web app with voice review, Read & Translate, Predict and the interactive
@@ -122,7 +134,7 @@ Kaggle via `scripts/kaggle_run.py` (see README "Compute").
 | QA notes, 15/15 number checks | `reports/qa/*.json` |
 | Letters via control, corr 0.83 | `reports/letters/summary.json`, `docs/ink-research.md` |
 | 3D-normal unrolling, corr 0.82 (ours 0.21) | `reports/letters/assisted/summary.json` (`control_own_normals`, `ours3d`) |
-| Attention fix bit-identical | `RESUME.md`, `external/sam3/sam3/model/decoder.py` (`_unscroll_sdpa`) |
+| Attention fix bit-identical on CPU (fp32) | `tests/test_attention_patch.py`, `patches/sam3-unscroll.patch` (`_unscroll_sdpa`) |
 | Full-page ink map from CT: whole segment 20230827161847, GP model, 8.4 min on T4; Spark line reading unscored | `reports/ink_gp_full/`, `scripts/build_fullpage.py`, `scripts/read_fullpage.py` |
 | Read & Translate: 4 published Scroll 1 columns (33 lines); Spark line reading 79% character error, 0/33 exact | `data/reading/passages/`, `reports/reading/columns/summary.json` |
 | Predict: 99.3% of 900 fragments, 890/890 attested answers correct; Spark alone 1/40 exact | `reports/predict/eval.json` |
@@ -133,7 +145,7 @@ Kaggle via `scripts/kaggle_run.py` (see README "Compute").
 | Story page: 5-chapter interactive explainer on real data (scrub 50 slices, drift slider, 74-dot test) | `viewer/story.html` |
 | 2.4 µm probe: 32/32 runs, fixed tracer median 27 µm from the 2026 layer | `reports/probe24/summary.json`, `scripts/probe24_kaggle.py` |
 | tifxyz export for VC3D | `scripts/export_tifxyz.py`, `exports/tifxyz/` |
-| Tests | `pytest tests`: 148 passed, 1 skipped (Node not installed) |
+| Tests | `pytest tests`: 149 passed, 1 skipped (Node not installed) |
 
 ## Data, licences, permissions
 

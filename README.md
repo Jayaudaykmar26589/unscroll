@@ -8,6 +8,15 @@ where neighbouring sheets are crushed together. Unscroll turns one click into a
 SAM 3.1 trace on real Scroll 1 CT, then measures whether that trace stayed on
 the clicked sheet, against layers people traced by hand.
 
+**What it does not do: Unscroll has not read any new text.** Reading needs a
+trace that stays on the right sheet, steadily, for 300+ slices. Unscroll
+measures how far a SAM 3.1 trace gets towards that, closes part of the gap, and
+shows where it still falls short (see "Results on real data").
+
+**Try it in the browser:** [the interactive Story](https://jayaudaykmar26589.github.io/unscroll/viewer/story.html) explains the project in five
+chapters on real data; [the app's other pages](https://jayaudaykmar26589.github.io/unscroll/viewer/home.html) are hosted alongside (voice review and
+the Muse model calls need the local server).
+
 Built for the **Meta Global AI Developer Hackathon**, Indie / Push the Frontier.
 
 ## What was built during the hackathon
@@ -19,7 +28,7 @@ All Unscroll code in this repository was written during the hackathon, starting
 - Click-to-trace pipeline around SAM 3.1: prompt design, CT-ridge refinement and
   the first-slice walk fix (`src/trace/`).
 - Four fixes to the SAM 3.1 code, shipped as `patches/sam3-unscroll.patch`:
-  an exact chunked attention path that removed a 4.8 GB allocation
+  an exact chunked attention path that removed a single multi-GB allocation
   (`decoder.py`), a CPU fallback where Triton is unavailable on Windows
   (`edt.py`), an init-argument filter and a boolean sort cast.
 - The evaluation: clicks placed on human-traced layers, exact distances to those
@@ -72,7 +81,9 @@ is a small one for Scroll 1.
 trace within 40 µm (5 voxels) of the sheet people traced by hand rose from 25%
 to 50% (median; better on 50 clicks, worse on 19, p = 0.0002), and SAM 3.1 with
 the fix beats a classic optical-flow tracer from the same start by +4.5 points.
-Wobble from slice to slice, not distance, is what destroys the letters, and
+On the 15 development clicks the same comparison is a tie: +2.1 points on
+average, with an interval that includes zero (−1.3 to 7.1), and worse on 9
+clicks, better on 4. Wobble from slice to slice, not distance, is what destroys the letters, and
 smoothing Unscroll's own trace raises ink agreement from 0.21 to 0.73 (0.83 is the
 best possible here), in broad strokes, not readable letters.
 
@@ -167,14 +178,19 @@ trades some coverage for accuracy.
   safe second opinion rather than a workload saving.
 - **Triage (which traces to check first):** reference-free risk signals (does the
   trace pass through the click, does it sit on a bright sheet core, do the two
-  first-slice methods agree) rank traces riskiest-first. On held-out clicks,
+  first-slice methods agree) rank traces riskiest-first. On held-out clicks
+  (a small set: 30 traces, 15 of them on the wrong layer),
   reviewing 73% of traces catches every wrong-layer trace and 63% catches 80%
   (AUC 0.66; development 0.88; Spark reviewer: 90% review load). A first rule
   written before any results failed on held-out (AUC 0.52) and is reported.
   Per-slice signals do not predict error within a trace, so no per-slice
   confidence ribbon is shown (`scripts/triage.py`, `reports/triage/triage.json`).
-- **Engineering:** found and fixed a 4.8 GB attention allocation that crashed
-  16 GB GPUs and stalled 8 GB laptops (exact, chunked; bit-identical output).
+- **Engineering:** without flash attention, SAM 3.1's memory attention builds
+  the full score matrix in one allocation (about 4.8 GB by our estimate). That
+  ran out of memory on a 16 GB Kaggle T4 at the same slice for every click, and
+  spilled into system RAM on an 8 GB laptop. Attending in query chunks fixes it.
+  `tests/test_attention_patch.py` runs the function from the shipped patch and
+  shows its output is bit-identical to full attention on CPU (32-bit floats).
 - **Muse Wonder agent:** given tools to inspect, re-seed, run Kaggle traces,
   score and unroll, it extended a 100-slice trace from 58 to 97 slices. Given a
   seam check (continuity numbers plus a Muse Spark visual verdict), it then found
