@@ -15,7 +15,7 @@
 .ctl input[type=range]{flex:1;min-width:140px;accent-color:var(--teal)}.ctl output{color:var(--text);min-width:110px;font-variant-numeric:tabular-nums}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:5px;overflow:hidden}.seg button{border:0;border-radius:0;padding:7px 12px}.seg button[aria-pressed=true]{background:#23393a;color:var(--teal)}
 #spiral{width:100%;max-width:440px;display:block;margin:auto;aspect-ratio:1}
-#realslice{width:100%;max-width:440px;display:none;margin:auto;border-radius:6px}
+#realwrap{width:100%;max-width:440px;display:none;margin:auto;border-radius:6px;overflow:hidden;position:relative}#realslice{width:100%;display:block;transform-origin:44% 66%;transition:transform .08s linear}#realwrap .zbar{position:absolute;left:10px;bottom:10px;font:12px 'Segoe UI',sans-serif;color:#ecede7;background:rgba(8,14,14,.78);border-radius:4px;padding:3px 8px}
 .stack{display:grid;grid-template-columns:minmax(150px,38%) minmax(0,1fr);gap:18px}
 #ctwrap{position:relative;width:100%}#ct2{width:100%;display:block;border-radius:4px;background:#080e0e}
 .meter{height:12px;border-radius:6px;background:#0a1011;border:1px solid var(--line);overflow:hidden;margin-top:6px}.meter i{display:block;height:100%;background:var(--teal);transition:width .2s,background .2s}
@@ -50,10 +50,10 @@
 <section class="chapter" id="c1"><div class="text"><p class="num">1 · SQUASH A SCROLL</p><h2>A scroll is one long sheet, rolled up.</h2>
 <p>Picture a poster rolled into a tube: one sheet, going round and round. Cut across it and you see a spiral. The writing is on the inside of that spiral.</p>
 <p>After the eruption the scrolls were <strong>carbonised and crushed</strong>. The spiral didn't stay neat. The layers got pressed together, bent and folded, with no air between them.</p>
-<p class="try">DRAG THE SLIDER, THEN PRESS "SHOW THE REAL SCAN"</p>
+<p class="try">DRAG THE SLIDER, PRESS "SHOW THE REAL SCAN", THEN DRAG IT AGAIN TO ZOOM IN</p>
 <p>The real picture is a CT scan: an X-ray slice straight across the scroll. It is 1 of more than 14,000 slices, stacked like a loaf of bread. Every bright curve is one layer of papyrus. In this project a layer is called a <strong>sheet</strong>.</p></div>
-<div class="box"><svg id="spiral" viewBox="0 0 400 400" role="img" aria-label="A spiral that gets crushed as the slider moves"></svg><img id="realslice" src="assets/scroll1-z6100.webp" alt="A real CT slice of Scroll 1: a dense tangle of thin bright curves">
-<div class="ctl"><label for="crush">Crush</label><input id="crush" type="range" min="0" max="100" value="0"><output id="crushout">fresh scroll</output><button id="realbtn" aria-pressed="false">Show the real scan</button></div>
+<div class="box"><svg id="spiral" viewBox="0 0 400 400" role="img" aria-label="A spiral that gets crushed as the slider moves"></svg><div id="realwrap"><img id="realslice" src="assets/scroll1-z6100.webp" alt="A real CT slice of Scroll 1: a dense tangle of thin bright curves"><span class="zbar" id="zbar"></span></div>
+<div class="ctl"><label for="crush" id="crushlab">Crush</label><input id="crush" type="range" min="0" max="100" value="0"><output id="crushout">fresh scroll</output><button id="realbtn" aria-pressed="false">Show the real scan</button></div>
 <p class="cap" id="spiralcap">A fresh scroll: one sheet, wound round with a little space between the turns.</p></div></section>
 
 <section class="chapter flip" id="c2"><div class="text"><p class="num">2 · FOLLOW ONE SHEET</p><h2>Pick a sheet. Now follow it through the next 50 slices.</h2>
@@ -132,12 +132,24 @@
     $('spiralcap').textContent = c < .15 ? 'A fresh scroll: one sheet, wound round with a little space between the turns. The dots are where the writing is.' : c < .6 ? 'Heat turns the papyrus to carbon and the turns start to buckle.' : 'After Vesuvius: the turns are pressed together and folded. Neighbouring sheets touch, and the writing on each is now millimetres from writing on another.';
   }
   spiral(0);
-  $('crush').addEventListener('input', function(){ spiral(this.value / 100); });
+  // In the real-scan view the same slider zooms into the CT towards the traced sheets.
+  var real = false, crushVal = 0, zoomVal = 0;
+  function zoom(v){
+    var k = 1 + 4 * v / 100, across = 80 / k;                       // the slice is about 8 cm across
+    $('realslice').style.transform = 'scale(' + k.toFixed(3) + ')';
+    $('zbar').textContent = (k < 1.05 ? 'whole slice' : '×' + k.toFixed(1)) + ' · about ' + (across >= 20 ? Math.round(across / 10) + ' cm' : across.toFixed(0) + ' mm') + ' across';
+    $('crushout').textContent = k < 1.05 ? 'whole scroll' : k < 3 ? 'closer' : 'single sheets';
+    $('spiralcap').textContent = k < 1.05 ? 'Real: CT slice 6100 of Scroll 1. Every bright curve is one sheet. This whole image is about 8 cm across; the sheets inside are a tenth of a millimetre thick. Drag the slider to zoom in.'
+      : k < 3 ? 'Closer: the bright curves are sheets of papyrus, pressed against each other with almost no gap.'
+      : 'Zoomed in: each bright line is one sheet, a tenth of a millimetre thick. The teal lines are Unscroll traces that stayed on the sheet they were started on. Telling one sheet from its neighbour here is the whole problem.';
+  }
+  $('crush').addEventListener('input', function(){ if (real) { zoomVal = +this.value; zoom(zoomVal); } else { crushVal = +this.value; spiral(crushVal / 100); } });
   $('realbtn').addEventListener('click', function(){
-    var on = this.getAttribute('aria-pressed') !== 'true'; this.setAttribute('aria-pressed', on); this.textContent = on ? 'Back to the drawing' : 'Show the real scan';
-    svg.style.display = on ? 'none' : 'block'; $('realslice').style.display = on ? 'block' : 'none';
-    $('spiralcap').textContent = on ? 'Real: CT slice 6100 of Scroll 1. Every bright curve is one sheet. This whole image is about 8 cm across; the sheets inside are a tenth of a millimetre thick.' : $('spiralcap').textContent;
-    if (!on) spiral($('crush').value / 100);
+    real = this.getAttribute('aria-pressed') !== 'true'; this.setAttribute('aria-pressed', real); this.textContent = real ? 'Back to the drawing' : 'Show the real scan';
+    svg.style.display = real ? 'none' : 'block'; $('realwrap').style.display = real ? 'block' : 'none';
+    $('crushlab').textContent = real ? 'Zoom' : 'Crush'; $('crush').setAttribute('aria-label', real ? 'Zoom into the scan' : 'Crush the scroll');
+    $('crush').value = real ? zoomVal : crushVal;
+    if (real) zoom(zoomVal); else spiral(crushVal / 100);
   });
 
   // 2 · scrub the real slices with the traces drawn on top
